@@ -1,0 +1,157 @@
+[{
+  "fitur": "Login",
+  "endpoint": "http://localhost:8080/api/login",
+  "method": "POST",
+  "params": "-",
+  "data": {
+      "email": "john@gmail.com",
+      "password": "123456"
+  },
+  "respons_sukses": {
+      "meta": {
+          "message": "Sukses Login",
+          "code": "200",
+          "status": "Sukses!"
+      },
+      "data": {
+          "id": "1",
+          "email": "john@gmail.com",
+          "role": "siswa"
+      }
+  },
+  "respons_gagal": {
+      "meta": {
+          "message": "Login Gagal",
+          "code": "400",
+          "status": "Gagal!"
+      },
+      "data": {
+          "error": "email atau password salah"
+      }
+  }
+},
+{
+  "fitur": "Fitur Token",
+  "endpoint": "http://localhost:8080/api/siswa/token",
+  "method": "POST",
+  "params": "-",
+  "data": {
+      "token": "123456"
+  },
+  "respon_sukses": {
+      "meta": {
+          "message": "Sukses",
+          "code": "200",
+          "status": "Sukses!"
+      },
+      "data": {
+          "mapel": "Matematika",
+          "durasi": "120 menit",
+          "deadline": "12/7/2022 23.00",
+          "tipe": "uas",
+          "min": "70"
+      }
+  },
+  "respon_gagal": {
+      "meta": {
+          "message": "Token Gagal",
+          "code": "400",
+          "status": "Token Gagal!"
+      },
+      "data": {
+          "error": "Token Tidak Cocok!"
+      }
+  }
+},
+{
+  "fitur": "Soal",
+  "endpoint": "http://localhost:8080/api/siswa/:mapel/:tipe",
+  "method": "GET",
+  "params": {
+      "mapel": "mapel",
+      "tipe": "tipe"
+  },
+  "data": "-",
+  "respons": {
+      "meta": {
+          "message": "Sukses",
+          "code": "200",
+          "status": "Sukses!"
+      },
+      "data": {
+          "soal": [{
+                  "id": "1",
+                  "id_mapel": "1",
+                  "question": "apa nama hewan bertanduk kaki 3",
+                  "opsi": {
+                      "A": "Ikan",
+                      "B": "Burung",
+                      "C": "Domba",
+                      "D": "Kucing"
+                  }
+              },
+              {
+                  "id": "2",
+                  "question": "apa nama bunga langka",
+                  "opsi": {
+                      "A": "Ikan",
+                      "B": "Burung",
+                      "C": "Domba",
+                      "D": "Kucing"
+                  }
+              }
+          ]
+      }
+  }
+},
+{
+  "fitur": "Finish Exam",
+  "endpoint": "http://localhost:8080/api/siswa/finish",
+  "method": "POST",
+  "params": "-",
+  "data": {
+      "answer": {
+          "id_mapel": "1",
+          "jawaban": [{
+              "id_soal": "1",
+              "answer": "B"
+          }, {
+              "id_soal": "2",
+              "answer": "D"
+          }, {
+              "id_soal": "3",
+              "answer": "A"
+          }, {
+              "id_soal": "4",
+              "answer": "C"
+          }]
+      }
+  },
+  "respons_sukses": {
+      "meta": {
+          "message": "Sukses",
+          "code": "200",
+          "status": "Sukses!"
+      },
+      "data": {
+          "nilai": "80",
+          "Status": "Lulus"
+      }
+  }
+},
+{
+  "fitur": "Logout",
+  "endpoint": "http://localhost:8000/api/siswa/logout",
+  "method": "GET",
+  "params": "-",
+  "data": "-",
+  "respons": {
+      "meta": {
+          "message": "Sukses",
+          "code": "200",
+          "status": "Sukses!"
+      },
+      "data": {}
+  }
+}
+]
