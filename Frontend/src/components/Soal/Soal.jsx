@@ -12,15 +12,51 @@ function Soal() {
       username: "John"
     }
   ]
+
+  const soal = [
+    {
+      id: "1",
+      question: "23. Indonesia merdeka pada tahun?",
+      option: {
+        A: "A. 1945",
+        B: "B. 1999",
+        C: "C. 1928",
+        D: "D. 1960"
+      }
+    },
+    {
+      id: "2",
+      question: "23. Siapakah presiden RI yang pertama?",
+      option: {
+        A: "A. Ir. Soekarno",
+        B: "B. Soeharto",
+        C: "C. Joko Widodo",
+        D: "D. Naruto"
+      }
+    },
+    {
+      id: "3",
+      question: "23. Siapakah presiden RI yang pertama?",
+      option: {
+        A: "A. Ir. Soekarno",
+        B: "B. Soeharto",
+        C: "C. Joko Widodo",
+        D: "D. Naruto"
+      }
+    },
+  ]
+
   return (
     <>
      {
        data.map((index) => (
-         <Navbar logo=".ET" countdown={index.countdown} username={index.username} image={index.image} />
+        <Navbar key={index.username} logo=".ET" countdown={index.countdown} username={index.username} image={index.image} />
        ))
      }
-     <div className='flex justify-center mt-10 mr-24'>
-       <Card />
+     <div className='flex justify-center mt-10'>
+      {soal.map((soal) => (
+       <Card key={soal.id} soal={soal.question} option={soal.option} />
+      ))}
        <Daftar />
      </div>
     </>

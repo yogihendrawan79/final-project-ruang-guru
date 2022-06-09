@@ -5,7 +5,7 @@ function Daftar() {
   return (
     <>
       <div className="card border-2 border-primary px-5 py-5 ml-10">
-        <p className=''>Daftar Soal</p>
+        <p className='flex justify-center'>Daftar Soal</p>
         <div className='flex justify-around mt-2 text-white'>
           <div className='rounded p-2 bg-primary'>1</div>
           <div className='rounded p-2 bg-primary'>2</div>

@@ -7,8 +7,8 @@ function Navbar(props) {
   return (
     <>
       <div className="container-lg bg-primary">
-        <div className="container flex justify-between px-28 py-5">
-          <div className='navbar-brand'>
+        <div className="container flex justify-between py-5">
+          <div className='navbar-brand pl-28'>
             <a href='/' className='text-2xl text-white font-bold'>{logo}</a>
           </div>
           <div>
