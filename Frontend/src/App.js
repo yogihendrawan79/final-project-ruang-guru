@@ -1,11 +1,11 @@
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+// import Navbar from './components/Navbar/Navbar';
+import Soal from './components/Soal/Soal';
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      {/* <h1 className='text-3xl text-blue-500 font-bold'>Exam Time</h1> */}
+      <Soal />
     </div>
   );
 }

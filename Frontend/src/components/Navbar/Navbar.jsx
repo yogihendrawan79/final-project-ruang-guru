@@ -1,19 +1,22 @@
 import React from 'react'
-import Profile from '../../assets/images.jpg'
 import downarrow from '../../assets/down-arrow.png'
 import './navbar.css'
 
-function Navbar() {
+function Navbar(props) {
+  const { logo, username, image, countdown } = props;
   return (
     <>
       <div className="container-lg bg-primary">
         <div className="container flex justify-between px-28 py-5">
           <div className='navbar-brand'>
-            <a href='/' className='text-2xl text-white font-bold'>.ET</a>
+            <a href='/' className='text-2xl text-white font-bold'>{logo}</a>
+          </div>
+          <div>
+            <span className='text-white'>Waktu Tersisa {countdown}</span>
           </div>
           <div className='flex justify-center align-middle'>
-            <p className='pr-3 text-white'>John</p>
-            <img src={Profile} alt="profile" className='profile' />
+            <p className='pr-3 text-white'>Hi, {username}</p>
+            <img src={image} alt="profile" className='profile' />
             <img src={downarrow} alt="" className='' />
           </div>
         </div>
