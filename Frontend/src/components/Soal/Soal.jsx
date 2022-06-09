@@ -24,26 +24,16 @@ function Soal() {
         D: "D. 1960"
       }
     },
-    {
-      id: "2",
-      question: "23. Siapakah presiden RI yang pertama?",
-      option: {
-        A: "A. Ir. Soekarno",
-        B: "B. Soeharto",
-        C: "C. Joko Widodo",
-        D: "D. Naruto"
-      }
-    },
-    {
-      id: "3",
-      question: "23. Siapakah presiden RI yang pertama?",
-      option: {
-        A: "A. Ir. Soekarno",
-        B: "B. Soeharto",
-        C: "C. Joko Widodo",
-        D: "D. Naruto"
-      }
-    },
+    // {
+    //   id: "2",
+    //   question: "23. Siapakah presiden RI yang pertama?",
+    //   option: {
+    //     A: "A. Ir. Soekarno",
+    //     B: "B. Soeharto",
+    //     C: "C. Joko Widodo",
+    //     D: "D. Naruto"
+    //   }
+    // },
   ]
 
   return (

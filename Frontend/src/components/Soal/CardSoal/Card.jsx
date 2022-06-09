@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../Button/Button'
 import './card.css'
 
 function Card({soal, option}) {
@@ -10,11 +11,16 @@ function Card({soal, option}) {
           <p className='flex justify-start'>{soal}</p>
         </div>
         <div className="opsi flex-row mt-2 cursor-default">
-          <p>{option.A}</p>
-          <p>{option.B}</p>
-          <p>{option.C}</p>
-          <p>{option.D}</p>
+          <ul>
+            <li className='option inline-grid'>
+              <a href='/#'>{option.A}</a>
+              <a href='/#'>{option.B}</a>
+              <a href='/#'>{option.C}</a>
+              <a href='/#'>{option.D}</a>
+            </li>
+          </ul>
         </div>
+        <Button />
       </div>
     </>
   )
