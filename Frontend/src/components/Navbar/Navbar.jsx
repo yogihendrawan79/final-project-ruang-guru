@@ -12,7 +12,7 @@ function Navbar(props) {
             <a href='/' className='text-2xl text-white font-bold'>{logo}</a>
           </div>
           <div>
-            <span className='text-white'>Waktu Tersisa {countdown}</span>
+            <span className='text-white'>Waktu tersisa {countdown}</span>
           </div>
           <div className='flex justify-center align-middle'>
             <p className='pr-3 text-white'>Hi, {username}</p>

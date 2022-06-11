@@ -1,25 +1,25 @@
 import React from 'react'
 import './daftar.css'
 
-function Daftar() {
+function Daftar({ soalsPerPage, totalSoals, paginate }) {
+  const pageNumbers = [];
+
+  for(let i = 1; i <= Math.ceil(totalSoals / soalsPerPage); i++) {
+    pageNumbers.push(i)
+  }
+
   return (
     <>
       <div className="card border-2 border-primary px-5 py-5 ml-10">
         <p className='flex justify-center'>Daftar Soal</p>
-        <div className='flex justify-around mt-2 text-white'>
-          <div className='rounded p-2 bg-primary'>1</div>
-          <div className='rounded p-2 bg-primary'>2</div>
-          <div className='rounded p-2 bg-primary'>3</div>
-        </div>
-        <div className='flex justify-around mt-2 text-white'>
-          <div className='rounded p-2 bg-primary'>4</div>
-          <div className='rounded p-2 bg-primary'>5</div>
-          <div className='rounded p-2 bg-primary'>6</div>
-        </div>
-        <div className='flex justify-around mt-2 text-white'>
-          <div className='rounded p-2 bg-primary'>7</div>
-          <div className='rounded p-2 bg-primary'>8</div>
-          <div className='rounded p-2 bg-primary'>9</div>
+        <div>
+          {pageNumbers.map(number => (
+            <div key={number} className="inline-block justify-center m-2 text-white">
+              <a href="!#" onClick={() => paginate(number)} className="bg-primary rounded p-2">
+                {number}
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </>
