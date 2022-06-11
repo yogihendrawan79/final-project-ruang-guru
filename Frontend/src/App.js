@@ -12,7 +12,9 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="token" element={<Token />} />
           <Route index element={<Soal />} />
-          <Route path="hasil-ujian/:id" element={<Result />} />
+          <Route path='hasil-ujian'>
+            <Route index path=":id" element={<Result />} />
+          </Route>
         </Routes>
       </div>
   );
