@@ -5,7 +5,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#7D3FE6'
+        'primary': '#7D3FE6',
+        'lulus': '#03AC0E',
+        'gagal': '#E51818'
       }
     },
   },
