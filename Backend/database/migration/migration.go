@@ -4,7 +4,7 @@ import (
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/rg-km/final-project-engineering-46/Backend/database/connection"
+	"github.com/rg-km/final-project-engineering-46/database/connection"
 	"golang.org/x/crypto/bcrypt"
 )
 

@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rg-km/final-project-engineering-46/Backend/helper"
-	"github.com/rg-km/final-project-engineering-46/Backend/user"
+	"github.com/rg-km/final-project-engineering-46/helper"
+	"github.com/rg-km/final-project-engineering-46/user"
 )
 
 // bikin struct

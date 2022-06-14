@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/rg-km/final-project-engineering-46/Backend/handler"
-	"github.com/rg-km/final-project-engineering-46/Backend/user"
+	"github.com/rg-km/final-project-engineering-46/handler"
+	"github.com/rg-km/final-project-engineering-46/user"
 )
 
 func main() {
