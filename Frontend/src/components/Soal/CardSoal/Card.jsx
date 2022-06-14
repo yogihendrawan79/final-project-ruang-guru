@@ -7,16 +7,16 @@ const Card = ({soals}) => {
   return (
     <>
       <div className="card-soal border-2 border-primary px-5 py-5">
-        {soals.map((soals) => (
-          <div key={soals.id}>
+        {soals.map((soal) => (
+          <div key={soal.id}>
             <div>
-              <p>{soals.question}</p>
+              <p>{soal.question}</p>
             </div>
             <div className="opsi flex-row mt-2 cursor-default">
             {/* {soals.option.map((opsi) => (
               <p key={opsi}>{opsi}</p>
             ))} */}
-              <p className='option inline-grid'>{soals.question.option}</p>
+              <p className='option inline-grid'>{soal.question.option}</p>
             </div>
           </div>
         ))}

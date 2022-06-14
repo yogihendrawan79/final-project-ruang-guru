@@ -1,6 +1,6 @@
 import React from 'react'
 // import { useNavigate } from 'react-router-dom'
-import Navbar from '../Navbar/Navbar'
+import NavbarLogo from '../Navbar/NavbarLogo'
 import './login.css'
 
 const Login = () => {
@@ -8,9 +8,9 @@ const Login = () => {
   // Menggunakan useNavigate dari reac-router-dom untuk mengecek role dan redirect ke dashboard atau ujian
   return (
     <div className="bg-primary w-full h-full login">
-      <Navbar logo=".ET" />
+      <NavbarLogo logo=".ET" />
       <div className="grid grid-cols-2 ">
-        <div className='hidden sm:block max-w-[1240px] mx-auto grid md:grid-cols-2'>
+        <div className='sm:block max-w-[1240px] mx-auto grid md:grid-cols-2'>
           <img className="mt-40 object-cover h-48 w-97 pt-98" src="" alt='' />
         </div>
 

@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Result from './components/Result/Result';
 import Login from './components/Login/Login';
 import Token from './components/Token/Token';
+import BankSoal from './components/Dashboard/BankSoal/BankSoal'
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
           <Route index element={<Soal />} />
           <Route path='hasil-ujian'>
             <Route index path=":id" element={<Result />} />
+          </Route>
+          <Route path='/dashboard/:id'>
+            {/* Sisanya disesuaikan */}
+            <Route index path="/dashboard/:id/bank-soal" element={<BankSoal />} />
           </Route>
         </Routes>
       </div>
