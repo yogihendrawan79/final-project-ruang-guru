@@ -15,7 +15,7 @@ function Daftar({ soalsPerPage, totalSoals, paginate }) {
         <div>
           {pageNumbers.map(number => (
             <div key={number} className="inline-block justify-center m-2 text-white">
-              <a href="!#" onClick={() => paginate(number)} className="bg-primary rounded p-2">
+              <a href="/#" onClick={() => paginate(number)} className="bg-primary rounded p-2">
                 {number}
               </a>
             </div>
