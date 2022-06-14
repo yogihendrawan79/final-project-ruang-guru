@@ -12,7 +12,7 @@
         password: john123456 
     ```
     ```
-        email   : wock@gmail.com
+        email   : wick@gmail.com
         password: wick123456 
     ```
     ```

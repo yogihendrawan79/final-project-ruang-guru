@@ -2,6 +2,8 @@ package user
 
 import (
 	"errors"
+	"net/http"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -9,6 +11,8 @@ import (
 // bikin kontrak Service
 type Service interface {
 	LoginUser(input InputLogin) (User, error)
+	LogoutUser() *http.Cookie
+	RoleUserById(id_user int) (string, error)
 }
 
 // bikin struct service untuk menampung repository
@@ -41,4 +45,28 @@ func (s *service) LoginUser(input InputLogin) (User, error) {
 
 	// return
 	return user, nil
+}
+
+// function logout
+func (s *service) LogoutUser() *http.Cookie {
+	// ubah value pada cookie
+	cookie := &http.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour * 1),
+		HttpOnly: true,
+	}
+
+	return cookie
+}
+
+// function untuk mencari role user by id
+func (s *service) RoleUserById(id_user int) (string, error) {
+	// panggil function roleUserById dari respository
+	role, err := s.repository.RoleUserById(id_user)
+	if err != nil {
+		return "", errors.New("id tidak ditemukan")
+	}
+
+	return role, nil
 }
