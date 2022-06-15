@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Navbar from '../Navbar/Navbar'
+import NavbarToken from '../Navbar/NavbarToken'
 import Image from '../../assets/images.jpg'
 import Button from '../Soal/Button/Button'
 import './result.css'
@@ -8,7 +8,7 @@ const Result = () => {
   const [status] = useState('Lulus')
   return (
     <> 
-      <Navbar logo=".ET" username="John" image={Image} />
+      <NavbarToken logo=".ET" username="John" image={Image} />
       <div className="card mx-auto mt-16 py-2 shadow-2xl px-4">
         <div className="circle bg-primary text-center mt-10 border-2 mx-auto border-primary border-solid">
           <h1 className='mt-12 font-bold text-5xl'>80</h1>
