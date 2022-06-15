@@ -1,5 +1,5 @@
 .card-soal {
-  width: 700px;
+  width: 870px;
   height: 500px;
 }
 
@@ -7,3 +7,6 @@
   border-radius: 100%
 }
 
+.option {
+  display: block;
+}

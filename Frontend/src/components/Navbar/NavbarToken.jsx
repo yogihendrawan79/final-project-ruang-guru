@@ -9,7 +9,7 @@ const NavbarToken = ({ logo, username, image }) => {
       <div className="container-lg bg-primary">
         <div className="container flex justify-between py-5">
           <div className='navbar-brand pl-28'>
-            <Link to={'/'} className='text-2xl text-white font-bold'>{logo}</Link>
+            <Link to={'#/'} className='text-2xl text-white font-bold'>{logo}</Link>
           </div>
           <div className='flex justify-center align-middle'>
             <p className='pr-3 text-white'>Hi, {username}</p>

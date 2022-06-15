@@ -10,11 +10,11 @@ function App() {
   return (
       <div className="">
         <Routes>
+          <Route index path="/" element={<Soal />} />
           <Route path="login" element={<Login />} />
           <Route path="token" element={<Token />} />
-          <Route index element={<Soal />} />
           <Route path='hasil-ujian'>
-            <Route index path=":id" element={<Result />} />
+            <Route index path=":mapel" element={<Result />} />
           </Route>
           <Route path='/dashboard/:id'>
             {/* Sisanya disesuaikan */}

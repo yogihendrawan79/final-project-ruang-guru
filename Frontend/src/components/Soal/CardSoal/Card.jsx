@@ -1,8 +1,43 @@
-import React from 'react'
-// import Button from '../Button/Button'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
 import './card.css'
 
-const Card = ({soals}) => {
+const Card = ({soals, onAnswer}) => {
+  const [answer, setAnswer] = useState([])
+
+  const handleAnswerA = (e) => {
+    e.preventDefault();
+    
+    soals.map((soal) => (
+      setAnswer(soal.option.a)
+    ))
+  }
+  const handleAnswerB = (e) => {
+    e.preventDefault();
+    
+    soals.map((soal) => (
+      setAnswer(soal.option.b)
+    ))
+  }
+  const handleAnswerC = (e) => {
+    e.preventDefault();
+    
+    soals.map((soal) => (
+      setAnswer(soal.option.c)
+    ))
+  }
+  const handleAnswerD = (e) => {
+    e.preventDefault();
+    
+    soals.map((soal) => (
+      setAnswer(soal.option.d)
+    ))
+  }
+
+  useEffect(() => {
+    console.log("Answer", answer)
+  }, [answer])
+
 
   return (
     <>
@@ -12,11 +47,11 @@ const Card = ({soals}) => {
             <div>
               <p>{soal.question}</p>
             </div>
-            <div className="opsi flex-row mt-2 cursor-default">
-            {/* {soals.option.map((opsi) => (
-              <p key={opsi}>{opsi}</p>
-            ))} */}
-              <p className='option inline-grid'>{soal.question.option}</p>
+            <div className="mt-2 cursor-default grid grid-rows-4">
+              <a href='#/' onClick={handleAnswerA}>{soal.option.a}</a>
+              <a href='#/' onClick={handleAnswerB}>{soal.option.b}</a>
+              <a href='#/' onClick={handleAnswerC}>{soal.option.c}</a>
+              <a href='#/' onClick={handleAnswerD}>{soal.option.d}</a>
             </div>
           </div>
         ))}

@@ -10,6 +10,7 @@ function Soal() {
   const [soals, setSoals] = useState([]);
   const [currentPage, setCurrentPage] = useState(false)
   const [soalsPerPage] = useState(1)
+  const [answer, setAnswer] = useState([])
 
   useEffect(() => {
     const fetchSoals = async () => {
@@ -19,7 +20,6 @@ function Soal() {
 
     fetchSoals();
   }, [])
-  // console.log("Hasil fetch", soals)
 
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
@@ -29,6 +29,10 @@ function Soal() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+  const handleOnAnswer = (selectedAnswer) => {
+    setAnswer((prev) => [prev, ...selectedAnswer])
+  }
+
   return (
     <>
       <Navbar
@@ -37,8 +41,8 @@ function Soal() {
         username="John"
         image={Images}
       />
-      <div className='flex justify-center mt-10'>
-        <Card soals={currentSoals} />
+      <div className='flex justify-center mt-10 ml-9'>
+        <Card soals={currentSoals} onAnswer={(selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer])} />
         <Daftar
           soalsPerPage={soalsPerPage}
           totalSoals={soals.length}
