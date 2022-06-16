@@ -14,10 +14,10 @@ const Token = () => {
             <p>Silahkan masukan token yang anda terima dari guru anda</p>
           </div>
           <div className="mt-10">
-            <input className="border border-gray-300 p-2 w-70 rounded-full w-full" type="text" placeholder="contoh: EXJFKDFGDNB232VFV" />
+            <input className="border border-primary p-2 w-70 rounded-full w-full" type="text" placeholder="contoh: EXJFKDFGDNB232VFV" />
           </div>
           <div>
-            <button className=" bg-primary hover:bg-blue-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 align-content-center mt-5 w-1/2  text-white p-2 rounded-full">Proses</button>
+            <button className="mt-5 hover:bg-primary border border-solid text-primary border-primary p-1 w-28 text-center rounded-2xl hover:text-white">Proses</button>
           </div>
         </form>
       </div>

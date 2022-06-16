@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Images from '../../assets/images.jpg'
 import axios from 'axios'
 import Navbar from '../Navbar/Navbar'
 import Card from './CardSoal/Card'
@@ -9,14 +10,7 @@ function Soal() {
   const [soals, setSoals] = useState([]);
   const [currentPage, setCurrentPage] = useState(false)
   const [soalsPerPage] = useState(1)
-
-  const data = [
-    {
-      image: "https://images.unsplash.com/photo-1495995424756-6a5a3f9e7543?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzl8fHN0dWRlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      countdown: "02:00:00",
-      username: "John"
-    }
-  ]
+  const [answer, setAnswer] = useState([])
 
   useEffect(() => {
     const fetchSoals = async () => {
@@ -26,7 +20,6 @@ function Soal() {
 
     fetchSoals();
   }, [])
-  // console.log("Hasil fetch", soals)
 
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
@@ -36,21 +29,26 @@ function Soal() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+  const handleOnAnswer = (selectedAnswer) => {
+    setAnswer((prev) => [prev, ...selectedAnswer])
+  }
+
   return (
     <>
-     {
-       data.map((index) => (
-        <Navbar key={index.username} logo=".ET" countdown={index.countdown} username={index.username} image={index.image} />
-       ))
-     }
-     <div className='flex justify-center mt-10'>
-      <Card soals={currentSoals} />
-      <Daftar
-        soalsPerPage={soalsPerPage}
-        totalSoals={soals.length}
-        paginate={paginate}
+      <Navbar
+        logo=".ET"
+        countdown="02:00:00"
+        username="John"
+        image={Images}
       />
-     </div>
+      <div className='flex justify-center mt-10 ml-9'>
+        <Card soals={currentSoals} onAnswer={(selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer])} />
+        <Daftar
+          soalsPerPage={soalsPerPage}
+          totalSoals={soals.length}
+          paginate={paginate}
+        />
+      </div>
     </>
   )
 }
