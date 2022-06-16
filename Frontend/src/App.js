@@ -5,6 +5,9 @@ import Result from "./components/Result/Result";
 import Login from "./components/Login/Login";
 import Token from "./components/Token/Token";
 import BankSoal from "./components/Dashboard/BankSoal/BankSoal";
+import CreateSoal from "./components/Dashboard/CreateSoal/CreateSoal";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
@@ -15,7 +18,9 @@ function App() {
           <Route index element={<Soal />} />
           <Route path="hasil-ujian/:id" element={<Result />} />
         </Routes> */}
-      <BankSoal />
+      {/* <BankSoal /> */}
+      {/* <CreateSoal /> */}
+      <Sidebar />
     </div>
   );
 }
