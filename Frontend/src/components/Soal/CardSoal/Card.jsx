@@ -11,13 +11,15 @@ const Card = ({soals, onAnswer}) => {
     soals.map((soal) => (
       setAnswer(soal.option.a)
     ))
+    onAnswer(answer)
   }
   const handleAnswerB = (e) => {
     e.preventDefault();
     
     soals.map((soal) => (
       setAnswer(soal.option.b)
-    ))
+      ))
+      onAnswer(answer)
   }
   const handleAnswerC = (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ const Card = ({soals, onAnswer}) => {
     soals.map((soal) => (
       setAnswer(soal.option.c)
     ))
+    onAnswer(answer)
   }
   const handleAnswerD = (e) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ const Card = ({soals, onAnswer}) => {
     soals.map((soal) => (
       setAnswer(soal.option.d)
     ))
+    onAnswer(answer)
   }
 
   useEffect(() => {
@@ -47,7 +51,7 @@ const Card = ({soals, onAnswer}) => {
             <div>
               <p>{soal.question}</p>
             </div>
-            <div className="mt-2 cursor-default grid grid-rows-4">
+            <div className="mt-2 cursor-default grid grid-rows-4 ">
               <a href='#/' onClick={handleAnswerA}>{soal.option.a}</a>
               <a href='#/' onClick={handleAnswerB}>{soal.option.b}</a>
               <a href='#/' onClick={handleAnswerC}>{soal.option.c}</a>

@@ -10,11 +10,11 @@ function Daftar({ soalsPerPage, totalSoals, paginate }) {
 
   return (
     <>
-      <div className="border-2 border-primary px-5 py-5 ml-10">
+      <div className="w-64 border-2 border-primary px-5 py-5 ml-10">
         <p className='flex justify-center'>Daftar Soal</p>
         <div className='grid grid-cols-4 gap-4'>
           {pageNumbers.map(number => (
-            <div key={number} className="mt-5 m-2 text-white ">
+            <div key={number} className="mt-5 m-2 text-white">
               <a href="#/" onClick={() => paginate(number)} className="bg-primary rounded p-2">
                 {number}
               </a>

@@ -29,9 +29,11 @@ function Soal() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
-  const handleOnAnswer = (selectedAnswer) => {
-    setAnswer((prev) => [prev, ...selectedAnswer])
-  }
+  // const handleOnAnswer = (selectedAnswer) => {
+  //   setAnswer((prev) => [prev, ...selectedAnswer])
+  // }
+
+  console.log("All Answer", answer)
 
   return (
     <>
