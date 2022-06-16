@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../Navbar/Navbar";
+import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
 import BankSoal from "../Dashboard/BankSoal/BankSoal";
@@ -72,7 +72,7 @@ function Sidebar() {
       </div>
       <div className="h-screen flex-1">
         {data.map((index) => (
-          <Navbar
+          <NavbarToken
             key={index.username}
             username={index.username}
             image={index.image}

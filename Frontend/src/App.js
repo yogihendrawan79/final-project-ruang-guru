@@ -5,22 +5,22 @@ import Result from "./components/Result/Result";
 import Login from "./components/Login/Login";
 import Token from "./components/Token/Token";
 import BankSoal from "./components/Dashboard/BankSoal/BankSoal";
-import CreateSoal from "./components/Dashboard/CreateSoal/CreateSoal";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <div className="">
-      {/* <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="token" element={<Token />} />
-          <Route index element={<Soal />} />
-          <Route path="hasil-ujian/:id" element={<Result />} />
-        </Routes> */}
-      {/* <BankSoal /> */}
-      {/* <CreateSoal /> */}
-      <Sidebar />
+      <Routes>
+        <Route index path="/" element={<Soal />} />
+        <Route path="login" element={<Login />} />
+        <Route path="token" element={<Token />} />
+        <Route path="hasil-ujian">
+          <Route index path=":mapel" element={<Result />} />
+        </Route>
+        <Route path="/dashboard/:id">
+          {/* Sisanya disesuaikan */}
+          <Route index path="/dashboard/:id/bank-soal" element={<BankSoal />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
