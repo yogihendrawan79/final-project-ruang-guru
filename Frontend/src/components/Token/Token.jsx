@@ -1,11 +1,12 @@
 import React from 'react'
 import Navbar from '../Navbar/Navbar'
+import './token.css'
 
 const Token = () => {
   return (
     <div className="flex flex-col justify-center text-center">
       <Navbar logo=".ET" image="" />
-      <div className="p-10">
+      <div className="p-10 token">
 
         <form className=" max-w-xl mx-auto p-12 bg-white shadow-xl rounded-lg">
           <h2 className="font-medium text-3xl">Masukan Token</h2>
