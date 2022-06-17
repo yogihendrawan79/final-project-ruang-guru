@@ -80,7 +80,7 @@ func (h *handlerUser) HomeSiswa(c *gin.Context) {
 	// ambil role
 	if user.Role != "siswa" {
 		MyErr := gin.H{
-			"error": "Anda bukan siswa",
+			"error": "role not valid",
 		}
 		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
 		c.JSON(http.StatusForbidden, response)
@@ -100,7 +100,7 @@ func (h *handlerUser) HomeGuru(c *gin.Context) {
 	// ambil role
 	if user.Role != "guru" {
 		MyErr := gin.H{
-			"error": "Anda bukan guru",
+			"error": "role not valid",
 		}
 		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
 		c.JSON(http.StatusForbidden, response)
