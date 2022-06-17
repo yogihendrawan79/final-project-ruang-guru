@@ -60,8 +60,8 @@ func AuthMiddleware(authService auth.Service, userSerivce user.Service) gin.Hand
 
 		// cek apakah ada kata bearer
 		if !strings.Contains(authHeader, "Bearer") {
-			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
-			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
+			response := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
 
@@ -83,23 +83,23 @@ func AuthMiddleware(authService auth.Service, userSerivce user.Service) gin.Hand
 		// ambil payload dalam token
 		claims, ok := token.Claims.(*jwt.StandardClaims)
 		if !ok || !token.Valid {
-			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
-			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
+			response := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
 
 		// ambil id dari claims
 		stringID := claims.Issuer
 		// convert id string ke id int
-		id_user, err := strconv.Atoi(stringID)
+		userID, err := strconv.Atoi(stringID)
 		if err != nil {
-			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
-			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
+			response := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
 
 		// ambil data user berdasarkan id
-		user, err := userSerivce.UserById(id_user)
+		user, err := userSerivce.UserById(userID)
 
 		// simpan user ke context
 		c.Set("currentUser", user)

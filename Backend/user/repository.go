@@ -5,7 +5,7 @@ import "database/sql"
 // bikin kontrak untuk berhubungan dengan database
 type Repository interface {
 	FindUserByEmail(email string) (User, error)
-	UserById(id_user int) (User, error)
+	UserById(userID int) (User, error)
 }
 
 // bikin struct repository
@@ -50,14 +50,14 @@ func (r *repository) FindUserByEmail(email string) (User, error) {
 }
 
 // function find role user by id
-func (r *repository) UserById(id_user int) (User, error) {
+func (r *repository) UserById(userID int) (User, error) {
 	// query
 	sql := `
 		SELECT * FROM users
 		WHERE id_users = ?
 	;`
 	// execute query
-	data := r.db.QueryRow(sql, id_user)
+	data := r.db.QueryRow(sql, userID)
 
 	// binding
 	var user User
