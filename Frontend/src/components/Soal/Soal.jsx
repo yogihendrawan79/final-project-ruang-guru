@@ -10,7 +10,7 @@ function Soal() {
   const [soals, setSoals] = useState([]);
   const [currentPage, setCurrentPage] = useState(false)
   const [soalsPerPage] = useState(1)
-  const [answer, setAnswer] = useState([])
+  const [answer, setAnswer] = useState({})
 
   useEffect(() => {
     const fetchSoals = async () => {
@@ -33,7 +33,24 @@ function Soal() {
   //   setAnswer((prev) => [prev, ...selectedAnswer])
   // }
 
-  console.log("All Answer", answer)
+  
+  // (selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer])
+  
+  // setAnswer((selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer]))
+  // console.log("All Answer", answer)
+
+  
+  const handleAllAnswer = () => {
+    console.log("All Answer", answer)
+
+    // const fetchAnswer = async () => {
+    //   const res = await axios.post('http://localhost:8000/answer', {
+    //     answer: answer
+    //   })
+    //   console.log("Answer", res.data)
+    // }
+  }
+  // console.log("options", options)
 
   return (
     <>
@@ -44,7 +61,10 @@ function Soal() {
         image={Images}
       />
       <div className='flex justify-center mt-10 ml-9'>
-        <Card soals={currentSoals} onAnswer={(selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer])} />
+        <Card
+          soals={currentSoals}
+          onAnswer={handleAllAnswer}
+        />
         <Daftar
           soalsPerPage={soalsPerPage}
           totalSoals={soals.length}

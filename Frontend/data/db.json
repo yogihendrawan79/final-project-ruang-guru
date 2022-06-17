@@ -3,122 +3,146 @@
     {
       "id": "1",
       "question": "1. Indonesia merdeka pada tahun?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "2",
-      "question": "2. 2+2X2=?",
-      "option": {
-        "a": "A. 100",
-        "b": "B. 2000",
-        "c": "C. 30",
-        "d": "D. Tidak tahu"
-      }
+      "question": "2. Indonesia merdeka pada tahun?",
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "3",
       "question": "3. Indonesia merdeka pada tahun?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "4",
       "question": "4. Indonesia merdeka pada tahun?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "5",
-      "question": "5. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. Megawati",
-        "b": "B. Soekarno",
-        "c": "C. Joko Widodo",
-        "d": "D. Tidak tahu"
-      }
+      "question": "5. Indonesia merdeka pada tahun?",
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "6",
-      "question": "6. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
+      "question": "6. Indonesia merdeka pada tahun?",
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "7",
-      "question": "7. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
+      "question": "7. Indonesia merdeka pada tahun?",
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     },
     {
       "id": "8",
-      "question": "8. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
-    },
-    {
-      "id": "9",
-      "question": "9. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
-    },
-    {
-      "id": "10",
-      "question": "10. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
-    },
-    {
-      "id": "11",
-      "question": "11. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
-    },
-    {
-      "id": "12",
-      "question": "12. Siapakah Presiden RI Pertama?",
-      "option": {
-        "a": "A. 1945",
-        "b": "B. 1999",
-        "c": "C. 1928",
-        "d": "D. 1960"
-      }
+      "question": "8. Indonesia merdeka pada tahun?",
+      "option" : [
+        {
+          "a": "A. 1945"
+        },
+        {
+          "b": "B. 1999"
+        },
+        {
+          "c": "C. 1928"
+        },
+        {
+          "d": "D. 1960"
+        }
+      ]
     }
   ]
 }
