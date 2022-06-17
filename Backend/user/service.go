@@ -12,7 +12,7 @@ import (
 type Service interface {
 	LoginUser(input InputLogin) (User, error)
 	LogoutUser() *http.Cookie
-	RoleUserById(id_user int) (string, error)
+	UserById(userID int) (User, error)
 }
 
 // bikin struct service untuk menampung repository
@@ -61,12 +61,12 @@ func (s *service) LogoutUser() *http.Cookie {
 }
 
 // function untuk mencari role user by id
-func (s *service) RoleUserById(id_user int) (string, error) {
+func (s *service) UserById(userID int) (User, error) {
 	// panggil function roleUserById dari respository
-	role, err := s.repository.RoleUserById(id_user)
+	user, err := s.repository.UserById(userID)
 	if err != nil {
-		return "", errors.New("id tidak ditemukan")
+		return user, errors.New("id tidak ditemukan")
 	}
 
-	return role, nil
+	return user, nil
 }
