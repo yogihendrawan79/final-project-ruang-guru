@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/gin-gonic/gin"
@@ -36,53 +38,70 @@ func main() {
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
 	// route logout
-	r.GET("/api/logout", AuthMiddleware(authUser), handlerUser.LogoutUser)
+	r.GET("/api/logout", AuthMiddleware(authUser, serviceUser), handlerUser.LogoutUser)
 
 	// route group
 	siswa := r.Group("/api/siswa")
 	{
-		siswa.GET("/home", AuthMiddleware(authUser), handlerUser.HomeSiswa)
+		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
 	}
 	guru := r.Group("/api/guru")
 	{
-		guru.GET("/home", AuthMiddleware(authUser), handlerUser.HomeGuru)
+		guru.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeGuru)
 	}
 
 	r.Run(":8080")
 }
 
-func AuthMiddleware(authUser auth.Service) gin.HandlerFunc {
+func AuthMiddleware(authService auth.Service, userSerivce user.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// ambil cookie
-		cookie, err := c.Cookie("jwt")
+		// ambil header
+		authHeader := c.GetHeader("Authorization")
 
-		if err != nil {
-			myErr := gin.H{
-				"error": "cookie tidak terdeteksi",
-			}
-			respons := helper.ResponsAPI("Gagal mengambil cookie", "Unauthorized", http.StatusUnauthorized, myErr)
+		// cek apakah ada kata bearer
+		if !strings.Contains(authHeader, "Bearer") {
+			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
 			return
 		}
 
-		// parsing cookie dan validasi token
-		token, err := authUser.ValidateToken(cookie)
+		// split header
+		tokenString := ""
+		arrayToken := strings.Split(authHeader, " ")
+		if len(arrayToken) == 2 {
+			tokenString = arrayToken[1]
+		}
+
+		// validasi token
+		token, err := authService.ValidateToken(tokenString)
 		if err != nil {
-			myErr := gin.H{
-				"error": err.Error(),
-			}
-			respons := helper.ResponsAPI("Token tidak valid", "Unauthorized", http.StatusUnauthorized, myErr)
+			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
 			return
 		}
 
-		// ambil payload
-		claims := token.Claims.(*jwt.StandardClaims)
-		// ambil id user
-		id_user := claims.Issuer
+		// ambil payload dalam token
+		claims, ok := token.Claims.(*jwt.StandardClaims)
+		if !ok || !token.Valid {
+			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
+			return
+		}
 
-		// set context
-		c.Set("current_user", id_user)
+		// ambil id dari claims
+		stringID := claims.Issuer
+		// convert id string ke id int
+		id_user, err := strconv.Atoi(stringID)
+		if err != nil {
+			respons := helper.ResponsAPI("Unauthorized", "Error", http.StatusUnauthorized, nil)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, respons)
+			return
+		}
 
+		// ambil data user berdasarkan id
+		user, err := userSerivce.UserById(id_user)
+
+		// simpan user ke context
+		c.Set("currentUser", user)
 	}
 }
