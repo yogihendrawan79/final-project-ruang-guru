@@ -3,6 +3,9 @@ import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
 import BankSoal from "../Dashboard/BankSoal/BankSoal";
+import Bank from "../Dashboard/BankSoal/Bank/Bank";
+import AddForm from "../Dashboard/BankSoal/Add/AddForm";
+import CreateSoal from "../Dashboard/CreateSoal/CreateSoal";
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -11,7 +14,7 @@ function Sidebar() {
     { title: "Inbox", src: "Chat" },
     { title: "Bank Soal", src: "User", gap: true },
     { title: "Buat Soal", src: "Search" },
-    { title: "Report", src: "Chart" },
+    { title: "Report Nilai", src: "Chart" },
     { title: "Files ", src: "Folder", gap: true },
     { title: "Setting", src: "Setting" },
   ];
@@ -62,7 +65,7 @@ function Sidebar() {
                 index === 0 && "bg-light-white"
               } `}
             >
-              <img src={`../../assets/${Menu.src}.png`} />
+              <img src={`../../assets/icon/${Menu.src}.png`} />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {Menu.title}
               </span>
@@ -78,7 +81,10 @@ function Sidebar() {
             image={index.image}
           />
         ))}
-        <BankSoal />
+        {/* <BankSoal /> */}
+        {/* <Bank /> */}
+        {/* <AddForm /> */}
+        <CreateSoal />
       </div>
     </div>
   );

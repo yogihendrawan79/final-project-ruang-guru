@@ -5,6 +5,8 @@ import Result from "./components/Result/Result";
 import Login from "./components/Login/Login";
 import Token from "./components/Token/Token";
 import Sidebar from "./components/Sidebar/Sidebar";
+import CreateSoal from "./components/Dashboard/CreateSoal/CreateSoal";
+import NewForm from "./components/Dashboard/CreateSoal/New/NewForm";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route index path="/dashboard/:id/bank-soal" element={<Sidebar />} />
         </Route>
       </Routes>
+      {/* <CreateSoal /> */}
+      {/* <NewForm /> */}
     </div>
   );
 }
