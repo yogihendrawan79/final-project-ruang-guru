@@ -13,6 +13,7 @@ import (
 	"github.com/rg-km/final-project-engineering-46/auth"
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
+	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 	"github.com/rg-km/final-project-engineering-46/user"
 )
 
@@ -31,6 +32,25 @@ func main() {
 	authUser := auth.NewServiceAuth()
 	// handler user
 	handlerUser := handler.NewHandler(serviceUser, authUser)
+
+	repoMapel := matapelajaran.NewRepository(db)
+	// create token
+	serviceMapel := matapelajaran.NewSerivce(repoMapel)
+	token, err := serviceMapel.GenerateTokenSoal()
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	// validasi token
+	valid, err := serviceMapel.ValidasiTokenSoal(token.String())
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
+
+	log.Printf("token: %v", valid)
+
+	log.Printf("token berhasil dibuat: %v", token)
+	return
 
 	// deklarasi http server
 	r := gin.Default()

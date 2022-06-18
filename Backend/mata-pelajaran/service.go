@@ -8,8 +8,8 @@ import (
 
 // bikin kontrak
 type Service interface {
+	GenerateTokenSoal() (uuid.UUID, error)
 	ValidasiTokenSoal(input uuid.UUID) (string, error)
-	// GenerateTokenSoal() (uuid.UUID, error)
 }
 
 // bikin struct
@@ -23,6 +23,16 @@ func NewSerivce(repository Repository) *service {
 }
 
 // bikin function untuk generate token soal
+func (s *service) GenerateTokenSoal() (uuid.UUID, error) {
+
+	token, err := uuid.NewRandom()
+	if err != nil {
+		return token, err
+	}
+
+	return token, nil
+}
+
 // bikin function untuk validasi token soal
 func (s *service) ValidasiTokenSoal(input string) (uuid.UUID, error) {
 
