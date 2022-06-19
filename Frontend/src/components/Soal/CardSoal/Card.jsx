@@ -1,41 +1,26 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+// import Button from '../Button/Button'
 import './card.css'
 
 const Card = ({soals, onAnswer}) => {
   const [answer, setAnswer] = useState([])
 
-  const handleAnswerA = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.a)
-    ))
+
+  const handleAnswer = (indexSelected, indexOptionSelected) => {
+    // e.preventDefault();
+
+    const newAnswer = {
+      indexSoal: indexSelected,
+      indexOption: indexOptionSelected
+    }
+
+    setAnswer((prev) => [...prev, newAnswer])
   }
-  const handleAnswerB = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.b)
-    ))
-  }
-  const handleAnswerC = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.c)
-    ))
-  }
-  const handleAnswerD = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.d)
-    ))
-  }
+  
 
   useEffect(() => {
-    console.log("Answer", answer)
+    console.log("Answers", answer)
   }, [answer])
 
 
@@ -47,14 +32,52 @@ const Card = ({soals, onAnswer}) => {
             <div>
               <p>{soal.question}</p>
             </div>
-            <div className="mt-2 cursor-default grid grid-rows-4">
-              <a href='#/' onClick={handleAnswerA}>{soal.option.a}</a>
-              <a href='#/' onClick={handleAnswerB}>{soal.option.b}</a>
-              <a href='#/' onClick={handleAnswerC}>{soal.option.c}</a>
-              <a href='#/' onClick={handleAnswerD}>{soal.option.d}</a>
+            <div className="mt-2 cursor-pointer grid grid-rows-4 ">
+              {soal.option.map((option, index) => (
+                <div key={index}>
+                  <a
+                    href="#/"
+                    onClick={() => handleAnswer(soal.id, option.a)}
+                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
+                  >
+                    {option.a}
+                  </a>
+                  <a
+                    href="#/"
+                    onClick={() => handleAnswer(soal.id, option.b)}
+                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
+                  >
+                    {option.b}
+                  </a>
+                  <a
+                    href="#/"
+                    onClick={() => handleAnswer(soal.id, option.c)}
+                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
+                  >
+                    {option.c}
+                  </a>
+                  <a
+                    href="#/"
+                    onClick={() => handleAnswer(soal.id, option.d)}
+                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
+                  >
+                    {option.d}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+          ))}
+          {/* <div className='mt-64 flex justify-between'>
+            <button onClick={() => prevQuestion()}>Kembali</button>
+            {quiz.length - 1 === currentQuestion ? (
+              <Link to=''>
+                Submit
+              </Link>
+              ) : (
+              <button onClick={() => nextQuestion()}>Selanjutnya</button>
+            )}
+          </div> */}
       </div>
     </>
   )

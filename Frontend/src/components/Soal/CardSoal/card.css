@@ -10,3 +10,7 @@
 .option {
   display: block;
 }
+
+.answer {
+  background-color: red;
+}
