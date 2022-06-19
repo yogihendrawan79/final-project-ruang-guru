@@ -10,7 +10,7 @@ type Soal struct {
 	Pertanyaan      string 
 }
 
-type OpsiSoal struct {
+type Opsi struct {
 	IdOpsiSoal int
 	OpsiA      string
 	OpsiB      string

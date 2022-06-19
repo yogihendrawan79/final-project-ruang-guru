@@ -16,7 +16,7 @@ type handlerUser struct {
 }
 
 // function untuk newHandler
-func NewHandler(service user.Service, auth auth.Service) *handlerUser {
+func NewHandlerUser(service user.Service, auth auth.Service) *handlerUser {
 	return &handlerUser{service, auth}
 }
 

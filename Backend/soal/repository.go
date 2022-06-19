@@ -4,7 +4,7 @@ import "database/sql"
 
 // kontrak
 type Repository interface {
-	Save(input InputSoal) (string, error)
+	Save(inputSoal InputSoal) error
 }
 
 // struct repository
@@ -18,25 +18,24 @@ func NewRepository(db *sql.DB) *repository {
 }
 
 // bikin function untuk save data opsi soal ke table opsi_soal
-// func (r *repository) Save(input InputSoal) (string, error) {
+func (r *repository) Save(inputSoal InputSoal) error {
+	// query input opsi soal
+	query := "INSERT INTO opsi_soal (opsi_a, opsi_b, opsi_c, opsi_d) VALUES (?, ?, ?, ?)"
 
-// 	// query input opsi soal
-// 	sqlInputOpsiSoal := `INSERT INTO opsi_soal (id_mata_pelajaran, id_opsi_soal, id_users, pertanyaan, kunci_jawaban) VALUES (?, ?, ?, ?, ?)`
+	// exec query input opsi soal
+	_, err := r.db.Exec(query, inputSoal.OpsiJawaban.OpsiA, inputSoal.OpsiJawaban.OpsiB, inputSoal.OpsiJawaban.OpsiC, inputSoal.OpsiJawaban.OpsiD)
+	if err != nil {
+		return err
+	}
 
+	// query input soal
+	query = "INSERT INTO soal (id_mata_pelajaran, id_opsi_soal, id_users, kunci_jawaban, pertanyaan) VALUES (?, ?, ?, ?, ?)"
 
-// 	sql := `
-// 	INSERT INTO  soal (id_mata_pelajaran, id_opsi_soal, id_users, kunci_jawaban, pertanyaan)
-// 	VALUES
-// 	(?,?,?,?,?)
-// 	;`
+	// exec query input soal
+	_, err = r.db.Exec(query, inputSoal.IdMataPelajaran, inputSoal.IdOpsiSoal, inputSoal.IdUsers, inputSoal.KunciJawaban, inputSoal.Pertanyaan)
+	if err != nil {
+		return err
+	}
 
-// 	// execute query
-// 	_, err := r.db.Exec(sql, input.IdMataPelajaran, input., input.IdUsers, input.KunciJawaban, input.Pertanyaan)
-
-// 	if err != nil {
-// 		return "gagal input", err
-// 	}
-
-// 	// return
-// 	return "berhasil input", nil
-// }
+	return nil
+}

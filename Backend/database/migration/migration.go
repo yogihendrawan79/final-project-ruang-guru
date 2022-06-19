@@ -45,7 +45,7 @@ func Migration() {
 		CREATE TABLE IF NOT EXISTS soal (
 			id_soal INTEGER PRIMARY KEY AUTOINCREMENT,
 			id_mata_pelajaran int,
-			id_opsi_soal int,
+			id_opsi_soal INTEGER PRIMARY KEY AUTOINCREMENT
 			id_users int,
 			kunci_jawaban VARCHAR(3),
 			pertanyaan TEXT,

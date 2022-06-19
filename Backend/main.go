@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 
@@ -14,8 +13,7 @@ import (
 	"github.com/rg-km/final-project-engineering-46/auth"
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
-
-	// "github.com/rg-km/final-project-engineering-46/opsi-soal"
+	"github.com/rg-km/final-project-engineering-46/soal"
 
 	// matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 	"github.com/rg-km/final-project-engineering-46/user"
@@ -35,48 +33,17 @@ func main() {
 	// auth user
 	authUser := auth.NewServiceAuth()
 	// handler user
-	handlerUser := handler.NewHandler(serviceUser, authUser)
+	handlerUser := handler.NewHandlerUser(serviceUser, authUser)
 
-	// // deklarasi NewRepo opsi soal
-	// repoOpsiSoal := opsisoal.NewRepository(db)
-	// // bikinin input opsi soal tipe InputOpsiSoal
-	// input := opsisoal.InputOpsiSoal{
-	// 	OpsiA: "Ikan",
-	// 	OpsiB: "Burung",
-	// 	OpsiC: "Domba",
-	// 	OpsiD: "Kucing",
-	// }
-	// // panggil function save di repo
-	// opsisoal, err := repoOpsiSoal.Save(input)
-	// if err != nil {
-	// 	log.Printf("error : %v", err)
-	// }
-	// log.Println(opsisoal)
-
-	// // repoMapel := matapelajaran.NewRepository(db)
-	// // // create token
-	// // serviceMapel := matapelajaran.NewSerivce(repoMapel)
-	// // token, err := serviceMapel.GenerateTokenSoal()
-	// // if err != nil {
-	// // 	log.Fatalf("error: %v", err)
-	// // }
-
-	// // // validasi token
-	// // valid, err := serviceMapel.ValidasiTokenSoal(token.String())
-	// // if err != nil {
-	// // 	log.Printf("error: %v", err)
-	// // }
-
-	// // log.Printf("token: %v", valid)
-
-	// // log.Printf("token berhasil dibuat: %v", token)
-	// return
+	// repo soal
+	repoSoal := soal.NewRepository(db)
+	// service soal
+	serviceSoal := soal.NewService(repoSoal)
+	// handler soal
+	handlerSoal := handler.NewHandlerSoal(serviceSoal)
 
 	// deklarasi http server
 	r := gin.Default()
-
-	// port
-	port := ":" + os.Getenv("PORT")
 
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
@@ -91,9 +58,10 @@ func main() {
 	guru := r.Group("/api/guru")
 	{
 		guru.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeGuru)
+		guru.POST("/soal/create", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
 	}
 
-	r.Run(port)
+	r.Run(":8080")
 }
 
 func AuthMiddleware(authService auth.Service, userSerivce user.Service) gin.HandlerFunc {

@@ -7,9 +7,10 @@ type InputSoal struct {
 	IdUsers         int      `json:"id_users" binding:"required"`
 	Pertanyaan      string   `json:"pertanyaan" binding:"required"`
 	KunciJawaban    string   `json:"kunci_jawaban" binding:"required"`
+	OpsiJawaban     OpsiSoal `json:"opsi_jawaban" binding:"required"`
 }
 
-type opsiSoal struct {
+type OpsiSoal struct {
 	OpsiA string `json:"opsi_a" binding:"required"`
 	OpsiB string `json:"opsi_b" binding:"required"`
 	OpsiC string `json:"opsi_c" binding:"required"`

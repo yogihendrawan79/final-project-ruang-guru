@@ -6,6 +6,7 @@ import (
 
 // bikin kontrak
 type Repository interface {
+	Save(input MataPelajaran) error
 	GetTokenSoal(input string) (MataPelajaran, error)
 }
 
