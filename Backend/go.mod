@@ -1,6 +1,6 @@
 module github.com/rg-km/final-project-engineering-46
 
-go 1.17
+go 1.18
 
 require (
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1 // indirect

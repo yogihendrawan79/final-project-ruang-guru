@@ -41,6 +41,30 @@ func Migration() {
 		)
 		;`
 
+	createTableSoal := `
+		CREATE TABLE IF NOT EXISTS soal (
+			id_soal INTEGER PRIMARY KEY AUTOINCREMENT,
+			id_mata_pelajaran int,
+			id_opsi_soal int,
+			id_users int,
+			kunci_jawaban VARCHAR(3),
+			pertanyaan TEXT,
+			FOREIGN KEY (id_mata_pelajaran) REFERENCES mata_pelajaran(id_mata_pelajaran),
+			FOREIGN KEY (id_opsi_soal) REFERENCES opsi_soal(id_opsi_soal),
+			FOREIGN KEY (id_users) REFERENCES users(id_users)
+		)
+		;`
+
+	createTableOpsiSoal := `
+		CREATE TABLE IF NOT EXISTS opsi_soal (
+			id_opsi_soal INTEGER PRIMARY KEY AUTOINCREMENT,
+			opsi_a VARCHAR(3),
+			opsi_b VARCHAR(3),
+			opsi_c VARCHAR(3),
+			opsi_d VARCHAR(3)
+		)
+	;`
+
 	// enkripsi password
 	passJohn, _ := bcrypt.GenerateFromPassword([]byte("john123456"), 10)
 	passWick, _ := bcrypt.GenerateFromPassword([]byte("wick123456"), 10)
@@ -79,6 +103,20 @@ func Migration() {
 
 	// execute sql create table mata_pelajaran
 	_, err = db.Exec(createTableMataPelajaran)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql create table opsi_soal
+	_, err = db.Exec(createTableOpsiSoal)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql create table soal
+	_, err = db.Exec(createTableSoal)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 		return

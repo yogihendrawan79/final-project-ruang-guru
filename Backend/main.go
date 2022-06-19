@@ -13,7 +13,9 @@ import (
 	"github.com/rg-km/final-project-engineering-46/auth"
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
-	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
+	// "github.com/rg-km/final-project-engineering-46/opsi-soal"
+
+	// matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 	"github.com/rg-km/final-project-engineering-46/user"
 )
 
@@ -33,24 +35,40 @@ func main() {
 	// handler user
 	handlerUser := handler.NewHandler(serviceUser, authUser)
 
-	repoMapel := matapelajaran.NewRepository(db)
-	// create token
-	serviceMapel := matapelajaran.NewSerivce(repoMapel)
-	token, err := serviceMapel.GenerateTokenSoal()
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
+	// // deklarasi NewRepo opsi soal
+	// repoOpsiSoal := opsisoal.NewRepository(db)
+	// // bikinin input opsi soal tipe InputOpsiSoal
+	// input := opsisoal.InputOpsiSoal{
+	// 	OpsiA: "Ikan",
+	// 	OpsiB: "Burung",
+	// 	OpsiC: "Domba",
+	// 	OpsiD: "Kucing",
+	// }
+	// // panggil function save di repo
+	// opsisoal, err := repoOpsiSoal.Save(input)
+	// if err != nil {
+	// 	log.Printf("error : %v", err)
+	// }
+	// log.Println(opsisoal)
 
-	// validasi token
-	valid, err := serviceMapel.ValidasiTokenSoal(token.String())
-	if err != nil {
-		log.Printf("error: %v", err)
-	}
+	// // repoMapel := matapelajaran.NewRepository(db)
+	// // // create token
+	// // serviceMapel := matapelajaran.NewSerivce(repoMapel)
+	// // token, err := serviceMapel.GenerateTokenSoal()
+	// // if err != nil {
+	// // 	log.Fatalf("error: %v", err)
+	// // }
 
-	log.Printf("token: %v", valid)
+	// // // validasi token
+	// // valid, err := serviceMapel.ValidasiTokenSoal(token.String())
+	// // if err != nil {
+	// // 	log.Printf("error: %v", err)
+	// // }
 
-	log.Printf("token berhasil dibuat: %v", token)
-	return
+	// // log.Printf("token: %v", valid)
+
+	// // log.Printf("token berhasil dibuat: %v", token)
+	// return
 
 	// deklarasi http server
 	r := gin.Default()

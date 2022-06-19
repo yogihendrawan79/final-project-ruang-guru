@@ -1,0 +1,17 @@
+package soal
+
+// struct input opsi soal
+type InputSoal struct {
+	IdMataPelajaran int      `json:"id_mata_pelajaran" binding:"required"`
+	IdOpsiSoal      int      `json:"id_opsi_soal" binding:"required"`
+	IdUsers         int      `json:"id_users" binding:"required"`
+	Pertanyaan      string   `json:"pertanyaan" binding:"required"`
+	KunciJawaban    string   `json:"kunci_jawaban" binding:"required"`
+}
+
+type opsiSoal struct {
+	OpsiA string `json:"opsi_a" binding:"required"`
+	OpsiB string `json:"opsi_b" binding:"required"`
+	OpsiC string `json:"opsi_c" binding:"required"`
+	OpsiD string `json:"opsi_d" binding:"required"`
+}
