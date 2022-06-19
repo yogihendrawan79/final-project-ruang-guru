@@ -1,6 +1,6 @@
 module github.com/rg-km/final-project-engineering-46
 
-// +heroku goVersion go1.7
+// +heroku goVersion go1.17
 go 1.17
 
 require (
