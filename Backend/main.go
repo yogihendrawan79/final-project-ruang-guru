@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -13,6 +14,7 @@ import (
 	"github.com/rg-km/final-project-engineering-46/auth"
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
+
 	// "github.com/rg-km/final-project-engineering-46/opsi-soal"
 
 	// matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
@@ -73,6 +75,9 @@ func main() {
 	// deklarasi http server
 	r := gin.Default()
 
+	// port
+	port := ":" + os.Getenv("PORT")
+
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
 	// route logout
@@ -88,7 +93,7 @@ func main() {
 		guru.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeGuru)
 	}
 
-	r.Run(":8080")
+	r.Run(port)
 }
 
 func AuthMiddleware(authService auth.Service, userSerivce user.Service) gin.HandlerFunc {
