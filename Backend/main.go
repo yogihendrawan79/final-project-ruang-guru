@@ -16,8 +16,6 @@ import (
 	"github.com/rg-km/final-project-engineering-46/soal"
 	tokensoal "github.com/rg-km/final-project-engineering-46/token-soal"
 	"github.com/rg-km/final-project-engineering-46/ujian"
-
-	// matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 	"github.com/rg-km/final-project-engineering-46/user"
 )
 
@@ -37,17 +35,17 @@ func main() {
 	// handler user
 	handlerUser := handler.NewHandlerUser(serviceUser, authUser)
 
+	// repo token soal
+	repoTokenSoal := tokensoal.NewRepository(db)
+	// service token soal
+	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
+
 	// repo soal
 	repoSoal := soal.NewRepository(db)
 	// service soal
 	serviceSoal := soal.NewService(repoSoal)
 	// handler soal
-	handlerSoal := handler.NewHandlerSoal(serviceSoal)
-
-	// repo token soal
-	repoTokenSoal := tokensoal.NewRepository(db)
-	// service token soal
-	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
+	handlerSoal := handler.NewHandlerSoal(serviceSoal, serviceTokenSoal)
 
 	// repo ujian
 	repoUjian := ujian.NewRepository(db)
@@ -68,7 +66,7 @@ func main() {
 	siswa := r.Group("/api/siswa")
 	{
 		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
-		// handler pakai token
+		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
 	}
 	guru := r.Group("/api/guru")
 	{

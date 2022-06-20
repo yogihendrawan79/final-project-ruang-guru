@@ -9,7 +9,7 @@ import (
 // bikin kontrak
 type Service interface {
 	GenerateTokenSoal(mapelID int) (uuid.UUID, error)
-	ValidasiTokenSoal(userID, mapelID int, inputToken string) error
+	ValidasiTokenSoal(userID int, inputToken string) (MataPelajaran, error)
 }
 
 // bikin struct
@@ -42,28 +42,28 @@ func (s *service) GenerateTokenSoal(mapelID int) (uuid.UUID, error) {
 }
 
 // bikin function untuk validasi token soal
-func (s *service) ValidasiTokenSoal(userID, mapelID int, inputToken string) error {
+func (s *service) ValidasiTokenSoal(userID int, inputToken string) (MataPelajaran, error) {
 	// inisiasi waktu hari ini
 	// now := time.Now()
 
 	// cek apakah ada token di database
-	_, err := s.repository.GetMapelByToken(inputToken)
+	mapel, err := s.repository.GetMapelByToken(inputToken)
 	if err != nil {
-		return errors.New("gagal mengambil token soal")
+		return mapel, errors.New("token soal tidak valid")
 	}
 
 	// cek apakah sudah lewat deadline atau belum
-	// ini masih kosong
+	// ini masih kosong, masih bingung disini
 
 	// cek apakah token sudah digunakan atau belum
-	isUsed, err := s.repository.IsUsed(userID, mapelID)
+	isUsed, err := s.repository.IsUsed(userID, mapel.IdMataPelajaran)
 	if err != nil {
-		return errors.New("gagal mengambil data used")
+		return mapel, errors.New("gagal mengambil data used")
 	}
 
 	if isUsed == 1 {
-		return errors.New("token kedaluarsa")
+		return mapel, errors.New("token kedaluarsa")
 	}
 
-	return nil
+	return mapel, nil
 }

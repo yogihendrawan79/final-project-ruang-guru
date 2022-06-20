@@ -1,10 +1,13 @@
 package soal
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 // kontrak
 type Repository interface {
 	Save(inputSoal InputSoal, userID int) error
+	GetAllSoalSiswa(mapelID int) ([]SoalSiswa, error)
 }
 
 // struct repository
@@ -46,4 +49,44 @@ func (r *repository) Save(inputSoal InputSoal, userID int) error {
 	}
 
 	return nil
+}
+
+// function untuk get semua soal berdasarkan mapelID
+func (r *repository) GetAllSoalSiswa(mapelID int) ([]SoalSiswa, error) {
+	// inisiasi struct soal siswa
+	var allSoal []SoalSiswa
+
+	// query
+	sql := `
+		SELECT s.id_soal, s.pertanyaan, os.opsi_a, os.opsi_b, os.opsi_c, os.opsi_d FROM soal as s
+		JOIN opsi_soal as os on s.id_opsi_soal = os.id_opsi_soal
+		WHERE id_mata_pelajaran = ?
+	;`
+
+	// execute query
+	data, err := r.db.Query(sql, mapelID)
+	if err != nil {
+		return allSoal, err
+	}
+
+	// binding
+	for data.Next() {
+		var soal SoalSiswa
+		err := data.Scan(
+			&soal.IdSoal,
+			&soal.Pertanyaan,
+			&soal.Opsi.OpsiA,
+			&soal.Opsi.OpsiB,
+			&soal.Opsi.OpsiC,
+			&soal.Opsi.OpsiD,
+		)
+		if err != nil {
+			return allSoal, err
+		}
+
+		allSoal = append(allSoal, soal)
+	}
+
+	return allSoal, nil
+
 }

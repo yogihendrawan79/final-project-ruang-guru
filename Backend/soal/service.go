@@ -1,10 +1,13 @@
 package soal
 
-import "errors"
+import (
+	"errors"
+)
 
 // kontrak interface
 type Service interface {
 	CreateSoal(inputSoal InputSoal, userID int) error
+	ShowAllSoalSiswa(mapelID int) ([]SoalSiswa, error)
 }
 
 // struct service
@@ -26,4 +29,15 @@ func (s *service) CreateSoal(inputSoal InputSoal, userID int) error {
 	}
 
 	return nil
+}
+
+// func show all soal untuk siswa
+func (s *service) ShowAllSoalSiswa(mapelID int) ([]SoalSiswa, error) {
+	// panggil function GetAllSoalSiswa
+	soal, err := s.repository.GetAllSoalSiswa(mapelID)
+	if err != nil {
+		return soal, errors.New("gagal mengambil soal")
+	}
+
+	return soal, nil
 }
