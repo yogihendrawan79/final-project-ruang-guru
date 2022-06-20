@@ -4,7 +4,7 @@ import "database/sql"
 
 // kontrak
 type Repository interface {
-	Save(inputSoal InputSoal) error
+	Save(inputSoal InputSoal, userID int) error
 }
 
 // struct repository
@@ -18,7 +18,7 @@ func NewRepository(db *sql.DB) *repository {
 }
 
 // bikin function untuk save data opsi soal ke table opsi_soal
-func (r *repository) Save(inputSoal InputSoal) error {
+func (r *repository) Save(inputSoal InputSoal, userID int) error {
 	// query input opsi soal
 	query := `
 		INSERT INTO opsi_soal 
@@ -40,7 +40,7 @@ func (r *repository) Save(inputSoal InputSoal) error {
 		VALUES (?, ?, ?, ?, ?);`
 
 	// exec query input soal
-	_, err = r.db.Exec(query, inputSoal.IdMataPelajaran, inputSoal.IdOpsiSoal, inputSoal.IdUsers, inputSoal.KunciJawaban, inputSoal.Pertanyaan)
+	_, err = r.db.Exec(query, inputSoal.IdMataPelajaran, inputSoal.IdOpsiSoal, userID, inputSoal.KunciJawaban, inputSoal.Pertanyaan)
 	if err != nil {
 		return err
 	}

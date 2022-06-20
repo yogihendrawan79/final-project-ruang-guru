@@ -4,7 +4,7 @@ import "errors"
 
 // kontrak interface
 type Service interface {
-	CreateSoal(inputSoal InputSoal) error
+	CreateSoal(inputSoal InputSoal, userID int) error
 }
 
 // struct service
@@ -18,9 +18,9 @@ func NewService(repository Repository) *service {
 }
 
 // func create soal
-func (s *service) CreateSoal(inputSoal InputSoal) error {
+func (s *service) CreateSoal(inputSoal InputSoal, userID int) error {
 	// panggil function save soal
-	err := s.repository.Save(inputSoal)
+	err := s.repository.Save(inputSoal, userID)
 	if err != nil {
 		return errors.New("gagal menyimpan soal")
 	}
