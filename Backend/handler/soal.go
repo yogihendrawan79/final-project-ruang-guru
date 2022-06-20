@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rg-km/final-project-engineering-46/helper"
 	"github.com/rg-km/final-project-engineering-46/soal"
-	"github.com/rg-km/final-project-engineering-46/user"
 )
 
 // struct handlerSoal
@@ -22,18 +21,8 @@ func NewHandlerSoal(service soal.Service) *handlerSoal {
 // function buat handler create soal
 func (h *handlerSoal) CreateSoal(c *gin.Context) {
 
-	// ambil context dan ubah tipe ke User
-	user := c.MustGet("currentUser").(user.User)
-
-	// ambil role
-	if user.Role != "guru" {
-		MyErr := gin.H{
-			"error": "role not valid",
-		}
-		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
-		c.JSON(http.StatusForbidden, response)
-		return
-	}
+	// authorization
+	user := helper.IsGuru(c)
 
 	// inisiasi input soal
 	var inputSoal soal.InputSoal
@@ -50,7 +39,7 @@ func (h *handlerSoal) CreateSoal(c *gin.Context) {
 	}
 
 	// panggil function create soal
-	err = h.service.CreateSoal(inputSoal)
+	err = h.service.CreateSoal(inputSoal, user.Id_users)
 	if err != nil {
 		myErr := gin.H{
 			"error": err.Error(),
