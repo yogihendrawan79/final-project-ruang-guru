@@ -9,13 +9,11 @@ const Card = ({soals, onAnswer}) => {
 
   const handleAnswer = (indexSelected, indexOptionSelected) => {
     // e.preventDefault();
-
-    const newAnswer = {
-      indexSoal: indexSelected,
-      indexOption: indexOptionSelected
-    }
-
-    setAnswer((prev) => [...prev, newAnswer])
+    const newAnswer = [...answer]
+    newAnswer[indexSelected] = indexOptionSelected
+    setAnswer(newAnswer)
+    
+    
   }
   
 
@@ -38,28 +36,24 @@ const Card = ({soals, onAnswer}) => {
                   <a
                     href="#/"
                     onClick={() => handleAnswer(soal.id, option.a)}
-                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
                   >
                     {option.a}
                   </a>
                   <a
                     href="#/"
                     onClick={() => handleAnswer(soal.id, option.b)}
-                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
                   >
                     {option.b}
                   </a>
                   <a
                     href="#/"
                     onClick={() => handleAnswer(soal.id, option.c)}
-                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
                   >
                     {option.c}
                   </a>
                   <a
                     href="#/"
                     onClick={() => handleAnswer(soal.id, option.d)}
-                    className={[option?.selected ? "bg-primary" : "bg-slate-500"]}
                   >
                     {option.d}
                   </a>
