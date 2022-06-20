@@ -74,18 +74,8 @@ func (h *handlerUser) LoginUser(c *gin.Context) {
 
 // function percobaan untuk test middleware
 func (h *handlerUser) HomeSiswa(c *gin.Context) {
-	// ambil context dan ubah tipe ke User
-	user := c.MustGet("currentUser").(user.User)
-
-	// ambil role
-	if user.Role != "siswa" {
-		MyErr := gin.H{
-			"error": "role not valid",
-		}
-		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
-		c.JSON(http.StatusForbidden, response)
-		return
-	}
+	// cek authorization
+	user := helper.IsSiswa(c)
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hallo, Welcome home",
@@ -94,19 +84,8 @@ func (h *handlerUser) HomeSiswa(c *gin.Context) {
 }
 
 func (h *handlerUser) HomeGuru(c *gin.Context) {
-
-	// ambil context dan ubah tipe ke User
-	user := c.MustGet("currentUser").(user.User)
-
-	// ambil role
-	if user.Role != "guru" {
-		MyErr := gin.H{
-			"error": "role not valid",
-		}
-		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
-		c.JSON(http.StatusForbidden, response)
-		return
-	}
+	// cek authorization
+	user := helper.IsGuru(c)
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hallo, Welcome home",
