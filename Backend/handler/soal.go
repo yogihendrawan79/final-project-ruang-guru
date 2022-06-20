@@ -35,7 +35,7 @@ func (h *handlerSoal) CreateSoal(c *gin.Context) {
 		return
 	}
 
-	// inisiasi input soal dan opsi soal
+	// inisiasi input soal
 	var inputSoal soal.InputSoal
 
 	// binding
