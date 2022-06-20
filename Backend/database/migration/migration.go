@@ -65,6 +65,17 @@ func Migration() {
 		)
 	;`
 
+	createTableUsersMapel := `
+		CREATE TABLE IF NOT EXISTS users_mapel (
+			id_users_mapel INTEGER PRIMARY KEY AUTOINCREMENT,
+			id_users int,
+			id_mata_pelajaran int,
+			used bool,
+			FOREIGN KEY (id_users) REFERENCES users(id_users),
+			FOREIGN KEY (id_mata_pelajaran) REFERENCES mata_pelajaran(id_mata_pelajaran)
+		)
+	;`
+
 	// enkripsi password
 	passJohn, _ := bcrypt.GenerateFromPassword([]byte("john123456"), 10)
 	passWick, _ := bcrypt.GenerateFromPassword([]byte("wick123456"), 10)
@@ -87,11 +98,21 @@ func Migration() {
 	;`
 
 	// insert data mata pelajaran
-	insetMataPelajaran := `
+	insertMataPelajaran := `
 		INSERT INTO mata_pelajaran 
 			(mata_pelajaran, token, kkm, durasi, deadline)
 		VALUES 
-			("Matematika", "5801d15c-891a-41aa-9955-f2474db160f1", 80, "120:00:00", "2020-06-30")
+			("Matematika", "5801d15c-891a-41aa-9955-f2474db160f1", 80, "120:00:00", "2020-06-30"),
+			("IPA", "", 0, "", ""),
+			("IPS", "", 0, "", "")
+	;`
+
+	// insert data users_mapel
+	insertUsersMapel := `
+		INSERT INTO users_mapel
+			(id_users, id_mata_pelajaran, used)
+		VALUES 
+			(1, 1, false)
 	;`
 
 	// execute sql create table siswa
@@ -122,6 +143,13 @@ func Migration() {
 		return
 	}
 
+	//execute sql create table users_mapel
+	_, err = db.Exec(createTableUsersMapel)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
 	// execute sql insert table siswa
 	_, err = db.Exec(insertUsers, string(passJohn), string(passWick), string(passCarl), string(passStephan), string(passSally))
 	if err != nil {
@@ -129,7 +157,15 @@ func Migration() {
 		return
 	}
 
-	_, err = db.Exec(insetMataPelajaran)
+	// execute sql insert table mata pelajaran
+	_, err = db.Exec(insertMataPelajaran)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql insert table users_mapel
+	_, err = db.Exec(insertUsersMapel)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 		return
