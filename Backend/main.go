@@ -14,6 +14,8 @@ import (
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
 	"github.com/rg-km/final-project-engineering-46/soal"
+	tokensoal "github.com/rg-km/final-project-engineering-46/token-soal"
+	"github.com/rg-km/final-project-engineering-46/ujian"
 
 	// matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 	"github.com/rg-km/final-project-engineering-46/user"
@@ -42,6 +44,18 @@ func main() {
 	// handler soal
 	handlerSoal := handler.NewHandlerSoal(serviceSoal)
 
+	// repo token soal
+	repoTokenSoal := tokensoal.NewRepository(db)
+	// service token soal
+	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
+
+	// repo ujian
+	repoUjian := ujian.NewRepository(db)
+	// service ujian
+	serviceUjian := ujian.NewService(repoUjian)
+	// handler ujian
+	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
+
 	// deklarasi http server
 	r := gin.Default()
 
@@ -54,11 +68,13 @@ func main() {
 	siswa := r.Group("/api/siswa")
 	{
 		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
+		// handler pakai token
 	}
 	guru := r.Group("/api/guru")
 	{
 		guru.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeGuru)
 		guru.POST("/soal/create", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
+		guru.POST("/ujian/create", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
 	}
 
 	r.Run(":8080")
