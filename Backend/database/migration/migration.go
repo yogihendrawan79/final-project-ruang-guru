@@ -18,7 +18,7 @@ func Migration() {
 		return
 	}
 
-	CreateTableUsers := `
+	createTableUsers := `
 		CREATE TABLE IF NOT EXISTS users (
 			id_users INTEGER PRIMARY KEY AUTOINCREMENT, 
 			nama  VARCHAR(20),
@@ -29,6 +29,53 @@ func Migration() {
 		)
 	;
 	`
+
+	createTableMataPelajaran := `
+		CREATE TABLE IF NOT EXISTS mata_pelajaran (
+			id_mata_pelajaran INTEGER PRIMARY KEY AUTOINCREMENT, 
+			mata_pelajaran VARCHAR(50),
+			token UUID,
+			kkm int,
+			durasi time,
+			deadline date
+		)
+		;`
+
+	createTableSoal := `
+		CREATE TABLE IF NOT EXISTS soal (
+			id_soal INTEGER PRIMARY KEY AUTOINCREMENT,
+			id_mata_pelajaran int,
+			id_opsi_soal int,
+			id_users int,
+			kunci_jawaban VARCHAR(3),
+			pertanyaan TEXT,
+			FOREIGN KEY (id_mata_pelajaran) REFERENCES mata_pelajaran(id_mata_pelajaran),
+			FOREIGN KEY (id_opsi_soal) REFERENCES opsi_soal(id_opsi_soal),
+			FOREIGN KEY (id_users) REFERENCES users(id_users)
+		)
+		;`
+
+	createTableOpsiSoal := `
+		CREATE TABLE IF NOT EXISTS opsi_soal (
+			id_opsi_soal INTEGER PRIMARY KEY AUTOINCREMENT,
+			opsi_a VARCHAR(3),
+			opsi_b VARCHAR(3),
+			opsi_c VARCHAR(3),
+			opsi_d VARCHAR(3)
+		)
+	;`
+
+	createTableUsersMapel := `
+		CREATE TABLE IF NOT EXISTS users_mapel (
+			id_users_mapel INTEGER PRIMARY KEY AUTOINCREMENT,
+			id_users int,
+			id_mata_pelajaran int,
+			used bool,
+			FOREIGN KEY (id_users) REFERENCES users(id_users),
+			FOREIGN KEY (id_mata_pelajaran) REFERENCES mata_pelajaran(id_mata_pelajaran)
+		)
+	;`
+
 	// enkripsi password
 	passJohn, _ := bcrypt.GenerateFromPassword([]byte("john123456"), 10)
 	passWick, _ := bcrypt.GenerateFromPassword([]byte("wick123456"), 10)
@@ -37,7 +84,7 @@ func Migration() {
 	passSally, _ := bcrypt.GenerateFromPassword([]byte("sally123456"), 10)
 
 	//insert data siswa
-	InsertUsers := `
+	insertUsers := `
 		INSERT INTO users 
 			(nama, role, email, password, avatar) 
 		VALUES 
@@ -49,14 +96,76 @@ func Migration() {
 			
 
 	;`
+
+	// insert data mata pelajaran
+	insertMataPelajaran := `
+		INSERT INTO mata_pelajaran 
+			(mata_pelajaran, token, kkm, durasi, deadline)
+		VALUES 
+			("Matematika", "", 0, "", ""),
+			("IPA", "", 0, "", ""),
+			("IPS", "", 0, "", "")
+	;`
+
+	// insert data users_mapel
+	insertUsersMapel := `
+		INSERT INTO users_mapel
+			(id_users, id_mata_pelajaran, used)
+		VALUES 
+			(1, 1, false)
+	;`
+
 	// execute sql create table siswa
-	_, err = db.Exec(CreateTableUsers)
+	_, err = db.Exec(createTableUsers)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 		return
 	}
+
+	// execute sql create table mata_pelajaran
+	_, err = db.Exec(createTableMataPelajaran)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql create table opsi_soal
+	_, err = db.Exec(createTableOpsiSoal)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql create table soal
+	_, err = db.Exec(createTableSoal)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	//execute sql create table users_mapel
+	_, err = db.Exec(createTableUsersMapel)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
 	// execute sql insert table siswa
-	_, err = db.Exec(InsertUsers, string(passJohn), string(passWick), string(passCarl), string(passStephan), string(passSally))
+	_, err = db.Exec(insertUsers, string(passJohn), string(passWick), string(passCarl), string(passStephan), string(passSally))
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql insert table mata pelajaran
+	_, err = db.Exec(insertMataPelajaran)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+		return
+	}
+
+	// execute sql insert table users_mapel
+	_, err = db.Exec(insertUsersMapel)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 		return

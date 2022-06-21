@@ -13,6 +13,9 @@ import (
 	"github.com/rg-km/final-project-engineering-46/auth"
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
+	"github.com/rg-km/final-project-engineering-46/soal"
+	tokensoal "github.com/rg-km/final-project-engineering-46/token-soal"
+	"github.com/rg-km/final-project-engineering-46/ujian"
 	"github.com/rg-km/final-project-engineering-46/user"
 )
 
@@ -30,7 +33,26 @@ func main() {
 	// auth user
 	authUser := auth.NewServiceAuth()
 	// handler user
-	handlerUser := handler.NewHandler(serviceUser, authUser)
+	handlerUser := handler.NewHandlerUser(serviceUser, authUser)
+
+	// repo token soal
+	repoTokenSoal := tokensoal.NewRepository(db)
+	// service token soal
+	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
+
+	// repo soal
+	repoSoal := soal.NewRepository(db)
+	// service soal
+	serviceSoal := soal.NewService(repoSoal)
+	// handler soal
+	handlerSoal := handler.NewHandlerSoal(serviceSoal, serviceTokenSoal)
+
+	// repo ujian
+	repoUjian := ujian.NewRepository(db)
+	// service ujian
+	serviceUjian := ujian.NewService(repoUjian)
+	// handler ujian
+	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
 
 	// deklarasi http server
 	r := gin.Default()
@@ -44,10 +66,13 @@ func main() {
 	siswa := r.Group("/api/siswa")
 	{
 		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
+		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
 	}
 	guru := r.Group("/api/guru")
 	{
 		guru.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeGuru)
+		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
+		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
 	}
 
 	r.Run(":8080")

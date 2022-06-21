@@ -16,7 +16,7 @@ type handlerUser struct {
 }
 
 // function untuk newHandler
-func NewHandler(service user.Service, auth auth.Service) *handlerUser {
+func NewHandlerUser(service user.Service, auth auth.Service) *handlerUser {
 	return &handlerUser{service, auth}
 }
 
@@ -74,16 +74,9 @@ func (h *handlerUser) LoginUser(c *gin.Context) {
 
 // function percobaan untuk test middleware
 func (h *handlerUser) HomeSiswa(c *gin.Context) {
-	// ambil context dan ubah tipe ke User
-	user := c.MustGet("currentUser").(user.User)
-
-	// ambil role
+	// cek authorization
+	user := helper.IsSiswa(c)
 	if user.Role != "siswa" {
-		MyErr := gin.H{
-			"error": "role not valid",
-		}
-		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
-		c.JSON(http.StatusForbidden, response)
 		return
 	}
 
@@ -94,17 +87,9 @@ func (h *handlerUser) HomeSiswa(c *gin.Context) {
 }
 
 func (h *handlerUser) HomeGuru(c *gin.Context) {
-
-	// ambil context dan ubah tipe ke User
-	user := c.MustGet("currentUser").(user.User)
-
-	// ambil role
+	// cek authorization
+	user := helper.IsGuru(c)
 	if user.Role != "guru" {
-		MyErr := gin.H{
-			"error": "role not valid",
-		}
-		response := helper.ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
-		c.JSON(http.StatusForbidden, response)
 		return
 	}
 

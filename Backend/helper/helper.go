@@ -2,22 +2,12 @@ package helper
 
 import (
 	"fmt"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/rg-km/final-project-engineering-46/user"
 )
-
-// template response
-// "meta": {
-// 	"message": "Sukses Login",
-// 	"code":200,
-// 	"status": "Sukses!"
-// },
-// "data": {
-// 	"id": "1",
-// 	"nama" : "john",
-// 	"email": "john@gmail.com",
-// 	"role": "siswa"
-// }
 
 // bikin struct untuk template
 type template struct {
@@ -55,4 +45,40 @@ func ErrorBinding(err error) []string {
 	}
 
 	return myErr
+}
+
+// get role guru
+func IsGuru(c *gin.Context) user.User {
+	// ambil context dan ubah tipe ke User
+	user := c.MustGet("currentUser").(user.User)
+
+	// ambil role
+	if user.Role != "guru" {
+		MyErr := gin.H{
+			"error": "role not valid",
+		}
+		response := ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
+		c.JSON(http.StatusForbidden, response)
+		return user
+	}
+
+	return user
+}
+
+// get role siswa
+func IsSiswa(c *gin.Context) user.User {
+	// ambil context dan ubah tipe ke User
+	user := c.MustGet("currentUser").(user.User)
+
+	// ambil role
+	if user.Role != "siswa" {
+		MyErr := gin.H{
+			"error": "role not valid",
+		}
+		response := ResponsAPI("Akses ditolak", "Forbidden", http.StatusForbidden, MyErr)
+		c.JSON(http.StatusForbidden, response)
+		return user
+	}
+
+	return user
 }
