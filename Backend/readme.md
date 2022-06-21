@@ -23,3 +23,38 @@
         email   : stephan@gmail.com
         password: stephan123456 
     ```
+
+## API Reference
+
+#### Login
+
+```http
+  POST /api/login
+```
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Email         | `-`       | `string` | **Required**|
+| Password         | `-`       | `string` | **Required**|
+
+#### Page Siswa
+
+```http
+  GET /api/siswa/home
+```
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+
+
+#### Page Guru
+
+```http
+  GET /api/guru/home
+```
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+

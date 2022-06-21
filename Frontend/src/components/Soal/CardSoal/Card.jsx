@@ -1,60 +1,53 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import React from 'react'
 import './card.css'
 
-const Card = ({soals, onAnswer}) => {
-  const [answer, setAnswer] = useState([])
-
-  const handleAnswerA = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.a)
-    ))
-  }
-  const handleAnswerB = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.b)
-    ))
-  }
-  const handleAnswerC = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.c)
-    ))
-  }
-  const handleAnswerD = (e) => {
-    e.preventDefault();
-    
-    soals.map((soal) => (
-      setAnswer(soal.option.d)
-    ))
-  }
-
-  useEffect(() => {
-    console.log("Answer", answer)
-  }, [answer])
+const Card = ({ soals, onAnswer, answer }) => {
 
 
   return (
     <>
-      <div className="card-soal border-2 border-primary px-5 py-5">
+      <div>
         {soals.map((soal) => (
           <div key={soal.id}>
             <div>
               <p>{soal.question}</p>
             </div>
-            <div className="mt-2 cursor-default grid grid-rows-4">
-              <a href='#/' onClick={handleAnswerA}>{soal.option.a}</a>
-              <a href='#/' onClick={handleAnswerB}>{soal.option.b}</a>
-              <a href='#/' onClick={handleAnswerC}>{soal.option.c}</a>
-              <a href='#/' onClick={handleAnswerD}>{soal.option.d}</a>
+            <div className="mt-2 cursor-pointer grid grid-rows-4 ">
+              {soal.option.map((option, index) => (
+                <div key={index}>
+                  <a
+                    href="#/"
+                    onClick={() => onAnswer(soal.id, option.a)}
+                    className={[answer[soal.id] === option.a ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+                  >
+                    {option.a}
+                  </a>
+                  <a
+                    href="#/"
+                    onClick={() => onAnswer(soal.id, option.b)}
+                    className={[answer[soal.id] === option.b ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+                  >
+                    {option.b}
+                  </a>
+                  <a
+                    href="#/"
+                    onClick={() => onAnswer(soal.id, option.c)}
+                    className={[answer[soal.id] === option.c ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+                  >
+                    {option.c}
+                  </a>
+                  <a
+                    href="#/"
+                    onClick={() => onAnswer(soal.id, option.d)}
+                    className={[answer[soal.id] === option.d ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+                  >
+                    {option.d}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+          ))}
       </div>
     </>
   )

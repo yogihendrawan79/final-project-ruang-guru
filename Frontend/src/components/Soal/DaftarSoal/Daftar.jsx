@@ -1,7 +1,7 @@
 import React from 'react'
 import './daftar.css'
 
-function Daftar({ soalsPerPage, totalSoals, paginate }) {
+function Daftar({ soalsPerPage, totalSoals, paginate, currentPage }) {
   const pageNumbers = [];
 
   for(let i = 1; i <= Math.ceil(totalSoals / soalsPerPage); i++) {
@@ -10,12 +10,16 @@ function Daftar({ soalsPerPage, totalSoals, paginate }) {
 
   return (
     <>
-      <div className="border-2 border-primary px-5 py-5 ml-10">
+      <div className="w-64 border-2 border-primary px-5 py-5 ml-10">
         <p className='flex justify-center'>Daftar Soal</p>
         <div className='grid grid-cols-4 gap-4'>
           {pageNumbers.map(number => (
-            <div key={number} className="mt-5 m-2 text-white ">
-              <a href="#/" onClick={() => paginate(number)} className="bg-primary rounded p-2">
+            <div key={number} className="mt-5 m-2 text-white">
+              <a
+                href="#/"
+                onClick={() => paginate(number)}
+                className={[ number === currentPage ? 'bg-primary text-white' : 'bg-transparent text-primary', 'font-bold', 'text-center', 'p-2', 'rounded' ].join(' ')}
+              >
                 {number}
               </a>
             </div>

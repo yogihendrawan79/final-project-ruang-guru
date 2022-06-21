@@ -6,7 +6,11 @@ type userFormat struct {
 	Nama     string `json:"nama"`
 	Email    string `json:"email"`
 	Role     string `json:"role"`
-	Avatar string `json:"avatar"`
+	Avatar   string `json:"avatar"`
+}
+
+type loginFormat struct {
+	Token string `json:"token"`
 }
 
 // function genereate format
@@ -16,6 +20,13 @@ func FormatUser(input User) userFormat {
 		Nama:     input.Nama,
 		Email:    input.Email,
 		Role:     input.Role,
-		Avatar : input.Avatar,
+		Avatar:   input.Avatar,
+	}
+}
+
+// function login response format
+func ResponsLogin(token string) loginFormat {
+	return loginFormat{
+		Token: token,
 	}
 }
