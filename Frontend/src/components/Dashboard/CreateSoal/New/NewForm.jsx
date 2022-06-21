@@ -7,22 +7,22 @@ function NewForm() {
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <div className="p-4">
             <form>
+              <div class="mb-6">
+                <label
+                  for="mata_pelajaran"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Mata Pelajaran
+                </label>
+                <input
+                  type="text"
+                  id="mata_pelajaran"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Isi dengan nama Mata Pelajaran"
+                  required
+                />
+              </div>
               <div class="grid gap-6 mb-6 lg:grid-cols-2">
-                <div>
-                  <label
-                    for="mapel"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Mata Pelajaran
-                  </label>
-                  <input
-                    type="text"
-                    id="Mapel"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Isi Dengan Nama Mata Pelajaran..."
-                    required
-                  />
-                </div>
                 <div>
                   <label
                     for="kkm"
@@ -34,67 +34,50 @@ function NewForm() {
                     type="text"
                     id="kkm"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nilai Minimum KKM"
+                    placeholder="Nilai KKM"
                     required
                   />
                 </div>
                 <div>
                   <label
-                    for="start_time"
+                    for="duration"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
-                    Start
+                    Durasi
                   </label>
                   <input
-                    type="time"
-                    id="start_time"
+                    type="text"
+                    id="duration"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Start Time"
+                    placeholder="Durasi Pengerjaan"
                     required
                   />
                 </div>
                 <div>
                   <label
-                    for="end_time"
+                    for="deadline_date"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
-                    End
-                  </label>
-                  <input
-                    type="time"
-                    id="end_time"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="End Time"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    for="available_date"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Available
+                    Deadline Date
                   </label>
                   <input
                     type="date"
-                    id="available_date"
+                    id="deadline_date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="When the Task is Available"
                     required
                   />
                 </div>
                 <div>
                   <label
-                    for="deadline"
+                    for="deadline_time"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
-                    Deadline
+                    Deadline Time
                   </label>
                   <input
-                    type="date"
-                    id="deadline"
+                    type="time"
+                    id="deadline_time"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="When the Task is Will End"
                     required
                   />
                 </div>
@@ -104,7 +87,7 @@ function NewForm() {
               type="submit"
               class="text-white border border-gray-300 bg-blue-700 hover:bg-blue-800 text-sm rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium block w-full p-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5"
             >
-              Create Soal
+              Create Ujian
             </button>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
               <div class="p-4">
