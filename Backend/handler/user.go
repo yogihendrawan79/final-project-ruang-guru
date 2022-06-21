@@ -76,6 +76,9 @@ func (h *handlerUser) LoginUser(c *gin.Context) {
 func (h *handlerUser) HomeSiswa(c *gin.Context) {
 	// cek authorization
 	user := helper.IsSiswa(c)
+	if user.Role != "siswa" {
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hallo, Welcome home",
@@ -86,6 +89,9 @@ func (h *handlerUser) HomeSiswa(c *gin.Context) {
 func (h *handlerUser) HomeGuru(c *gin.Context) {
 	// cek authorization
 	user := helper.IsGuru(c)
+	if user.Role != "guru" {
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hallo, Welcome home",

@@ -25,6 +25,9 @@ func (h *handlerSoal) CreateSoal(c *gin.Context) {
 
 	// authorization
 	user := helper.IsGuru(c)
+	if user.Role != "guru" {
+		return
+	}
 
 	// inisiasi input soal
 	var inputSoal soal.InputSoal
@@ -65,6 +68,9 @@ func (h *handlerSoal) CreateSoal(c *gin.Context) {
 func (h *handlerSoal) ShowAllSoalSiswa(c *gin.Context) {
 	// authorization
 	user := helper.IsSiswa(c)
+	if user.Role != "siswa" {
+		return
+	}
 
 	// inisiasi input token
 	var input soal.InputTokenSiswa

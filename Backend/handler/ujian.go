@@ -23,7 +23,10 @@ func NewHandlerUjian(tokenSoal tokensoal.Service, ujian ujian.Service) *handlerU
 // handler create ujian
 func (h *handlerUjian) CreateUjian(c *gin.Context) {
 	// authorization
-	helper.IsGuru(c)
+	user := helper.IsGuru(c)
+	if user.Role != "guru" {
+		return
+	}
 
 	// deklarasi input ujian
 	var input ujian.InputUjian

@@ -102,7 +102,7 @@ func Migration() {
 		INSERT INTO mata_pelajaran 
 			(mata_pelajaran, token, kkm, durasi, deadline)
 		VALUES 
-			("Matematika", "5801d15c-891a-41aa-9955-f2474db160f1", 80, "120:00:00", "2020-06-30"),
+			("Matematika", "", 0, "", ""),
 			("IPA", "", 0, "", ""),
 			("IPS", "", 0, "", "")
 	;`

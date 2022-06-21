@@ -71,8 +71,8 @@ func main() {
 	guru := r.Group("/api/guru")
 	{
 		guru.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeGuru)
-		guru.POST("/soal/create", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
-		guru.POST("/ujian/create", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
+		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
+		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
 	}
 
 	r.Run(":8080")
