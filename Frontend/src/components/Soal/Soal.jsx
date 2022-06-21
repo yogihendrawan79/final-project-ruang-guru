@@ -29,28 +29,34 @@ function Soal() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
-  // const handleOnAnswer = (selectedAnswer) => {
-  //   setAnswer((prev) => [prev, ...selectedAnswer])
-  // }
-
   
-  // (selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer])
-  
-  // setAnswer((selectedAnswer) => setAnswer((prev) => [prev, ...selectedAnswer]))
-  // console.log("All Answer", answer)
-
-  
-  const handleAllAnswer = () => {
-    console.log("All Answer", answer)
-
-    // const fetchAnswer = async () => {
-    //   const res = await axios.post('http://localhost:8000/answer', {
-    //     answer: answer
-    //   })
-    //   console.log("Answer", res.data)
-    // }
+  const handleAllAnswer = (indexSelected, indexOptionSelected) => {
+    const newAnswer = {...answer}
+    newAnswer[indexSelected] = indexOptionSelected
+    setAnswer(newAnswer)
+    
+    if (currentPage === soals.length) {
+      return;
+    } else {
+      setCurrentPage(currentPage + 1)
+    }
   }
-  // console.log("options", options)
+
+  useEffect(() => {
+    console.log("Answer", answer)
+  }, [answer])
+
+  const nextQuestion = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  const prevQuestion = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
+  const handleSubmitAnswer = () => {
+    console.log("Submited", answer)
+  }
 
   return (
     <>
@@ -61,14 +67,33 @@ function Soal() {
         image={Images}
       />
       <div className='flex justify-center mt-10 ml-9'>
-        <Card
-          soals={currentSoals}
-          onAnswer={handleAllAnswer}
-        />
+        <div className="card-soal border-2 border-primary px-5 py-5">
+          <Card
+            soals={currentSoals}
+            onAnswer={handleAllAnswer}
+            answer={answer}
+          />
+          <div className='mt-64 flex justify-between'>
+            <button  className='bg-primary p-2 rounded-md text-white'>
+              <a onClick={() => prevQuestion} href="/#">Kembali</a>
+            </button>
+            {
+              currentPage === soals.length ?
+              <button className='bg-primary p-2 rounded-md text-white'>
+                <a onClick={() => handleSubmitAnswer} href="/#">Selesai</a>
+              </button>
+              : 
+              <button onClick={() => nextQuestion} className='bg-primary p-2 rounded-md text-white'>
+                <a onClick={() => prevQuestion} href="/#">Selanjutnya</a>
+              </button>
+            }
+          </div>
+        </div>
         <Daftar
           soalsPerPage={soalsPerPage}
           totalSoals={soals.length}
           paginate={paginate}
+          currentPage={currentPage}
         />
       </div>
     </>
