@@ -4,12 +4,13 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
+	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 )
 
 // bikin kontrak
 type Service interface {
 	GenerateTokenSoal(mapelID int) (uuid.UUID, error)
-	ValidasiTokenSoal(userID int, inputToken string) (MataPelajaran, error)
+	ValidasiTokenSoal(userID int, inputToken string) (matapelajaran.MataPelajaran, error)
 }
 
 // bikin struct
@@ -42,7 +43,7 @@ func (s *service) GenerateTokenSoal(mapelID int) (uuid.UUID, error) {
 }
 
 // bikin function untuk validasi token soal
-func (s *service) ValidasiTokenSoal(userID int, inputToken string) (MataPelajaran, error) {
+func (s *service) ValidasiTokenSoal(userID int, inputToken string) (matapelajaran.MataPelajaran, error) {
 	// inisiasi waktu hari ini
 	// now := time.Now()
 
