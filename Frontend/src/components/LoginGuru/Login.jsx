@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import NavbarLogo from '../Navbar/NavbarLogo'
-import './login.css'
 import axios from 'axios'
 import loginimage from '../../assets/loginpage.png'
 
@@ -24,7 +23,7 @@ const Login = () => {
         }
       )
       localStorage.setItem('token', res.data.data.token)
-      navigate('/token')
+      navigate('/guru/dashboard')
 
       // console.log("Respon API Login", res.data)
     } catch (err) {
