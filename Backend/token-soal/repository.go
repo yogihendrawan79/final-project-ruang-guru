@@ -102,7 +102,19 @@ func (r *repository) IsUsed(userID, mapelID int) (int, error) {
 	// binding
 	err := data.Scan(&used)
 	if err != nil {
-		return used, err
+		sqlInsert := `
+			INSERT INTO users_mapel 
+				(id_users, id_mata_pelajaran, used)
+			VALUES
+				(?, ?, false)
+		;`
+
+		// execute
+		_, err = r.db.Exec(sqlInsert, userID, mapelID)
+		if err != nil {
+			return used, err
+		}
+
 	}
 
 	return used, nil
