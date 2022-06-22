@@ -15,8 +15,3 @@ type OpsiSoal struct {
 	OpsiC string `json:"opsi_c" binding:"required"`
 	OpsiD string `json:"opsi_d" binding:"required"`
 }
-
-// struct input token oleh siswa untuk mendaptkan semua list soal
-type InputTokenSiswa struct {
-	Token string `json:"token" binding:"required"`
-}

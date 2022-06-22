@@ -10,7 +10,7 @@ import (
 // kontrak
 type Repository interface {
 	UpdateTokenSoal(tokenSoal uuid.UUID, mapelID int) (uuid.UUID, error)
-	GetMapelByToken(inputToken string) (MataPelajaran, error)
+	GetMapelByToken(inputToken string) (ResponseTokenValid, error)
 	IsUsed(userID, mapelID int) (int, error)
 }
 
@@ -58,13 +58,13 @@ func (r *repository) UpdateTokenSoal(tokenSoal uuid.UUID, mapelID int) (uuid.UUI
 }
 
 // function untuk mengambil token dan deadline
-func (r *repository) GetMapelByToken(inputToken string) (MataPelajaran, error) {
+func (r *repository) GetMapelByToken(inputToken string) (ResponseTokenValid, error) {
 	// inisiasi mata pelajaran
-	var mapel MataPelajaran
+	var response ResponseTokenValid
 
 	// query
 	sql := `
-		SELECT * FROM mata_pelajaran WHERE token = ?
+		SELECT token,id_mata_pelajaran FROM mata_pelajaran WHERE token = ?
 	;`
 
 	// execute query
@@ -72,18 +72,14 @@ func (r *repository) GetMapelByToken(inputToken string) (MataPelajaran, error) {
 
 	// binding
 	err := data.Scan(
-		&mapel.IdMataPelajaran,
-		&mapel.MataPelajaran,
-		&mapel.Token,
-		&mapel.KKM,
-		&mapel.Durasi,
-		&mapel.Deadline,
+		&response.TokenUjian,
+		&response.IDMataPelajaran,
 	)
 	if err != nil {
-		return mapel, errors.New("token tidak terdaftar")
+		return response, errors.New("token tidak terdaftar")
 	}
 
-	return mapel, nil
+	return response, nil
 }
 
 // function untuk mengambil data used token
