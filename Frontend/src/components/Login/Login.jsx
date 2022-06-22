@@ -12,44 +12,47 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log ({email, password})
-    axios.post('http://localhost:8000/login', 
-    {
-      email: email,
-      password: password
-    })
-    .then(res => {
-      console.log(res.data)
-      console.log(res.meta)
-      alert ('Login Successful')
-      navigate('/Token')
+    console.log({ email, password })
+    axios.post('/login',
+      {
+        email: email,
+        password: password
+      },
+      {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then(res => {
+        console.log(res.data)
+        localStorage.setItem('token', res.data.data.token)
+        console.log(localStorage.getItem('token'))
+        // alert('Berhasil masuk')
+        navigate('/Token')
+      })
 
-    })
-    
-    .catch(err => {
-      console.log(err)
-      alert ('Login Failed')
-    })
+      .catch(err => {
+        console.log(err)
+        alert('Email atau password salah')
+      })
   }
 
-  
-    const handleEmail = (e) => {
-      setEmail(e.target.value)
-  
-    }
-  
-    const handlePassword = (e) => {
-      setPassword(e.target.value)
-    }
-  
 
-  // let navigate = useNavigate();
+  const handleEmail = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value)
+  }
+
   // Menggunakan useNavigate dari reac-router-dom untuk mengecek role dan redirect ke dashboard atau ujian
   return (
     <div className="bg-primary w-full h-full login">
       <NavbarLogo logo=".ET" />
       <div className="grid grid-cols-2 ">
-        <div className='sm:block max-w-[1240px] mx-auto grid md:grid-cols-2'>
+        <div className='sm:block max-w-[1240px] mx-auto'>
           <img className="mt-40 object-cover h-48 w-97 pt-98" src={loginimage} alt='' />
         </div>
 
@@ -62,7 +65,7 @@ const Login = () => {
             </div>
             <div className="flex flex-col text-black-300 py-2">
               <label>Kata Sandi</label>
-              <input className="border-2 border-violet-600 p-2 w-full rounded-full" type="password" onChange={handlePassword}/>
+              <input className="border-2 border-violet-600 p-2 w-full rounded-full" type="password" onChange={handlePassword} />
             </div>
             <button className="hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 align-content-center mt-5 w-full bg-blue-500 text-white p-2 rounded-full">Masuk</button>
           </form>
