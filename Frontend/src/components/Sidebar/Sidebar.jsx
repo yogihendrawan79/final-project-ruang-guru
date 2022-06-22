@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
-import BankSoal from "../Dashboard/BankSoal/BankSoal";
-import Bank from "../Dashboard/BankSoal/Bank/Bank";
-import AddForm from "../Dashboard/BankSoal/Add/AddForm";
-import CreateSoal from "../Dashboard/CreateSoal/CreateSoal";
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -82,10 +78,9 @@ function Sidebar() {
             image={index.image}
           />
         ))}
-        {/* <BankSoal /> */}
-        {/* <Bank /> */}
-        {/* <AddForm /> */}
-        <CreateSoal />
+        <main>
+          <Outlet />
+        </main>
       </div>
     </div>
   );

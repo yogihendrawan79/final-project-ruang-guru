@@ -75,28 +75,31 @@ func (h *handlerUser) LoginUser(c *gin.Context) {
 // function percobaan untuk test middleware
 func (h *handlerUser) HomeSiswa(c *gin.Context) {
 	// cek authorization
-	user := helper.IsSiswa(c)
-	if user.Role != "siswa" {
+	currentUser := helper.IsSiswa(c)
+	if currentUser.Role != "siswa" {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Hallo, Welcome home",
-		"role":    user.Role,
-	})
+	// format user
+	data := user.FormatUser(currentUser)
+	// format API Response
+	response := helper.ResponsAPI("Berhasil Login", "Sukses", http.StatusOK, data)
+	c.JSON(http.StatusOK, response)
 }
 
 func (h *handlerUser) HomeGuru(c *gin.Context) {
 	// cek authorization
-	user := helper.IsGuru(c)
-	if user.Role != "guru" {
+	currentUser := helper.IsGuru(c)
+	if currentUser.Role != "guru" {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Hallo, Welcome home",
-		"role":    user.Role,
-	})
+	// format user
+	data := user.FormatUser(currentUser)
+	// format API Response
+	response := helper.ResponsAPI("Berhasil Login", "Sukses", http.StatusOK, data)
+	c.JSON(http.StatusOK, response)
+
 }
 
 // function buat handler logout
