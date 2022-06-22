@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Result from "./components/Result/Result";
 import Login from "./components/Login/Login";
 import Token from "./components/Token/Token";
-import BankSoal from "./components/Dashboard/BankSoal/BankSoal";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
   return (
@@ -13,12 +13,11 @@ function App() {
         <Route index path="/" element={<Soal />} />
         <Route path="login" element={<Login />} />
         <Route path="token" element={<Token />} />
-        <Route path="hasil-ujian" element={<Result />} />
-          {/* <Route index path=":mapel" element={<Result />} /> */}
-        {/* </Route> */}
-        <Route path="/dashboard/:id">
-          {/* Sisanya disesuaikan */}
-          <Route index path="/dashboard/:id/bank-soal" element={<BankSoal />} />
+        <Route path="hasil-ujian">
+          <Route index path=":mapel" element={<Result />} />
+        </Route>
+        <Route path="/guru">
+          <Route index path="/guru/dashboard" element={<Sidebar />} />
         </Route>
       </Routes>
     </div>
