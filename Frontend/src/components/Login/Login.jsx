@@ -10,34 +10,27 @@ const Login = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log({ email, password })
-    axios.post('/login',
-      {
-        email: email,
-        password: password
-      },
-      {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
+
+    
+    try {
+      const res = await axios.post('/login', {email: email, password: password}, 
+        {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
         }
-      }
-    )
-      .then(res => {
-        console.log(res.data)
-        localStorage.setItem('token', res.data.data.token)
-        console.log(localStorage.getItem('token'))
-        // alert('Berhasil masuk')
-        navigate('/Token')
-      })
+      )
+      localStorage.setItem('token', res.data.data.token)
+      navigate('/token')
 
-      .catch(err => {
-        console.log(err)
-        alert('Email atau password salah')
-      })
+      // console.log("Respon API Login", res.data)
+    } catch (err) {
+      console.log("Gagal Login", err)
+    }
   }
-
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
@@ -47,7 +40,6 @@ const Login = () => {
     setPassword(e.target.value)
   }
 
-  // Menggunakan useNavigate dari reac-router-dom untuk mengecek role dan redirect ke dashboard atau ujian
   return (
     <div className="bg-primary w-full h-full login">
       <NavbarLogo logo=".ET" />
