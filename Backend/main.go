@@ -57,6 +57,9 @@ func main() {
 	// deklarasi http server
 	r := gin.Default()
 
+	// CORS
+	r.Use(CorsMiddleware())
+
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
 	// route logout
@@ -128,5 +131,22 @@ func AuthMiddleware(authService auth.Service, userSerivce user.Service) gin.Hand
 
 		// simpan user ke context
 		c.Set("currentUser", user)
+	}
+}
+
+// CORS
+func CorsMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Method", "*")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(200)
+			return
+		}
+
+		c.Next()
 	}
 }
