@@ -38,7 +38,7 @@ func (h *handlerToken) ValidateTokenUjian(c *gin.Context) {
 	}
 
 	// panggil funtion validasi token
-	respon, err := h.service.ValidasiTokenSoal(currentUser.Id_users, input.Token)
+	mapel, err := h.service.ValidasiTokenSoal(currentUser.Id_users, input.Token)
 	if err != nil {
 		myErr := gin.H{
 			"error": err.Error(),
@@ -48,10 +48,8 @@ func (h *handlerToken) ValidateTokenUjian(c *gin.Context) {
 		return
 	}
 
-	data := gin.H{
-		"id_mata_pelajaran": respon.IDMataPelajaran,
-		"token":             respon.TokenUjian,
-	}
+	// format response
+	data := tokensoal.TokenValidFormatter(mapel)
 	reponse := helper.ResponsAPI("valid", "sukses", http.StatusOK, data)
 	c.JSON(http.StatusOK, reponse)
 }
