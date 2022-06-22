@@ -24,13 +24,13 @@
         password: stephan123456 
     ```
 
+
 ## API Reference
 
 #### Login
 
-```http
+
   POST /api/login
-```
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
@@ -39,22 +39,63 @@
 
 #### Page Siswa
 
-```http
   GET /api/siswa/home
-```
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
 | Token        | `-`       | `jwt` | **Add token into header**|
 
+#### Siswa Validasi Token
 
-#### Page Guru
+  POST /api/siswa/token
 
-```http
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| Token        | `-`       | `string` | **Add into body**|
+
+#### Show All Soal Siswa
+
+  GET /api/siswa/soal
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| Token        | `-`       | `string` | **Add into body**|
+
+
+#### Dahboard Guru
+
   GET /api/guru/home
-```
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
 | Token        | `-`       | `jwt` | **Add token into header**|
+
+#### Guru Create Soal
+
+  POST /api/guru/create/soal
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| id_mata_pelajaran        | `-`       | `int` | **Add into body**|
+| id_opsi_soal        | `-`       | `int` | **Add into body**|
+| pertanyaan        | `-`       | `string` | **Add into body**|
+| kunci_jawaban        | `-`       | `string` | **Add into body**|
+| opsi_jawaban [opsi_a, opsi_b, opsi_c, opsi_d]        | `-`       | `array` | **Add into body**|
+
+#### Guru Create Ujian
+
+  POST /api/guru/create/soal
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| id_mata_pelajaran        | `-`       | `int` | **Add into body**|
+| kkm        | `-`       | `int` | **Add into body**|
+| durasi        | `-`       | `int` | **Add into body**|
+| deadline        | `-`       | `date` | **Add into body**|
+
+
 
