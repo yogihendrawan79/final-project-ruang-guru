@@ -107,14 +107,6 @@ func Migration() {
 			("IPS", "", 0, "", "")
 	;`
 
-	// insert data users_mapel
-	insertUsersMapel := `
-		INSERT INTO users_mapel
-			(id_users, id_mata_pelajaran, used)
-		VALUES 
-			(1, 1, false)
-	;`
-
 	// execute sql create table siswa
 	_, err = db.Exec(createTableUsers)
 	if err != nil {
@@ -163,14 +155,6 @@ func Migration() {
 		log.Fatalf("error: %v", err)
 		return
 	}
-
-	// execute sql insert table users_mapel
-	_, err = db.Exec(insertUsersMapel)
-	if err != nil {
-		log.Fatalf("error: %v", err)
-		return
-	}
-
 }
 
 func main() {
