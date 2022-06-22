@@ -47,15 +47,28 @@ function Soal() {
   }, [answer])
 
   const nextQuestion = () => {
-    setCurrentPage(currentPage + 1)
+    if (currentPage === soals.length) {
+      return;
+    } else {
+      setCurrentPage(currentPage + 1)
+    }
   }
 
   const prevQuestion = () => {
-    setCurrentPage(currentPage - 1)
+    if (currentPage === 1) {
+      return;
+    } else {
+      setCurrentPage(currentPage - 1)
+    }
   }
 
   const handleSubmitAnswer = () => {
-    console.log("Submited", answer)
+    let answers = [];
+    for (let key in answer) {
+      answers.push({ id_soal: key, answer: answer[key][0] })
+    }
+
+    console.log("Submit Jawaban : ", answers)
   }
 
   return (
@@ -75,16 +88,16 @@ function Soal() {
           />
           <div className='mt-64 flex justify-between'>
             <button  className='bg-primary p-2 rounded-md text-white'>
-              <a onClick={() => prevQuestion} href="/#">Kembali</a>
+              <a onClick={prevQuestion} href="/#">Kembali</a>
             </button>
             {
               currentPage === soals.length ?
               <button className='bg-primary p-2 rounded-md text-white'>
-                <a onClick={() => handleSubmitAnswer} href="/#">Selesai</a>
+                <a onClick={handleSubmitAnswer} href="/#">Selesai</a>
               </button>
               : 
-              <button onClick={() => nextQuestion} className='bg-primary p-2 rounded-md text-white'>
-                <a onClick={() => prevQuestion} href="/#">Selanjutnya</a>
+              <button  className='bg-primary p-2 rounded-md text-white'>
+                <a onClick={nextQuestion} href="/#">Selanjutnya</a>
               </button>
             }
           </div>
@@ -94,6 +107,7 @@ function Soal() {
           totalSoals={soals.length}
           paginate={paginate}
           currentPage={currentPage}
+          answer={answer}
         />
       </div>
     </>
