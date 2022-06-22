@@ -64,54 +64,54 @@ func (h *handlerSoal) CreateSoal(c *gin.Context) {
 
 }
 
-// // function handler untuk menampilkan semua soal ketika token valid
-// func (h *handlerSoal) ShowAllSoalSiswa(c *gin.Context) {
-// 	// authorization
-// 	user := helper.IsSiswa(c)
-// 	if user.Role != "siswa" {
-// 		return
-// 	}
+// function handler untuk menampilkan semua soal ketika token valid
+func (h *handlerSoal) ShowAllSoalSiswa(c *gin.Context) {
+	// authorization
+	currentUser := helper.IsSiswa(c)
+	if currentUser.Role != "siswa" {
+		return
+	}
 
-// 	// inisiasi input token
-// 	var input soal.InputTokenSiswa
+	// input token dari siswa
+	var input tokensoal.InputTokenSiswa
 
-// 	// binding
-// 	err := c.ShouldBindJSON(&input)
-// 	if err != nil {
-// 		myErr := helper.ErrorBinding(err)
-// 		response := helper.ResponsAPI("Gagal binding", "gagal", http.StatusBadRequest, myErr)
-// 		c.JSON(http.StatusBadRequest, response)
-// 		return
-// 	}
+	// binding
+	err := c.ShouldBindJSON(&input)
+	if err != nil {
+		myErr := helper.ErrorBinding(err)
+		response := helper.ResponsAPI("gagal mengambil token", "gagal", http.StatusBadRequest, myErr)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
 
-// 	// validasi token
-// 	mapel, err := h.tokenSoal.ValidasiTokenSoal(user.Id_users, input.Token)
-// 	if err != nil {
-// 		data := gin.H{
-// 			"error": err.Error(),
-// 		}
-// 		response := helper.ResponsAPI("Gagal validasi token", "gagal", http.StatusBadRequest, data)
-// 		c.JSON(http.StatusBadRequest, response)
-// 		return
-// 	}
+	// validasi token
+	mapel, err := h.tokenSoal.ValidasiTokenSoal(currentUser.Id_users, input.Token)
+	if err != nil {
+		data := gin.H{
+			"error": err.Error(),
+		}
+		response := helper.ResponsAPI("Gagal validasi token", "gagal", http.StatusBadRequest, data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
 
-// 	// tampilkan semua soal
-// 	soals, err := h.soal.ShowAllSoalSiswa(mapel.IdMataPelajaran)
-// 	if err != nil {
-// 		data := gin.H{
-// 			"error": err.Error(),
-// 		}
-// 		response := helper.ResponsAPI("Gagal mengambil soal", "gagal", http.StatusBadRequest, data)
-// 		c.JSON(http.StatusBadRequest, response)
-// 		return
-// 	}
+	// tampilkan semua soal
+	soals, err := h.soal.ShowAllSoalSiswa(mapel.IdMataPelajaran)
+	if err != nil {
+		data := gin.H{
+			"error": err.Error(),
+		}
+		response := helper.ResponsAPI("Gagal mengambil soal", "gagal", http.StatusBadRequest, data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
 
-// 	data := gin.H{
-// 		"mapel":  mapel.MataPelajaran,
-// 		"durasi": mapel.Durasi,
-// 		"soal":   soals,
-// 	}
+	data := gin.H{
+		"mapel":  mapel.MataPelajaran,
+		"durasi": mapel.Durasi,
+		"soal":   soals,
+	}
 
-// 	response := helper.ResponsAPI("Sukses mengambil soal", "sukses", http.StatusOK, data)
-// 	c.JSON(http.StatusOK, response)
-// }
+	response := helper.ResponsAPI("Sukses mengambil soal", "sukses", http.StatusOK, data)
+	c.JSON(http.StatusOK, response)
+}
