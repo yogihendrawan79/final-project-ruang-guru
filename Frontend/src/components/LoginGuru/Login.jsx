@@ -23,11 +23,12 @@ const Login = () => {
         }
       )
       localStorage.setItem('token', res.data.data.token)
-      navigate('/guru/dashboard')
+      navigate('/guru/bank-soal')
 
       // console.log("Respon API Login", res.data)
     } catch (err) {
       console.log("Gagal Login", err)
+      alert("email atau password salah")
     }
   }
 

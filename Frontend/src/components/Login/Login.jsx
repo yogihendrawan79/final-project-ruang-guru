@@ -28,6 +28,7 @@ const Login = () => {
 
       // console.log("Respon API Login", res.data)
     } catch (err) {
+      alert("email atau password salah")
       console.log("Gagal Login", err)
     }
   }
