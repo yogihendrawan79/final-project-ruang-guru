@@ -72,13 +72,10 @@ func main() {
 
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
-	// route logout
-	r.GET("/api/logout", AuthMiddleware(authUser, serviceUser), handlerUser.LogoutUser)
 
 	// route group
 	siswa := r.Group("/api/siswa")
 	{
-		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
 		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
 		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
 
