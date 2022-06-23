@@ -8,6 +8,7 @@ import (
 type Repository interface {
 	Save(inputSoal InputSoal, userID int) error
 	GetAllSoalSiswa(mapelID int) ([]SoalSiswa, error)
+	GetAllSoalGuru(mapelID int) ([]SoalGuru, error)
 }
 
 // struct repository
@@ -89,4 +90,50 @@ func (r *repository) GetAllSoalSiswa(mapelID int) ([]SoalSiswa, error) {
 
 	return allSoal, nil
 
+}
+
+// function get all soal guru (bank soal)
+func (r *repository) GetAllSoalGuru(mapelID int) ([]SoalGuru, error) {
+	// inisasi return
+	var allSoal []SoalGuru
+
+	// query
+	sql := `
+	SELECT 
+		soal.id_soal,pertanyaan,kunci_jawaban,opsi_a, opsi_b, opsi_c, opsi_d  
+	FROM 
+		soal
+	JOIN 
+		opsi_soal on soal.id_opsi_soal = opsi_soal.id_opsi_soal
+	WHERE 
+		id_mata_pelajaran = ?
+	;`
+
+	// execute
+	data, err := r.db.Query(sql, mapelID)
+	if err != nil {
+		return allSoal, err
+	}
+
+	// binding
+	for data.Next() {
+		var soal SoalGuru
+		err := data.Scan(
+			&soal.IdSoal,
+			&soal.Pertanyaan,
+			&soal.KunciJawaban,
+			&soal.Opsi.OpsiA,
+			&soal.Opsi.OpsiB,
+			&soal.Opsi.OpsiC,
+			&soal.Opsi.OpsiD,
+		)
+
+		if err != nil {
+			return allSoal, err
+		}
+
+		allSoal = append(allSoal, soal)
+	}
+
+	return allSoal, nil
 }
