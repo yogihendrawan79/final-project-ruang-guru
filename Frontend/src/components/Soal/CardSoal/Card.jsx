@@ -8,43 +8,39 @@ const Card = ({ soals, onAnswer, answer }) => {
     <>
       <div>
         {soals.map((soal) => (
-          <div key={soal.id}>
+          <div key={soal.id_soal}>
             <div>
-              <p>{soal.question}</p>
+              <p>{soal.pertanyaan}</p>
             </div>
             <div className="mt-2 cursor-pointer grid grid-rows-4 ">
-              {soal.option.map((option, index) => (
-                <div key={index}>
-                  <a
-                    href="#/"
-                    onClick={() => onAnswer(soal.id, option.a)}
-                    className={[answer[soal.id] === option.a ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
-                  >
-                    {option.a}
-                  </a>
-                  <a
-                    href="#/"
-                    onClick={() => onAnswer(soal.id, option.b)}
-                    className={[answer[soal.id] === option.b ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
-                  >
-                    {option.b}
-                  </a>
-                  <a
-                    href="#/"
-                    onClick={() => onAnswer(soal.id, option.c)}
-                    className={[answer[soal.id] === option.c ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
-                  >
-                    {option.c}
-                  </a>
-                  <a
-                    href="#/"
-                    onClick={() => onAnswer(soal.id, option.d)}
-                    className={[answer[soal.id] === option.d ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
-                  >
-                    {option.d}
-                  </a>
-                </div>
-              ))}
+              <a
+                href="/#"
+                onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_a)}
+                className={[answer[soal.id_soal] === soal.opsi.opsi_a ? 'bg-primary ' : null, 'p-2 rounded-md']}
+              >
+                A. {soal.opsi.opsi_a}
+              </a>
+              <a
+                href="/#"
+                onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_b)}
+                className={[answer[soal.id_soal] === soal.opsi.opsi_b ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+              >
+                B. {soal.opsi.opsi_b}
+              </a>
+              <a
+                href="/#"
+                onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_c)}
+                className={[answer[soal.id_soal] === soal.opsi.opsi_c ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+              >
+                C. {soal.opsi.opsi_c}
+              </a>
+              <a
+                href="/#"
+                onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_d)}
+                className={[answer[soal.id_soal] === soal.opsi.opsi_d ? 'bg-primary text-white' : null, 'p-2 rounded-md']}
+              >
+                D. {soal.opsi.opsi_d}
+              </a>
             </div>
           </div>
           ))}

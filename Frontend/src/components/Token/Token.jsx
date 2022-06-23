@@ -35,14 +35,22 @@ const Token = () => {
     // console.log({token})
     
     try {
-      const res = await axios.post('http://localhost:8080/api/siswa/soal', {token: token}, {
+      const res = await axios.post('http://localhost:8080/api/siswa/token', {token: token}, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
       })
-      navigate('/')
-      console.log("Response get soal", res.data)
+
+      // if (res === "Unauthorized") {
+      //   navigate('/login')
+      // } else {
+        sessionStorage.setItem("token_ujian", token)
+        navigate('/')
+        console.log("Response Token", res.data)
+      // }
+
     } catch (err) {
+      alert("Token yang anda masukan salah")
       console.log("gagal fetch soal ", err)
     }
   }
