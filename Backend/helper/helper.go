@@ -3,6 +3,7 @@ package helper
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -81,4 +82,16 @@ func IsSiswa(c *gin.Context) user.User {
 	}
 
 	return user
+}
+
+// function ubah string ke time.Time
+func ConvetToTime(deadline string) (time.Time, error) {
+	layout := "2006-01-02 15:04:05"
+
+	date, err := time.Parse(layout, deadline)
+	if err != nil {
+		return date, err
+	}
+
+	return date, nil
 }
