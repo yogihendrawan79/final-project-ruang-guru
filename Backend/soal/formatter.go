@@ -21,3 +21,27 @@ type OpsiGuru struct {
 	OpsiC string `json:"opsi_c"`
 	OpsiD string `json:"opsi_d"`
 }
+
+// format response soal guru (bank soal)
+func FormatterBankSoal(soal SoalGuru) SoalGuru {
+	var allSoal SoalGuru
+
+	allSoal.IdSoal = soal.IdSoal
+	allSoal.KunciJawaban = soal.KunciJawaban
+	allSoal.Pertanyaan = soal.Pertanyaan
+	allSoal.Opsi.OpsiA = soal.Opsi.OpsiA
+	allSoal.Opsi.OpsiB = soal.Opsi.OpsiB
+	allSoal.Opsi.OpsiC = soal.Opsi.OpsiC
+	allSoal.Opsi.OpsiD = soal.Opsi.OpsiD
+
+	return allSoal
+}
+func FormatterBankSoals(soals []SoalGuru) []SoalGuru {
+	allSoal := []SoalGuru{}
+	for _, soal := range soals {
+		formaterBankSoal := FormatterBankSoal(soal)
+		allSoal = append(allSoal, formaterBankSoal)
+	}
+
+	return allSoal
+}

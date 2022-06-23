@@ -88,6 +88,7 @@ func main() {
 		guru.GET("/dashboard", AuthMiddleware(authUser, serviceUser), handlerMataPelajaran.ShowMapels)
 		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
 		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
+		guru.POST("/bank-soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalGuru)
 	}
 
 	r.Run(":8080")

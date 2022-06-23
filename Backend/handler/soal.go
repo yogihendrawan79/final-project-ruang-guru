@@ -115,3 +115,46 @@ func (h *handlerSoal) ShowAllSoalSiswa(c *gin.Context) {
 	response := helper.ResponsAPI("Sukses mengambil soal", "sukses", http.StatusOK, data)
 	c.JSON(http.StatusOK, response)
 }
+
+// handler untuk show all soal guru (bank soal)
+func (h *handlerSoal) ShowAllSoalGuru(c *gin.Context) {
+	// authorization
+	user := helper.IsGuru(c)
+	if user.Role != "guru" {
+		return
+	}
+
+	// input
+	var input soal.InputBankSoal
+
+	// binding
+	err := c.ShouldBindJSON(&input)
+	if err != nil {
+		myErr := helper.ErrorBinding(err)
+		response := helper.ResponsAPI("gagal binding", "gagal", http.StatusBadRequest, myErr)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	// panggil function diservice
+	soals, err := h.soal.ShowAllSoalGuru(input.IdMataPelajaran)
+	if err != nil {
+		data := gin.H{
+			"error": err.Error(),
+		}
+		response := helper.ResponsAPI("gagal mengambil data soal", "gagal", http.StatusBadRequest, data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	if len(soals) == 0 {
+		response := helper.ResponsAPI("id mata pelajaran tidak terdaftar", "gagal", http.StatusBadRequest, soal.FormatterBankSoals(soals))
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	// return sukses
+	response := helper.ResponsAPI("berhasil mengambil soal", "sukses", http.StatusOK, soal.FormatterBankSoals(soals))
+	c.JSON(http.StatusOK, response)
+
+}
