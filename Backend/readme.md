@@ -37,13 +37,6 @@
 | Email         | `-`       | `string` | **Required**|
 | Password         | `-`       | `string` | **Required**|
 
-#### Page Siswa
-
-  GET /api/siswa/home
-
-| Data     | Parameter | Type     | Description                |
-| :--------| :-------- | :------- | :------------------------- |
-| Token        | `-`       | `jwt` | **Add token into header**|
 
 #### Siswa Validasi Token
 

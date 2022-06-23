@@ -41,7 +41,7 @@ func main() {
 	// service token soal
 	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
 	// handler token soal
-	handlerTokenSoal := handler.NewHandlerToken(serviceTokenSoal)
+	handlerTokenSoal := handler.NewHandlerToken(serviceTokenSoal, serviceUser)
 
 	// repo soal
 	repoSoal := soal.NewRepository(db)
@@ -62,7 +62,7 @@ func main() {
 	// service mata pelajaran
 	serviceMataPelajaran := matapelajaran.NewService(repoMataPelajaran)
 	// handler mata pelajaran
-	handlerMataPelajaran := handler.NewHandlerMataPelajaran(serviceMataPelajaran)
+	handlerMataPelajaran := handler.NewHandlerMataPelajaran(serviceMataPelajaran, serviceUser)
 
 	// deklarasi http server
 	r := gin.Default()
