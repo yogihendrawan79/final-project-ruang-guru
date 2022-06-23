@@ -11,6 +11,7 @@ type userFormat struct {
 
 type loginFormat struct {
 	Token string `json:"token"`
+	Role  string `json:"role"`
 }
 
 // function genereate format
@@ -25,8 +26,9 @@ func FormatUser(input User) userFormat {
 }
 
 // function login response format
-func ResponsLogin(token string) loginFormat {
+func ResponsLogin(token string, user User) loginFormat {
 	return loginFormat{
 		Token: token,
+		Role:  user.Role,
 	}
 }
