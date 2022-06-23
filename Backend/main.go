@@ -72,8 +72,6 @@ func main() {
 
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
-	// route logout
-	r.GET("/api/logout", AuthMiddleware(authUser, serviceUser), handlerUser.LogoutUser)
 
 	// route group
 	siswa := r.Group("/api/siswa")

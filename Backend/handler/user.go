@@ -101,18 +101,3 @@ func (h *handlerUser) HomeGuru(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 
 }
-
-// function buat handler logout
-func (h *handlerUser) LogoutUser(c *gin.Context) {
-	// untuk melakukan logout harus login terlebih dahulu
-	c.MustGet("currentUser")
-	cookie := h.service.LogoutUser()
-
-	// simpan cookie
-	http.SetCookie(c.Writer, cookie)
-
-	// template respons
-	repons := helper.ResponsAPI("Sukses Logout", "Sukses!", http.StatusOK, nil)
-	c.JSON(http.StatusOK, repons)
-
-}

@@ -2,8 +2,6 @@ package user
 
 import (
 	"errors"
-	"net/http"
-	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -11,7 +9,6 @@ import (
 // bikin kontrak Service
 type Service interface {
 	LoginUser(input InputLogin) (User, error)
-	LogoutUser() *http.Cookie
 	UserById(userID int) (User, error)
 }
 
@@ -45,19 +42,6 @@ func (s *service) LoginUser(input InputLogin) (User, error) {
 
 	// return
 	return user, nil
-}
-
-// function logout
-func (s *service) LogoutUser() *http.Cookie {
-	// ubah value pada cookie
-	cookie := &http.Cookie{
-		Name:     "jwt",
-		Value:    "",
-		Expires:  time.Now().Add(-time.Hour * 1),
-		HttpOnly: true,
-	}
-
-	return cookie
 }
 
 // function untuk mencari role user by id
