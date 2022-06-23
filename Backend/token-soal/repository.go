@@ -5,12 +5,13 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
+	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
 )
 
 // kontrak
 type Repository interface {
 	UpdateTokenSoal(tokenSoal uuid.UUID, mapelID int) (uuid.UUID, error)
-	GetMapelByToken(inputToken string) (MataPelajaran, error)
+	GetMapelByToken(inputToken string) (matapelajaran.MataPelajaran, error)
 	IsUsed(userID, mapelID int) (int, error)
 }
 
@@ -58,9 +59,9 @@ func (r *repository) UpdateTokenSoal(tokenSoal uuid.UUID, mapelID int) (uuid.UUI
 }
 
 // function untuk mengambil token dan deadline
-func (r *repository) GetMapelByToken(inputToken string) (MataPelajaran, error) {
+func (r *repository) GetMapelByToken(inputToken string) (matapelajaran.MataPelajaran, error) {
 	// inisiasi mata pelajaran
-	var mapel MataPelajaran
+	var mapel matapelajaran.MataPelajaran
 
 	// query
 	sql := `
