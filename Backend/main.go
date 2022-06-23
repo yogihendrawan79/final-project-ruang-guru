@@ -76,7 +76,6 @@ func main() {
 	// route group
 	siswa := r.Group("/api/siswa")
 	{
-		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
 		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
 		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
 
