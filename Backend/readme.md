@@ -90,5 +90,12 @@
 | durasi        | `-`       | `int` | **Add into body**|
 | deadline        | `-`       | `date` | **Add into body**|
 
+#### Guru Bank Soal
 
+  POST /api/guru/bank-soal
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| id_mata_pelajaran        | `-`       | `int` | **Add into body**|
 
