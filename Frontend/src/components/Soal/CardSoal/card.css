@@ -9,8 +9,11 @@
 
 .option {
   display: block;
+  width: 30px;
+  padding: 2px;
 }
 
 .answer {
-  background-color: red;
+  background-color: #7D3FE6;
+  color: #fff;
 }
