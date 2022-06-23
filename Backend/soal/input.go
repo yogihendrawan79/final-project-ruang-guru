@@ -15,3 +15,8 @@ type OpsiSoal struct {
 	OpsiC string `json:"opsi_c" binding:"required"`
 	OpsiD string `json:"opsi_d" binding:"required"`
 }
+
+// struct input bank soal
+type InputBankSoal struct {
+	IdMataPelajaran int `json:"id_mata_pelajaran" binding:"required"`
+}
