@@ -62,7 +62,7 @@ func (h *handlerUser) LoginUser(c *gin.Context) {
 	}
 
 	// masukan token jwt sebagai response login
-	data := user.ResponsLogin(token)
+	data := user.ResponsLogin(token, newUser)
 
 	// template respons api
 	respons := helper.ResponsAPI("Sukses Login", "Sukses!", http.StatusOK, data)

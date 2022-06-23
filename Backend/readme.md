@@ -56,7 +56,7 @@
 
 #### Show All Soal Siswa
 
-  GET /api/siswa/soal
+  POST /api/siswa/soal
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
@@ -66,7 +66,7 @@
 
 #### Dahboard Guru
 
-  GET /api/guru/home
+  GET /api/guru/dashboard
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
