@@ -39,6 +39,8 @@ func main() {
 	repoTokenSoal := tokensoal.NewRepository(db)
 	// service token soal
 	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
+	// handler token soal
+	handlerTokenSoal := handler.NewHandlerToken(serviceTokenSoal)
 
 	// repo soal
 	repoSoal := soal.NewRepository(db)
@@ -69,7 +71,9 @@ func main() {
 	siswa := r.Group("/api/siswa")
 	{
 		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
-		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
+		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
+		siswa.GET("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
+
 	}
 	guru := r.Group("/api/guru")
 	{

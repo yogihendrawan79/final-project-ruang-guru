@@ -66,4 +66,5 @@ func (s *service) ValidasiTokenSoal(userID int, inputToken string) (MataPelajara
 	}
 
 	return mapel, nil
+
 }
