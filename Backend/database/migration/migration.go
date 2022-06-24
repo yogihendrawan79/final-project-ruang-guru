@@ -37,7 +37,7 @@ func Migration() {
 			token UUID,
 			kkm int,
 			durasi int,
-			deadline date
+			deadline datetime
 		)
 		;`
 
