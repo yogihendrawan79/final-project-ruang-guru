@@ -2,6 +2,7 @@ package tokensoal
 
 import (
 	"errors"
+	"time"
 
 	"github.com/google/uuid"
 	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
@@ -45,7 +46,7 @@ func (s *service) GenerateTokenSoal(mapelID int) (uuid.UUID, error) {
 // bikin function untuk validasi token soal
 func (s *service) ValidasiTokenSoal(userID int, inputToken string) (matapelajaran.MataPelajaran, error) {
 	// inisiasi waktu hari ini
-	// now := time.Now()
+	now := time.Now()
 
 	// cek apakah ada token di database
 	mapel, err := s.repository.GetMapelByToken(inputToken)
@@ -54,7 +55,12 @@ func (s *service) ValidasiTokenSoal(userID int, inputToken string) (matapelajara
 	}
 
 	// cek apakah sudah lewat deadline atau belum
-	// ini masih kosong, masih bingung disini
+	// apakah deadline itu sebelum hari ini? jika true berarti sudah lewat deadline
+	deadline := mapel.Deadline
+	r := deadline.Before(now)
+	if r {
+		return mapel, errors.New("token kedaluarsa")
+	}
 
 	// cek apakah token sudah digunakan atau belum
 	isUsed, err := s.repository.IsUsed(userID, mapel.IdMataPelajaran)

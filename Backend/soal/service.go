@@ -8,6 +8,7 @@ import (
 type Service interface {
 	CreateSoal(inputSoal InputSoal, userID int) error
 	ShowAllSoalSiswa(mapelID int) ([]SoalSiswa, error)
+	ShowAllSoalGuru(mapelID int) ([]SoalGuru, error)
 }
 
 // struct service
@@ -35,6 +36,17 @@ func (s *service) CreateSoal(inputSoal InputSoal, userID int) error {
 func (s *service) ShowAllSoalSiswa(mapelID int) ([]SoalSiswa, error) {
 	// panggil function GetAllSoalSiswa
 	soal, err := s.repository.GetAllSoalSiswa(mapelID)
+	if err != nil {
+		return soal, errors.New("gagal mengambil soal")
+	}
+
+	return soal, nil
+}
+
+// func show all soal (bank soal) untuk guru
+func (s *service) ShowAllSoalGuru(mapelID int) ([]SoalGuru, error) {
+	// panggil function GetAllSoalGuru
+	soal, err := s.repository.GetAllSoalGuru(mapelID)
 	if err != nil {
 		return soal, errors.New("gagal mengambil soal")
 	}

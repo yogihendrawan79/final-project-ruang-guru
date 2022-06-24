@@ -37,13 +37,6 @@
 | Email         | `-`       | `string` | **Required**|
 | Password         | `-`       | `string` | **Required**|
 
-#### Page Siswa
-
-  GET /api/siswa/home
-
-| Data     | Parameter | Type     | Description                |
-| :--------| :-------- | :------- | :------------------------- |
-| Token        | `-`       | `jwt` | **Add token into header**|
 
 #### Siswa Validasi Token
 
@@ -87,7 +80,7 @@
 
 #### Guru Create Ujian
 
-  POST /api/guru/create/soal
+  POST /api/guru/create/ujian
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
@@ -97,5 +90,12 @@
 | durasi        | `-`       | `int` | **Add into body**|
 | deadline        | `-`       | `date` | **Add into body**|
 
+#### Guru Bank Soal
 
+  POST /api/guru/bank-soal
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| id_mata_pelajaran        | `-`       | `int` | **Add into body**|
 

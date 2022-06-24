@@ -41,7 +41,7 @@ func main() {
 	// service token soal
 	serviceTokenSoal := tokensoal.NewService(repoTokenSoal)
 	// handler token soal
-	handlerTokenSoal := handler.NewHandlerToken(serviceTokenSoal)
+	handlerTokenSoal := handler.NewHandlerToken(serviceTokenSoal, serviceUser)
 
 	// repo soal
 	repoSoal := soal.NewRepository(db)
@@ -62,7 +62,7 @@ func main() {
 	// service mata pelajaran
 	serviceMataPelajaran := matapelajaran.NewService(repoMataPelajaran)
 	// handler mata pelajaran
-	handlerMataPelajaran := handler.NewHandlerMataPelajaran(serviceMataPelajaran)
+	handlerMataPelajaran := handler.NewHandlerMataPelajaran(serviceMataPelajaran, serviceUser)
 
 	// deklarasi http server
 	r := gin.Default()
@@ -72,13 +72,10 @@ func main() {
 
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
-	// route logout
-	r.GET("/api/logout", AuthMiddleware(authUser, serviceUser), handlerUser.LogoutUser)
 
 	// route group
 	siswa := r.Group("/api/siswa")
 	{
-		siswa.GET("/home", AuthMiddleware(authUser, serviceUser), handlerUser.HomeSiswa)
 		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
 		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
 
@@ -88,6 +85,7 @@ func main() {
 		guru.GET("/dashboard", AuthMiddleware(authUser, serviceUser), handlerMataPelajaran.ShowMapels)
 		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
 		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
+		guru.POST("/bank-soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalGuru)
 	}
 
 	r.Run(":8080")
