@@ -1,41 +1,78 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function NewForm() {
-  const [date, setDate] = useState()
-  const [time, setTime] = useState()
+  const [date, setDate] = useState();
+  const [time, setTime] = useState();
+  const [kkm, setKkm] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [mataPelajaran, setMataPelajaran] = useState("");
+  const [submit, setSubmit] = useState({});
+  const [token, setToken] = useState()
 
   const handleInputDate = (e) => {
-    setDate(e.target.value)
-  }
+    setDate(e.target.value);
+  };
 
   const handleInputTime = (e) => {
-    setTime(e.target.value)
-  }
+    setTime(e.target.value);
+  };
+  const timeDate = `${date} ${time}`;
+  console.log(timeDate);
 
-  const timeDate = `${date} ${time}`
-  console.log("TimeDate", timeDate)
+  const kkmInt = parseInt(kkm)
+  console.log("Integer ", kkmInt)
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/guru/create/ujian",
+        {
+          id_mata_pelajaran: 3,
+          kkm: kkmInt,
+          durasi: duration,
+          deadline: timeDate,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      
+      const resToken = res.data
+      setToken(resToken)
+      console.log("Respon Create Soal", resToken);
+    } catch (err) {
+      console.log("Gagal post data", err);
+    }
+  };
 
-//  const handleChange = () => {
+  console.log("KKM", typeof(kkm));
+  console.log("durasi", typeof(duration));
+  console.log("deadline", typeof(timeDate));
+  console.log("TOken", token.data.token_ujian)
 
-//  }
-  
   return (
     <>
       <div className="flex-1 justify-center mx-5 my-5">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <div className="p-4">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div class="mb-6">
                 <label
-                  for="mata_pelajaran"
+                  for="id_mata_pelajaran"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Mata Pelajaran
                 </label>
                 <input
                   type="text"
-                  id="mata_pelajaran"
+                  id="id_mata_pelajaran"
+                  name="id_mata_pelajaran"
+                  // value={submit.id_mata_pelajaran || ""}
+                  onChange={(e) => setMataPelajaran(e.target.value)}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Isi dengan nama Mata Pelajaran"
                   required
@@ -50,8 +87,11 @@ function NewForm() {
                     KKM
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     id="kkm"
+                    name="kkm"
+                    // value={submit.kkm || ""}
+                    onChange={(e) => setKkm(e.target.value)}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Nilai KKM"
                     required
@@ -59,14 +99,17 @@ function NewForm() {
                 </div>
                 <div>
                   <label
-                    for="duration"
+                    for="durasi"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Durasi
                   </label>
                   <input
-                    type="text"
-                    id="duration"
+                    type="number"
+                    id="durasi"
+                    name="durasi"
+                    // value={submit.durasi || ""}
+                    onChange={(e) => setDuration(e.target.value)}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Durasi Pengerjaan"
                     required
@@ -80,9 +123,9 @@ function NewForm() {
                     Deadline Date
                   </label>
                   <input
-                    onChange={handleInputDate}
                     type="date"
                     id="deadline_date"
+                    onChange={handleInputDate}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
@@ -95,22 +138,26 @@ function NewForm() {
                     Deadline Time
                   </label>
                   <input
-                    onChange={handleInputTime}
                     type="time"
-                    step="1"
                     id="deadline_time"
+                    onChange={handleInputTime}
+                    step="1"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
                 </div>
               </div>
+              <button
+                type="submit"
+                class="text-white border border-gray-300 bg-blue-700 hover:bg-blue-800 text-sm rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium block w-full p-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5"
+              >
+                Create Ujian
+              </button>
             </form>
-            <button
-              type="submit"
-              class="text-white border border-gray-300 bg-blue-700 hover:bg-blue-800 text-sm rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium block w-full p-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5"
-            >
-              Create Ujian
-            </button>
+            {/* show token to guru */}
+            <div className="flex justify-center border border-gray-50 ">
+              Token : {token.data.token_ujian}
+            </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
               <div class="p-4">
                 <label for="table-search" class="sr-only">
@@ -140,7 +187,7 @@ function NewForm() {
                   <div className="absolute top-0 right-0">
                     <div className="flex justify-end">
                       <a
-                        href="#"
+                        href="/#"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <svg
@@ -158,7 +205,7 @@ function NewForm() {
                         <span class="ml-3">Add Questions</span>
                       </a>
                       <a
-                        href="#"
+                        href="/#"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <svg
@@ -221,7 +268,7 @@ function NewForm() {
                     <td class="px-6 py-4">2001</td>
                     <td class="px-6 py-4 text-right">
                       <a
-                        href="#"
+                        href="/#"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit

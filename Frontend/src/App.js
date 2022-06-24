@@ -24,7 +24,7 @@ function App() {
         <Route path="/guru" element={<Sidebar />}>
           <Route path="bank-soal" element={<BankSoal />} />
           <Route path="bank" element={<Bank />} />
-          <Route path="update-bank" element={<AddBank />} />
+          {/* <Route path="update-bank" element={<AddBank />} /> */}
           <Route path="create-ujian" element={<CreateSoal />} />
           <Route path="new-soal" element={<NewSoal />} />
         </Route>
