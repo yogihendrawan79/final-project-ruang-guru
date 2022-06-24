@@ -1,6 +1,8 @@
 import React from "react";
 
 function Bank() {
+  // const
+
   return (
     <>
       <div className="flex-1 justify-center mx-5 my-5">
@@ -30,43 +32,6 @@ function Bank() {
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search for items"
               />
-              <div className="absolute top-0 right-0">
-                <div className="flex justify-end">
-                  <a
-                    href="#"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      class="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <span class="ml-3">Add Questions</span>
-                  </a>
-                  <a
-                    href="#"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      class="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"></path>
-                      <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
-                    </svg>
-                    <span class="ml-3">Publish</span>
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
           <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -93,9 +58,6 @@ function Bank() {
                 <th scope="col" class="px-6 py-3">
                   D
                 </th>
-                <th scope="col" class="px-6 py-3">
-                  <span class="sr-only">Edit</span>
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -112,14 +74,6 @@ function Bank() {
                 <td class="px-6 py-4">1945</td>
                 <td class="px-6 py-4">1998</td>
                 <td class="px-6 py-4">2001</td>
-                <td class="px-6 py-4 text-right">
-                  <a
-                    href="#"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
               </tr>
             </tbody>
           </table>
