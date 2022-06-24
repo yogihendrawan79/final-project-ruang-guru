@@ -50,19 +50,19 @@ func main() {
 	// handler soal
 	handlerSoal := handler.NewHandlerSoal(serviceSoal, serviceTokenSoal)
 
-	// repo ujian
-	repoUjian := ujian.NewRepository(db)
-	// service ujian
-	serviceUjian := ujian.NewService(repoUjian)
-	// handler ujian
-	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
-
 	// repo mata pelajaran
 	repoMataPelajaran := matapelajaran.NewRepository(db)
 	// service mata pelajaran
 	serviceMataPelajaran := matapelajaran.NewService(repoMataPelajaran)
 	// handler mata pelajaran
 	handlerMataPelajaran := handler.NewHandlerMataPelajaran(serviceMataPelajaran, serviceUser)
+
+	// repo ujian
+	repoUjian := ujian.NewRepository(db)
+	// service ujian
+	serviceUjian := ujian.NewService(repoUjian, repoSoal, repoMataPelajaran)
+	// handler ujian
+	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
 
 	// deklarasi http server
 	r := gin.Default()
@@ -78,6 +78,7 @@ func main() {
 	{
 		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
 		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
+		siswa.POST("/finish-ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.FinishUjian)
 
 	}
 	guru := r.Group("/api/guru")

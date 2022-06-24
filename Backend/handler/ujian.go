@@ -70,3 +70,39 @@ func (h *handlerUjian) CreateUjian(c *gin.Context) {
 	reponse := helper.ResponsAPI("Ujian berhasil dibuat", "sukses", http.StatusOK, data)
 	c.JSON(http.StatusOK, reponse)
 }
+
+// handler untuk finish ujian
+func (h *handlerUjian) FinishUjian(c *gin.Context) {
+	// authorization
+	currentUser := helper.IsSiswa(c)
+	if currentUser.Role != "siswa" {
+		return
+	}
+
+	// inisiasi input
+	var input ujian.InputFinishUjian
+
+	// binding
+	err := c.ShouldBindJSON(&input)
+	if err != nil {
+		myErr := helper.ErrorBinding(err)
+		response := helper.ResponsAPI("gagal memproses jawaban", "gagal", http.StatusBadRequest, myErr)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	// panggil service
+	err = h.ujian.FinishUjian(input, currentUser.Id_users)
+	if err != nil {
+		data := gin.H{
+			"error": err.Error(),
+		}
+		response := helper.ResponsAPI("gagal memproses jawaban", "gagal", http.StatusBadRequest, data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := helper.ResponsAPI("jawaban berhasil diproses", "sukses", http.StatusOK, nil)
+	c.JSON(http.StatusOK, response)
+
+}
