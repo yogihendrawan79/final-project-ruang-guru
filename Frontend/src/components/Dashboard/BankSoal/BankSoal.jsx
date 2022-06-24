@@ -28,6 +28,14 @@ const BankSoal = () => {
     fetchMapel()
   }, [])
 
+  // const fetchMapel = async () => {
+  //   try {
+
+  //   } catch (error) {
+  //     console.log("Gagal fetch data", error
+  //   }
+  // }
+
   return (
     <>
       <div className="flex justify-start">

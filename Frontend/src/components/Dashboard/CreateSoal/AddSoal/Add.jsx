@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddForm() {
+function Add() {
   return (
     <>
       <div className="flex-1 justify-center mx-5 my-5">
@@ -119,4 +119,4 @@ function AddForm() {
   );
 }
 
-export default AddForm;
+export default Add;
