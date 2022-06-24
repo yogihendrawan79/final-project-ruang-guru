@@ -80,7 +80,7 @@
 
 #### Guru Create Ujian
 
-  POST /api/guru/create/soal
+  POST /api/guru/create/ujian
 
 | Data     | Parameter | Type     | Description                |
 | :--------| :-------- | :------- | :------------------------- |
