@@ -1,6 +1,8 @@
 import React from "react";
 
 function Bank() {
+  // const
+
   return (
     <>
       <div className="flex-1 justify-center mx-5 my-5">
