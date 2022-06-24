@@ -1,33 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./CardBank/Card";
+import axios from "axios";
 
 const BankSoal = () => {
-  const bank = [
-    {
-      id: "1",
-      mapel: "Matematika",
-    },
-    {
-      id: "2",
-      mapel: "IPA",
-    },
-    {
-      id: "3",
-      mapel: "IPS",
-    },
-    {
-      id: "4",
-      mapel: "Fisika",
-    },
-    {
-      id: "5",
-      mapel: "Kimia",
-    },
-    {
-      id: "6",
-      mapel: "B. Indonesia",
-    },
-  ];
+  const [mapel, setMapel] = useState()
+
+  const fetchMapel = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/guru/dashboard', 
+        {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        }
+      )
+
+      const mataPelajaran = res.data.data.mapel_detail
+      console.log("Berhasil fetch data", mataPelajaran)
+
+      setMapel(mataPelajaran)
+    } catch (error) {
+      console.log("Gagal fetch data mapel", error)
+    }
+  }
+  
+  useEffect(() => {
+    fetchMapel()
+  }, [])
 
   // const fetchMapel = async () => {
   //   try {
@@ -41,9 +40,9 @@ const BankSoal = () => {
     <>
       <div className="flex justify-start">
         <div className="grid grid-cols-5 mr-5">
-          {bank.map((index) => (
-            <Card key={index.id} mapel={index.mapel} />
-          ))}
+          {mapel && mapel.map((mapel) => {
+            return <Card mapel={mapel.mata_pelajaran} />
+          })}
         </div>
       </div>
     </>

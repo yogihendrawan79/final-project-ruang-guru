@@ -222,7 +222,7 @@ function NewForm() {
                     <td class="px-6 py-4">aslkfjaslkdjfaskj</td>
                     <td class="px-6 py-4 text-right">
                       <a
-                        href="#"
+                        href="/#"
                         class="flex justify-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <svg
