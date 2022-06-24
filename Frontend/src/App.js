@@ -1,5 +1,5 @@
 import "./App.css";
-import Soal from "./components/Soal/Soal";
+// import Soal from "./components/Soal/Soal";
 import { Routes, Route } from "react-router-dom";
 import Result from "./components/Result/Result";
 import Login from "./components/Login/Login";
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="">
       <Routes>
-        <Route index path="/" element={<Soal />} />
+        {/* <Route index path="/" element={<Soal />} /> */}
         <Route path="login" element={<Login />} />
         <Route path="token" element={<Token />} />
         <Route path="hasil-ujian">

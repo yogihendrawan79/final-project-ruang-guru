@@ -28,8 +28,11 @@ const Login = () => {
         console.log(res.data)
         localStorage.setItem('token', res.data.data.token)
         console.log(localStorage.getItem('token'))
-        // alert('Berhasil masuk')
-        navigate('/Token')
+        if(res.data.data.role === "guru") {
+          navigate('/guru/bank-soal')
+        } else {
+          navigate('/token')
+        }
       })
 
       .catch(err => {

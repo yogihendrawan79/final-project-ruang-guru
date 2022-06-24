@@ -25,10 +25,10 @@ func NewServiceAuth() *service {
 var MYKEY string = "fdjfbdhbfuwg786765jbj"
 
 // function untuk generate token
-func (s *service) GenerateToken(id_user int) (string, error) {
+func (s *service) GenerateToken(userID int) (string, error) {
 	// bikin claims/payload
 	exp := time.Now().Add(time.Hour * 24)
-	id := strconv.Itoa(id_user)
+	id := strconv.Itoa(userID)
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		Issuer: id,
 		ExpiresAt: &jwt.Time{
