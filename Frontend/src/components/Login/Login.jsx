@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log({ email, password })
+    // console.log({ email, password })
 
     
     try {
@@ -24,9 +24,13 @@ const Login = () => {
         }
       )
       localStorage.setItem('token', res.data.data.token)
-      navigate('/token')
 
-      // console.log("Respon API Login", res.data)
+      if(res.data.data.role === "guru") {
+        navigate('/guru/bank-soal')
+      } else {
+        navigate('/token')
+      }
+
     } catch (err) {
       alert("email atau password salah")
       console.log("Gagal Login", err)

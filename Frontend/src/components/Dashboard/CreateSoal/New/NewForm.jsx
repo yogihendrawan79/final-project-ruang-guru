@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 function NewForm() {
+  const [date, setDate] = useState()
+  const [time, setTime] = useState()
+
+  const handleInputDate = (e) => {
+    setDate(e.target.value)
+  }
+
+  const handleInputTime = (e) => {
+    setTime(e.target.value)
+  }
+
+  const timeDate = `${date} ${time}`
+  console.log("TimeDate", timeDate)
+
+
+//  const handleChange = () => {
+
+//  }
+  
   return (
     <>
       <div className="flex-1 justify-center mx-5 my-5">
@@ -61,6 +80,7 @@ function NewForm() {
                     Deadline Date
                   </label>
                   <input
+                    onChange={handleInputDate}
                     type="date"
                     id="deadline_date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -75,7 +95,9 @@ function NewForm() {
                     Deadline Time
                   </label>
                   <input
+                    onChange={handleInputTime}
                     type="time"
+                    step="1"
                     id="deadline_time"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
