@@ -36,7 +36,7 @@ func Migration() {
 			mata_pelajaran VARCHAR(50),
 			token UUID,
 			kkm int,
-			durasi int,
+			durasi string,
 			deadline datetime
 		)
 		;`
