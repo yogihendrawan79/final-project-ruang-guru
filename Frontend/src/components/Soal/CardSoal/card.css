@@ -7,13 +7,14 @@
   border-radius: 100%
 }
 
-.option {
-  display: block;
-  width: 30px;
+.options {
+  width: 344px;
+  height: 500px;
   padding: 2px;
+  background-color: #red;
 }
 
-.answer {
+.answered {
   background-color: #7D3FE6;
   color: #fff;
 }
