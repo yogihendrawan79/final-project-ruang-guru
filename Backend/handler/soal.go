@@ -107,9 +107,10 @@ func (h *handlerSoal) ShowAllSoalSiswa(c *gin.Context) {
 	}
 
 	data := gin.H{
-		"mapel":  mapel.MataPelajaran,
-		"durasi": mapel.Durasi,
-		"soal":   soals,
+		"mapel":    mapel.MataPelajaran,
+		"id_mapel": mapel.IdMataPelajaran,
+		"durasi":   mapel.Durasi,
+		"soal":     soals,
 	}
 
 	response := helper.ResponsAPI("Sukses mengambil soal", "sukses", http.StatusOK, data)

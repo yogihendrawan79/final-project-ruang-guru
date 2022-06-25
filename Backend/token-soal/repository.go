@@ -13,6 +13,7 @@ type Repository interface {
 	UpdateTokenSoal(tokenSoal uuid.UUID, mapelID int) (uuid.UUID, error)
 	GetMapelByToken(inputToken string) (matapelajaran.MataPelajaran, error)
 	IsUsed(userID, mapelID int) (int, error)
+	UpdateIsUsed(userID, mapelID int) error
 }
 
 // struct dependen ke db
@@ -119,4 +120,21 @@ func (r *repository) IsUsed(userID, mapelID int) (int, error) {
 	}
 
 	return used, nil
+}
+
+// func untuk update status is used ketika token udah terpakai oleh user tertentu
+func (r *repository) UpdateIsUsed(userID, mapelID int) error {
+	// query
+	sql := `
+		UPDATE users_mapel set used = true
+		WHERE id_users = ? AND id_mata_pelajaran = ?
+	;`
+
+	// exec
+	_, err := r.db.Exec(sql, userID, mapelID)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

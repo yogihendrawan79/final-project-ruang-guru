@@ -6,7 +6,8 @@ import (
 
 // kontrak
 type Repository interface {
-	Save(inputSoal InputSoal, userID int) error
+	SaveOpsiSoal(inputSoal InputSoal) (int, error)
+	SaveSoal(inputSoal InputSoal, userID int, idOpsiSoal int) error
 	GetAllSoalSiswa(mapelID int) ([]SoalSiswa, error)
 	GetAllSoalGuru(mapelID int) ([]SoalGuru, error)
 }
@@ -21,30 +22,43 @@ func NewRepository(db *sql.DB) *repository {
 	return &repository{db}
 }
 
-// bikin function untuk save data opsi soal ke table opsi_soal
-func (r *repository) Save(inputSoal InputSoal, userID int) error {
-	// query input opsi soal
-	query := `
-		INSERT INTO opsi_soal 
-			(opsi_a, opsi_b, opsi_c, opsi_d) 
+// function untuk save opsi soal
+func (r *repository) SaveOpsiSoal(inputSoal InputSoal) (int, error) {
+	// inisiasi return
+	var idOpsiSoal int
+
+	// query
+	sql := `
+		INSERT INTO opsi_soal
+			(opsi_a, opsi_b, opsi_c, opsi_d)
 		VALUES 
 			(?, ?, ?, ?)
+		RETURNING id_opsi_soal
 	;`
 
-	// exec query input opsi soal
-	_, err := r.db.Exec(query, inputSoal.OpsiJawaban.OpsiA, inputSoal.OpsiJawaban.OpsiB, inputSoal.OpsiJawaban.OpsiC, inputSoal.OpsiJawaban.OpsiD)
+	// exec
+	data := r.db.QueryRow(sql, inputSoal.OpsiJawaban.OpsiA, inputSoal.OpsiJawaban.OpsiB, inputSoal.OpsiJawaban.OpsiC, inputSoal.OpsiJawaban.OpsiD)
+
+	// scan
+	err := data.Scan(&idOpsiSoal)
 	if err != nil {
-		return err
+		return idOpsiSoal, err
 	}
 
+	return idOpsiSoal, nil
+
+}
+
+// bikin function untuk save data opsi soal ke table opsi_soal
+func (r *repository) SaveSoal(inputSoal InputSoal, userID int, idOpsiSoal int) error {
 	// query input soal
-	query = `
+	query := `
 		INSERT INTO soal 
 			(id_mata_pelajaran, id_opsi_soal, id_users, kunci_jawaban, pertanyaan)
 		VALUES (?, ?, ?, ?, ?);`
 
 	// exec query input soal
-	_, err = r.db.Exec(query, inputSoal.IdMataPelajaran, inputSoal.IdOpsiSoal, userID, inputSoal.KunciJawaban, inputSoal.Pertanyaan)
+	_, err := r.db.Exec(query, inputSoal.IdMataPelajaran, idOpsiSoal, userID, inputSoal.KunciJawaban, inputSoal.Pertanyaan)
 	if err != nil {
 		return err
 	}
