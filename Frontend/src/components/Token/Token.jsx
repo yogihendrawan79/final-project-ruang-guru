@@ -19,7 +19,7 @@ const Token = () => {
         }
       })
 
-      if(res.status === 401) {
+      if(res.data.status === 401) {
         navigate('/login')
       } else {
         setImage(res.data.data.avatar)
