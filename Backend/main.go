@@ -60,7 +60,7 @@ func main() {
 	// repo ujian
 	repoUjian := ujian.NewRepository(db)
 	// service ujian
-	serviceUjian := ujian.NewService(repoUjian, repoSoal, repoMataPelajaran)
+	serviceUjian := ujian.NewService(repoUjian, repoSoal, repoMataPelajaran, repoTokenSoal)
 	// handler ujian
 	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
 

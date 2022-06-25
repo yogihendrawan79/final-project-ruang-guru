@@ -92,7 +92,7 @@ func (h *handlerUjian) FinishUjian(c *gin.Context) {
 	}
 
 	// panggil service
-	err = h.ujian.FinishUjian(input, currentUser.Id_users)
+	nilai, status, err := h.ujian.FinishUjian(input, currentUser.Id_users)
 	if err != nil {
 		data := gin.H{
 			"error": err.Error(),
@@ -102,7 +102,11 @@ func (h *handlerUjian) FinishUjian(c *gin.Context) {
 		return
 	}
 
-	response := helper.ResponsAPI("jawaban berhasil diproses", "sukses", http.StatusOK, nil)
+	data := gin.H{
+		"nilai":  nilai,
+		"status": status,
+	}
+	response := helper.ResponsAPI("jawaban berhasil diproses", "sukses", http.StatusOK, data)
 	c.JSON(http.StatusOK, response)
 
 }
