@@ -77,7 +77,7 @@ func (s *service) FinishUjian(input InputFinishUjian, userID int) (int, string, 
 	}
 
 	// hitung nilai
-	score = benar * 2
+	score = benar * 10
 
 	// input
 	data := InputScore{
