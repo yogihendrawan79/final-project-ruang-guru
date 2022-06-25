@@ -14,6 +14,7 @@ import (
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
 	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
+	"github.com/rg-km/final-project-engineering-46/report"
 	"github.com/rg-km/final-project-engineering-46/soal"
 	tokensoal "github.com/rg-km/final-project-engineering-46/token-soal"
 	"github.com/rg-km/final-project-engineering-46/ujian"
@@ -64,6 +65,13 @@ func main() {
 	// handler ujian
 	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
 
+	// repo report
+	repoReport := report.NewRepository(db)
+	// service report
+	serviceReport := report.NewService(repoReport)
+	//handler report
+	handlerReport := handler.NewHandlerReport(serviceReport)
+
 	// deklarasi http server
 	r := gin.Default()
 
@@ -87,6 +95,7 @@ func main() {
 		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
 		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
 		guru.POST("/bank-soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalGuru)
+		guru.POST("/report", AuthMiddleware(authUser, serviceUser), handlerReport.ShowReport)
 	}
 
 	r.Run(":8080")
