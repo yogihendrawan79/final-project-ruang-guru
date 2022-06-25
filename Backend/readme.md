@@ -106,4 +106,12 @@
 | :--------| :-------- | :------- | :------------------------- |
 | Token        | `-`       | `jwt` | **Add token into header**|
 | id_mata_pelajaran        | `-`       | `int` | **Add into body**|
+#### Guru Report Ujian
+
+  POST /api/guru/report
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| id_mata_pelajaran        | `-`       | `int` | **Add into body**|
 
