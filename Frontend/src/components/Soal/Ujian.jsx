@@ -30,11 +30,11 @@ const Ujian = () => {
         }
       )
 
-      const resSoal = res.data.data.soal
+      const resSoal = res.data
       console.log("ResSoal", resSoal)
-      setMapel(res.data.data.mapel)
-      setSoals(resSoal)
-      setDuration(res.data.data.durasi)
+      // setMapel(res.data.data.mapel)
+      // setSoals(resSoal)
+      // setDuration(res.data.data.durasi)
 
     } catch (error) {
       console.log("Gagal fetch data", error)
