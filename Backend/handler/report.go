@@ -49,6 +49,16 @@ func (h *HandlerReport) ShowReport(c *gin.Context) {
 		return
 	}
 
+	// cek apakah ada report atau tidak
+	if len(report) == 0 {
+		data := gin.H{
+			"error": "id mata pelajaran tidak ditemukana",
+		}
+		response := helper.ResponsAPI("gagal mengambil report", "gagal", http.StatusBadRequest, data)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
 	// return
 	response := helper.ResponsAPI("berhasil mengambil report", "sukses", http.StatusOK, report)
 	c.JSON(http.StatusOK, response)
