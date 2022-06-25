@@ -55,6 +55,15 @@
 | :--------| :-------- | :------- | :------------------------- |
 | Token        | `-`       | `jwt` | **Add token into header**|
 | Token        | `-`       | `string` | **Add into body**|
+#### Siswa Finish Ujian
+
+  POST /api/siswa/finish-ujian
+
+| Data     | Parameter | Type     | Description                |
+| :--------| :-------- | :------- | :------------------------- |
+| Token        | `-`       | `jwt` | **Add token into header**|
+| id_mata_pelajaran        | `-`       | `int` | **Add into body**|
+| jawabans [answer,id_soal]        | `-`       | `array` | **Add into body**|
 
 
 #### Dahboard Guru
