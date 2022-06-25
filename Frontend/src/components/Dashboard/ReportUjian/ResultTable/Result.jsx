@@ -1,6 +1,6 @@
 import React from "react";
 
-function Bank() {
+function Result() {
   // const
 
   return (
@@ -14,22 +14,16 @@ function Bank() {
                   No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Pertanyaan
+                  Nama Peserta Didik
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Kunci Jawaban
+                  Mata Pelajaran
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  A
+                  Nilai
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  B
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  C
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  D
+                  Keterangan
                 </th>
               </tr>
             </thead>
@@ -40,13 +34,11 @@ function Bank() {
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                 >
-                  Kemerdekaan Indonesia jatuh pada Tahun?
+                  John Doe
                 </th>
-                <td class="px-6 py-4">B</td>
-                <td class="px-6 py-4">1965</td>
-                <td class="px-6 py-4">1945</td>
-                <td class="px-6 py-4">1998</td>
-                <td class="px-6 py-4">2001</td>
+                <td class="px-6 py-4">Matematika</td>
+                <td class="px-6 py-4">10</td>
+                <td class="px-6 py-4">Tidak Lulus</td>
               </tr>
             </tbody>
           </table>
@@ -56,4 +48,4 @@ function Bank() {
   );
 }
 
-export default Bank;
+export default Result;
