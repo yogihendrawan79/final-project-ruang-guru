@@ -11,6 +11,8 @@ import Bank from "./components/Dashboard/BankSoal/Bank/Bank";
 import CreateSoal from "./components/Dashboard/CreateSoal/CreateSoal";
 import AddSoal from "./components/Dashboard/CreateSoal/AddSoal/Add";
 import CreateUjian from "./components/Dashboard/CreateUjian/CreateUjian";
+import ReportUjian from "./components/Dashboard/ReportUjian/ReportUjian";
+import ResultTable from "./components/Dashboard/ReportUjian/ResultTable/Result";
 
 function App() {
   return (
@@ -29,6 +31,11 @@ function App() {
           <Route path="create-soal" element={<CreateSoal />} />
           <Route path="create-soal/:mata-pelajaran" element={<AddSoal />} />
           <Route path="create-ujian" element={<CreateUjian />} />
+          <Route path="report-ujian" element={<ReportUjian />} />
+          <Route
+            path="report-ujian/:mata-pelajaran"
+            element={<ResultTable />}
+          />
         </Route>
       </Routes>
     </div>
