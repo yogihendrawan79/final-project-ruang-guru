@@ -23,8 +23,13 @@ func NewService(repository Repository) *service {
 
 // func create soal
 func (s *service) CreateSoal(inputSoal InputSoal, userID int) error {
-	// panggil function save soal
-	err := s.repository.Save(inputSoal, userID)
+	// panggil function save opsi soal
+	idOpsiSoal, err := s.repository.SaveOpsiSoal(inputSoal)
+	if err != nil {
+		return errors.New("gagal input opsi soal")
+	}
+
+	err = s.repository.SaveSoal(inputSoal, userID, idOpsiSoal)
 	if err != nil {
 		return errors.New("gagal menyimpan soal")
 	}
