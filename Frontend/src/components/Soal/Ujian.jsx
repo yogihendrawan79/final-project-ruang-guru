@@ -145,23 +145,23 @@ const Ujian = () => {
     console.log("Submit Jawaban : ", answers)
   }
 
-  const fetchNavbar = async () => {
-    try {
-      const res = await axios.get('http://localhost:8080/api/siswa/home', {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-      })
-      setImage(res.data.data.avatar)
-      setName(res.data.data.nama)
-    } catch (err) {
-      console.log("Gagal fetch data ", err)
-    }
-  }
+  // const fetchNavbar = async () => {
+  //   try {
+  //     const res = await axios.get('http://localhost:8080/api/siswa/home', {
+  //       headers: {
+  //         'Authorization': 'Bearer ' + localStorage.getItem('token')
+  //       }
+  //     })
+  //     setImage(res.data.data.avatar)
+  //     setName(res.data.data.nama)
+  //   } catch (err) {
+  //     console.log("Gagal fetch data ", err)
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchNavbar()
-  })
+  // useEffect(() => {
+  //   fetchNavbar()
+  // })
 
   return (
     <>
