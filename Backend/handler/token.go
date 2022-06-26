@@ -27,22 +27,11 @@ func (h *handlerToken) ValidateTokenUjian(c *gin.Context) {
 		return
 	}
 
-	// kirim data user ke FE
-	userData, err := h.serviceUser.UserById(currentUser.Id_users)
-	if err != nil {
-		myErr := gin.H{
-			"error": err.Error(),
-		}
-		reponse := helper.ResponsAPI("gagal mengambil data user", "gagal", http.StatusBadRequest, myErr)
-		c.JSON(http.StatusBadRequest, reponse)
-		return
-	}
-
 	// insisasi inputan token siswa
 	var input tokensoal.InputTokenSiswa
 
 	// binding
-	err = c.ShouldBindJSON(&input)
+	err := c.ShouldBindJSON(&input)
 	if err != nil {
 		myErr := helper.ErrorBinding(err)
 		response := helper.ResponsAPI("gagal binding", "gagal", http.StatusBadRequest, myErr)
@@ -61,12 +50,11 @@ func (h *handlerToken) ValidateTokenUjian(c *gin.Context) {
 		return
 	}
 
-	// format response data user
-	userProfile := user.FormatUser(userData)
+	// format response
 	mapelDetail := tokensoal.TokenValidFormatter(mapel)
 	data := gin.H{
-		"user_profile": userProfile,
-		"mapel_detail": mapelDetail,
+		"id_mata_pelajaran": mapelDetail.IDMataPelajaran,
+		"token_ujian":       mapelDetail.TokenUjian,
 	}
 	reponse := helper.ResponsAPI("valid", "sukses", http.StatusOK, data)
 	c.JSON(http.StatusOK, reponse)
