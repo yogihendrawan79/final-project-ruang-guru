@@ -16,7 +16,7 @@ const Card = ({ soals, onAnswer, answer }) => {
                 {/* <div className='w-36 mr-3 p-2 text-center shadow-2xl' > */}
                 <div 
                   className={[
-                    answer[soal.id_soal] === soal.opsi.opsi_a
+                    answer[soal.id_soal] === "A"
                   ?
                     "bg-primary "
                   : null,
@@ -25,14 +25,14 @@ const Card = ({ soals, onAnswer, answer }) => {
                 >
                   <a
                     href="/#"
-                    onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_a)}
+                    onClick={() => onAnswer(soal.id_soal, (soal.opsi.opsi_a ? "A" : null))}
                   >
                     A. {soal.opsi.opsi_a}
                   </a>
                 </div>
                 <div 
                   className={[
-                    answer[soal.id_soal] === soal.opsi.opsi_b
+                    answer[soal.id_soal] === "B"
                   ?
                     "bg-primary "
                   : null,
@@ -41,7 +41,7 @@ const Card = ({ soals, onAnswer, answer }) => {
                 >
                   <a
                     href="/#"
-                    onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_b)}
+                    onClick={() => onAnswer(soal.id_soal, (soal.opsi.opsi_b ? "B" : null))}
                   >
                     B. {soal.opsi.opsi_b}
                   </a>
@@ -50,7 +50,7 @@ const Card = ({ soals, onAnswer, answer }) => {
               <div className="flex mt-5">
                 <div 
                   className={[
-                    answer[soal.id_soal] === soal.opsi.opsi_c
+                    answer[soal.id_soal] === "C"
                   ?
                     "bg-primary "
                   : null,
@@ -59,14 +59,14 @@ const Card = ({ soals, onAnswer, answer }) => {
                 >
                   <a
                   href="/#"
-                  onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_c)}
+                  onClick={() => onAnswer(soal.id_soal, (soal.opsi.opsi_c ? "C" : null))}
                   >
                     C. {soal.opsi.opsi_c}
                   </a>
                 </div>
                 <div 
                   className={[
-                    answer[soal.id_soal] === soal.opsi.opsi_d
+                    answer[soal.id_soal] === "D"
                   ?
                     "bg-primary "
                   : null,
@@ -75,7 +75,7 @@ const Card = ({ soals, onAnswer, answer }) => {
                 >
                   <a
                   href="/#"
-                  onClick={() => onAnswer(soal.id_soal, soal.opsi.opsi_d)}
+                  onClick={() => onAnswer(soal.id_soal, (soal.opsi.opsi_d ? "D" : null))}
                   >
                     D. {soal.opsi.opsi_d}
                   </a>
