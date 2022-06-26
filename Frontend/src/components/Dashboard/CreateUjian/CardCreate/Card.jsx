@@ -6,7 +6,7 @@ function Card({ mapel, idmapel }) {
   const handleClick = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/guru/report",
+        "http://localhost:8080/api/guru/create/ujian",
         { id_mata_pelajaran: idmapel },
         {
           headers: {
@@ -25,7 +25,7 @@ function Card({ mapel, idmapel }) {
     <>
       <div className="flex justify-start ml-20 mt-10">
         <Link
-          to={`/guru/report-ujian/${idmapel}`}
+          to={`/guru/create-ujian/${idmapel}`}
           onClick={handleClick}
           class="block p-6 w-52 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
         >
