@@ -21,9 +21,7 @@ function App() {
         <Route index path="/" element={<Soal />} />
         <Route path="login" element={<Login />} />
         <Route path="token" element={<Token />} />
-        <Route path="hasil-ujian">
-          <Route index path=":mapel" element={<Result />} />
-        </Route>
+        <Route path="hasil-ujian" element={<Result />} />
         <Route path="/guru" element={<Sidebar />}>
           <Route path="bank-soal" element={<BankSoal />} />
           <Route path="bank-soal/:id" element={<Bank />} />

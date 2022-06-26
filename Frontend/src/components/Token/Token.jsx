@@ -11,30 +11,30 @@ const Token = () => {
 
   const navigate = useNavigate()
 
-  const fetchTokenPage = async () => {
-    try {
-      const res = await axios.get('http://localhost:8080/api/siswa/home', {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-      })
+  // const fetchTokenPage = async () => {
+  //   try {
+  //     const res = await axios.get('http://localhost:8080/api/siswa/home', {
+  //       headers: {
+  //         'Authorization': 'Bearer ' + localStorage.getItem('token')
+  //       }
+  //     })
 
-      if(res.status === 401) {
-        navigate('/login')
-      } else {
-        setImage(res.data.data.avatar)
-        setName(res.data.data.nama)
-      }
-      console.log("respon siswa/home", res.status)
-      // console.log("Respon Token", res.data.data)
-    } catch (err) {
-      console.log("Gagal fetch data ", err)
-    }
-  }
+  //     if(res.data.status === 401) {
+  //       navigate('/login')
+  //     } else {
+  //       setImage(res.data.data.avatar)
+  //       setName(res.data.data.nama)
+  //     }
+  //     console.log("respon siswa/home", res.status)
+  //     // console.log("Respon Token", res.data.data)
+  //   } catch (err) {
+  //     console.log("Gagal fetch data ", err)
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchTokenPage()
-  }, [])
+  // useEffect(() => {
+  //   fetchTokenPage()
+  // }, [])
 
   const handleProcessToken = async (e) => {
     e.preventDefault();
