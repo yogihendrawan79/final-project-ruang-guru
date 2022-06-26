@@ -29,10 +29,10 @@ function NewForm() {
   const idmapel = numCurrentUrl
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
+      const res = axios.post(
         "http://localhost:8080/api/guru/create/ujian", {
           id_mata_pelajaran: idmapel,
           kkm: kkmInt,
@@ -146,7 +146,7 @@ function NewForm() {
                 </div>
               </div>
               <button
-                // type="submit"
+                type="submit"
                 class="text-white border border-gray-300 bg-blue-700 hover:bg-blue-800 text-sm rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium block w-full p-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5"
               >
                 Create Ujian
