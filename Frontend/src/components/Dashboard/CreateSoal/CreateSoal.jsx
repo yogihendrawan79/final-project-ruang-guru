@@ -14,7 +14,7 @@ function CreateSoal() {
       });
 
       console.log("response report ujian", res);
-      const mataPelajaran = res.data.data.mapel_detail;
+      const mataPelajaran = res.data.data;
 
       setMapel(mataPelajaran);
     } catch (error) {
