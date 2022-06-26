@@ -1,6 +1,8 @@
 package matapelajaran
 
-import "errors"
+import (
+	"errors"
+)
 
 // bikin kontrak GetAllMapel ([]matapelajrab,error)
 type Service interface {

@@ -12,6 +12,6 @@ type MataPelajaran struct {
 	MataPelajaran   string
 	Token           uuid.UUID
 	KKM             int
-	Durasi          string
+	Durasi          int
 	Deadline        time.Time
 }

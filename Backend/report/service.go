@@ -1,6 +1,8 @@
 package report
 
-import "errors"
+import (
+	"errors"
+)
 
 // kontrak function
 type Service interface {
