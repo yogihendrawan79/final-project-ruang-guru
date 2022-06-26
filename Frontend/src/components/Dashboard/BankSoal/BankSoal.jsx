@@ -4,6 +4,8 @@ import axios from "axios";
 
 const BankSoal = () => {
   const [mapel, setMapel] = useState()
+  const [image, setImage] = useState()
+  const [name, setName] = useState()
 
   const fetchMapel = async () => {
     try {
@@ -14,11 +16,16 @@ const BankSoal = () => {
           }
         }
       )
-
-      const mataPelajaran = res.data.data.mapel_detail
+      
+     
+      const mataPelajaran = res.data.data
       console.log("Berhasil fetch data", mataPelajaran)
-
+      //sethere
+      
+      setName(res.data.data.nama)
+      setImage(res.data.data.avatar)
       setMapel(mataPelajaran)
+
     } catch (error) {
       console.log("Gagal fetch data mapel", error)
     }
@@ -28,10 +35,11 @@ const BankSoal = () => {
     fetchMapel()
   }, [])
 
+
   return (
     <>
       <div className="flex justify-start">
-        <div className="grid grid-cols-5 mr-5">
+        <div className="grid grid-cols-3 mr-5">
           {mapel && mapel.map((mapel) => {
             return <Card mapel={mapel.mata_pelajaran} id_mapel={mapel.id_mata_pelajaran} />
           })}
