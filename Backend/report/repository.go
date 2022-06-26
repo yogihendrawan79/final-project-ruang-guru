@@ -24,10 +24,15 @@ func (r *repository) ShowReport(input InputReport) ([]ResponseReport, error) {
 
 	// query
 	sql := `
-	SELECT users.nama, mata_pelajaran.mata_pelajaran, scores.nilai, report.status FROM report 
-	JOIN users ON report.id_users = users.id_users
-	JOIN mata_pelajaran ON report.id_mata_pelajaran = mata_pelajaran.id_mata_pelajaran
-	JOIN scores ON report.id_scores = scores.id_scores 
+	SELECT 
+	    u.nama, mp.mata_pelajaran, s.nilai, r.status 
+	FROM 
+	    report as r
+	JOIN users as u ON r.id_users = u.id_users
+	JOIN mata_pelajaran as mp ON r.id_mata_pelajaran = mp.id_mata_pelajaran
+	JOIN scores as s ON r.id_scores = s.id_scores 
+	WHERE 
+	    r.id_mata_pelajaran = ?
 	;`
 
 	// exec

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -28,19 +29,10 @@ func (h *handlerMataPelajaran) ShowMapels(c *gin.Context) {
 		return
 	}
 
-	// kirim data user ke FE
-	userData, err := h.serviceUser.UserById(currentUser.Id_users)
-	if err != nil {
-		myErr := gin.H{
-			"error": err.Error(),
-		}
-		reponse := helper.ResponsAPI("gagal mengambil data user", "gagal", http.StatusBadRequest, myErr)
-		c.JSON(http.StatusBadRequest, reponse)
-		return
-	}
-
 	// panggil function show dari service matapelajaran
 	mapels, err := h.matapelajaran.GetAllMapel()
+	log.Println(err)
+	log.Println(mapels)
 	if err != nil {
 		data := gin.H{
 			"error": err.Error(),
@@ -50,16 +42,11 @@ func (h *handlerMataPelajaran) ShowMapels(c *gin.Context) {
 		return
 	}
 
-	// foramtter
-	userProfile := user.FormatUser(userData)
+	// formatter
 	mapelDetail := matapelajaran.FormaterMataPelajarans(mapels)
-	data := gin.H{
-		"user_profile": userProfile,
-		"mapel_detail": mapelDetail,
-	}
 
 	// response
-	response := helper.ResponsAPI("berhasil mengambil mata pelajaran", "sukses", http.StatusOK, data)
+	response := helper.ResponsAPI("berhasil mengambil mata pelajaran", "sukses", http.StatusOK, mapelDetail)
 	c.JSON(http.StatusOK, response)
 
 }

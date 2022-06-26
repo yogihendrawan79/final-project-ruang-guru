@@ -63,7 +63,7 @@ func main() {
 	// service ujian
 	serviceUjian := ujian.NewService(repoUjian, repoSoal, repoMataPelajaran, repoTokenSoal)
 	// handler ujian
-	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
+	handlerUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian, repoMataPelajaran)
 
 	// repo report
 	repoReport := report.NewRepository(db)
@@ -71,6 +71,9 @@ func main() {
 	serviceReport := report.NewService(repoReport)
 	//handler report
 	handlerReport := handler.NewHandlerReport(serviceReport)
+
+	// handler user profile
+	handlerProfile := handler.NewHandlerProfile()
 
 	// deklarasi http server
 	r := gin.Default()
@@ -81,21 +84,26 @@ func main() {
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
 
+	// route profile
+	r.GET("/api/profile", AuthMiddleware(authUser, serviceUser), handlerProfile.Profile)
+
 	// route group
 	siswa := r.Group("/api/siswa")
 	{
 		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
 		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
-		siswa.POST("/finish-ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.FinishUjian)
+		siswa.POST("/finish-ujian", AuthMiddleware(authUser, serviceUser), handlerUjian.FinishUjian)
+		siswa.POST("/nilai", AuthMiddleware(authUser, serviceUser), handlerUjian.ShowNilaiUjian)
 
 	}
 	guru := r.Group("/api/guru")
 	{
 		guru.GET("/dashboard", AuthMiddleware(authUser, serviceUser), handlerMataPelajaran.ShowMapels)
 		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
-		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
+		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), handlerUjian.CreateUjian)
 		guru.POST("/bank-soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalGuru)
 		guru.POST("/report", AuthMiddleware(authUser, serviceUser), handlerReport.ShowReport)
+		guru.GET("/kill-ujian", AuthMiddleware(authUser, serviceUser), handlerUjian.KillUjian)
 	}
 
 	r.Run(":8080")

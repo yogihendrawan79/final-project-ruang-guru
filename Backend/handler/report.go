@@ -9,17 +9,17 @@ import (
 )
 
 //struck handler Mata Plejaran
-type HandlerReport struct {
+type handlerReport struct {
 	report report.Service
 }
 
 // function NewHandlerSoal
-func NewHandlerReport(report report.Service) *HandlerReport {
-	return &HandlerReport{report}
+func NewHandlerReport(report report.Service) *handlerReport {
+	return &handlerReport{report}
 }
 
 // handler show mapel
-func (h *HandlerReport) ShowReport(c *gin.Context) {
+func (h *handlerReport) ShowReport(c *gin.Context) {
 	//authorization
 	currentUser := helper.IsGuru(c)
 	if currentUser.Role != "guru" {
@@ -52,7 +52,7 @@ func (h *HandlerReport) ShowReport(c *gin.Context) {
 	// cek apakah ada report atau tidak
 	if len(report) == 0 {
 		data := gin.H{
-			"error": "id mata pelajaran tidak ditemukana",
+			"error": "id mata pelajaran tidak ditemukan",
 		}
 		response := helper.ResponsAPI("gagal mengambil report", "gagal", http.StatusBadRequest, data)
 		c.JSON(http.StatusBadRequest, response)

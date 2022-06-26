@@ -14,6 +14,7 @@ import (
 type Service interface {
 	CreateUjian(input InputUjian, tokenSoal uuid.UUID) error
 	FinishUjian(input InputFinishUjian, userID int) (int, string, error)
+	KillUjian() error
 }
 
 // struct dependen ke repo
@@ -77,7 +78,7 @@ func (s *service) FinishUjian(input InputFinishUjian, userID int) (int, string, 
 	}
 
 	// hitung nilai
-	score = benar * 2
+	score = benar * 10
 
 	// input
 	data := InputScore{
@@ -117,4 +118,17 @@ func (s *service) FinishUjian(input InputFinishUjian, userID int) (int, string, 
 	}
 
 	return score, status, nil
+}
+
+// service kill ujian
+// function untuk mengakhiri kegiatan ujian (misal kegiatan ujian selama 1 minggu sudah selesai, ini akan mentruncate table users_mapel) dengan tujuan di next ujian atribut used di table users_mapel kembali default menjadi false agar token lolos validasi
+func (s *service) KillUjian() error {
+	// panggil repo
+	err := s.repository.KillUjian()
+	if err != nil {
+		return errors.New("gagal kill ujian")
+	}
+
+	// return
+	return nil
 }

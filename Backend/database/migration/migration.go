@@ -36,7 +36,7 @@ func Migration() {
 			mata_pelajaran VARCHAR(50),
 			token UUID,
 			kkm int,
-			durasi string,
+			durasi int,
 			deadline datetime
 		)
 		;`
@@ -136,9 +136,9 @@ func Migration() {
 		INSERT INTO mata_pelajaran 
 			(mata_pelajaran, token, kkm, durasi, deadline)
 		VALUES 
-			("Matematika", "", 0, "", ""),
-			("IPA", "", 0, "", ""),
-			("IPS", "", 0, "", "")
+			("Matematika", "", 0, 0, ""),
+			("IPA", "", 0, 0, ""),
+			("IPS", "", 0, 0, "")
 	;`
 
 	// execute sql create table siswa
