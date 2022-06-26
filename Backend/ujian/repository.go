@@ -13,6 +13,7 @@ type Repository interface {
 	SaveAnswer(input Jawaban, userID int) error
 	SaveScore(input InputScore, userID int) int
 	SaveReport(userID, mapelID, scoreID int, status string) error
+	KillUjian() error
 }
 
 // struct dependen ke koneksi database
@@ -113,5 +114,28 @@ func (r *repository) SaveReport(userID, mapelID, scoreID int, status string) err
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+// function untuk mengakhiri kegiatan ujian (misal kegiatan ujian selama 1 minggu sudah selesai, ini akan mentruncate table users_mapel) dengan tujuan di next ujian atribut used di table users_mapel kembali default menjadi false agar token lolos validasi
+func (r *repository) KillUjian() error {
+	// query
+
+	sql := `
+       DELETE FROM opsi_soal;
+	   DELETE FROM soal;
+	   DELETE FROM users_mapel;
+	   DELETE FROM jawaban_siswa;
+	   DELETE FROM scores;
+	   DELETE FROM report
+
+	;`
+
+	_, err := r.db.Exec(sql)
+	if err != nil {
+		return err
+	}
+
+	// return
 	return nil
 }
