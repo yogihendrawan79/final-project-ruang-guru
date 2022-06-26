@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "./Cards/Card";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function CreateSoal() {
   const [mapel, setMapel] = useState();
@@ -15,7 +15,7 @@ function CreateSoal() {
       });
 
       const mataPelajaran = res.data.data;
-      
+
       setMapel(mataPelajaran);
     } catch (error) {
       console.log("Gagal fetch data mapel", error);
@@ -26,10 +26,10 @@ function CreateSoal() {
     fetchMapel();
   }, []);
 
-  const currentUrl = window.location.href
-  const urlArr = currentUrl.split('/')
-  console.log("Current url", urlArr)
-  const idMapel = urlArr[5]
+  const currentUrl = window.location.href;
+  const urlArr = currentUrl.split("/");
+  console.log("Current url", urlArr);
+  const idMapel = urlArr[5];
 
   const handleClick = async () => {
     try {
@@ -53,8 +53,8 @@ function CreateSoal() {
     <>
       <div className="flex justify-start">
         <div className="grid grid-cols-5 mr-5">
-          {
-            mapel && mapel.map((mapel) => {
+          {mapel &&
+            mapel.map((mapel) => {
               return (
                 <div className="flex justify-start ml-20 mt-10">
                   <Link
@@ -67,9 +67,8 @@ function CreateSoal() {
                     </h5>
                   </Link>
                 </div>
-              )
-            })
-          }
+              );
+            })}
         </div>
       </div>
     </>
