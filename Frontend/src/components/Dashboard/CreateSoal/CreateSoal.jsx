@@ -52,7 +52,7 @@ function CreateSoal() {
   return (
     <>
       <div className="flex justify-start">
-        <div className="grid grid-cols-5 mr-5">
+        <div className="grid grid-cols-3">
           {mapel &&
             mapel.map((mapel) => {
               return (
