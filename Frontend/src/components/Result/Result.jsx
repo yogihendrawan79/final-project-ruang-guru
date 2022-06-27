@@ -78,7 +78,7 @@ const Result = () => {
         }
         <div className='button flex justify-center mt-4'>
           <button onClick={handleLogout}>
-            <Button button="Selesai" />
+            Selesai
           </button>
         </div>
       </div>
