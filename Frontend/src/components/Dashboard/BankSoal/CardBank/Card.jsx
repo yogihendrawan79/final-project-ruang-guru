@@ -1,26 +1,28 @@
 import React from "react";
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Card({ mapel, id_mapel }) {
   // /api/guru/bank-soal
   //tambahain id_mapel ke body ketika melakukan hit post api
 
-  console.log("idmapel", id_mapel)
-
   const handleClick = async () => {
     try {
-      const res = await axios.post ('/api/guru/bank-soal', {id_mata_pelajaran: id_mapel},
-      {
-        headers : {
-          'Authorization' : 'Bearer' + localStorage.getItem('token')
+      const res = await axios.post(
+        "http://localhost:8080/api/guru/bank-soal",
+        { id_mata_pelajaran: id_mapel },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
-      })
-      console.log("Respon KLIK MAPEL", res)
-    } catch(error) {
-      console.log('Gagal')
+      );
+
+      console.log("Response bank", res);
+    } catch (err) {
+      console.log("Gagal fetch data", err);
     }
-  }
+  };
 
   return (
     <>

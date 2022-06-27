@@ -1,20 +1,21 @@
-import React from 'react'
-import './card.css'
+import React from "react";
+import "./card.css";
 
 const Card = ({ soals, onAnswer, answer }) => {
-
   return (
     <>
       <div>
         {soals.map((soal) => (
           <div key={soal.id_soal}>
             <div>
-              <p>{soal.id_soal}. {soal.pertanyaan}</p>
+              <p>
+                {soal.id_soal}. {soal.pertanyaan}
+              </p>
             </div>
             <div className="mt-2 cursor-pointer grid grid-rows-4 ">
               <div className="flex">
                 {/* <div className='w-36 mr-3 p-2 text-center shadow-2xl' > */}
-                <div 
+                <div
                   className={[
                     answer[soal.id_soal] === "A"
                   ?
@@ -26,11 +27,6 @@ const Card = ({ soals, onAnswer, answer }) => {
                   <a
                     href="/#"
                     onClick={() => onAnswer(soal.id_soal, (soal.opsi.opsi_a ? "A" : null))}
-                  >
-                    A. {soal.opsi.opsi_a}
-                  </a>
-                </div>
-                <div 
                   className={[
                     answer[soal.id_soal] === "B"
                   ?
@@ -48,7 +44,7 @@ const Card = ({ soals, onAnswer, answer }) => {
                 </div>
               </div>
               <div className="flex mt-5">
-                <div 
+                <div
                   className={[
                     answer[soal.id_soal] === "C"
                   ?
@@ -64,7 +60,7 @@ const Card = ({ soals, onAnswer, answer }) => {
                     C. {soal.opsi.opsi_c}
                   </a>
                 </div>
-                <div 
+                <div
                   className={[
                     answer[soal.id_soal] === "D"
                   ?
@@ -83,10 +79,10 @@ const Card = ({ soals, onAnswer, answer }) => {
               </div>
             </div>
           </div>
-          ))}
+        ))}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

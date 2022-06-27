@@ -27,24 +27,25 @@ function NewForm() {
   const timeDate = `${date} ${time}`;
 
   const kkmInt = parseInt(kkm);
-  const durationInt = parseInt(duration)
+  const durationInt = parseInt(duration);
 
-  const currentUrl = window.location.href
-  const arrCurrentUrl = currentUrl.split('/')
-  const numCurrentUrl = parseInt(arrCurrentUrl[5])
-  const idmapel = numCurrentUrl
-
+  const currentUrl = window.location.href;
+  const arrCurrentUrl = currentUrl.split("/");
+  const numCurrentUrl = parseInt(arrCurrentUrl[5]);
+  const idmapel = numCurrentUrl;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/guru/create/ujian", {
+        "http://localhost:8080/api/guru/create/ujian",
+        {
           id_mata_pelajaran: idmapel,
           kkm: kkmInt,
           durasi: durationInt,
           deadline: timeDate,
-        }, {
+        },
+        {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -184,25 +185,6 @@ function NewForm() {
                       {mataPelajaran}
                     </th>
                     <td>{token.token_ujian}</td>
-                    {/* <td>Token di sini</td> */}
-                    {/* <td class="px-6 py-4 text-right">
-                      <button
-                        onClick={copyToClipboard}
-                        class="flex justify-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                      >
-                        <svg
-                          class="w-6 h-6"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z"></path>
-                          <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path>
-                        </svg>
-                        <span class="ml-3">Copy Token</span>
-                      </button>
-                      {copy}
-                    </td> */}
                   </tr>
                 </tbody>
               </table>

@@ -46,13 +46,12 @@ const CreateSoal = () => {
     }
   };
 
-
   return (
     <>
       <div className="flex justify-start">
         <div className="grid grid-cols-5 mr-5">
-          {
-            mapel && mapel.map((mapel) => {
+          {mapel &&
+            mapel.map((mapel) => {
               return (
                 <div className="flex justify-start ml-20 mt-10">
                   <Link
@@ -65,9 +64,8 @@ const CreateSoal = () => {
                     </h5>
                   </Link>
                 </div>
-              )
-            })
-          }
+              );
+            })}
         </div>
       </div>
     </>

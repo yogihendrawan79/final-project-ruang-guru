@@ -3,8 +3,6 @@ import axios from "axios";
 import "./result.css";
 
 function Result() {
-  const url = "http://localhost:8080/api/guru/report";
-
   const [data, setData] = useState([]);
 
   const currentUrl = window.location.href;

@@ -32,10 +32,10 @@ const Ujian = () => {
       },
         {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          }
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
-      )
+      );
 
       const resSoal = res.data.data
       // console.log("ResSoal", resSoal)
@@ -46,10 +46,10 @@ const Ujian = () => {
       setDuration(resSoal.durasi)
 
     } catch (error) {
-      console.log("Gagal fetch data", error)
-      navigate('/login')
+      console.log("Gagal fetch data", error);
+      navigate("/login");
     }
-  }
+  };
 
   useEffect(() => {
     fetchSoals()
@@ -60,42 +60,41 @@ const Ujian = () => {
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
   const indexOfFirstSoal = indexOfLastSoal - soalsPerPage;
-  const currentSoals = soals.slice(indexOfFirstSoal, indexOfLastSoal)
-
+  const currentSoals = soals.slice(indexOfFirstSoal, indexOfLastSoal);
 
   // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    console.log("Answer", answer)
-  }, [answer])
+    console.log("Answer", answer);
+  }, [answer]);
 
   const nextQuestion = () => {
     if (currentPage === soals.length) {
       return;
     } else {
-      setCurrentPage(currentPage + 1)
+      setCurrentPage(currentPage + 1);
     }
-  }
+  };
 
   const prevQuestion = () => {
     if (currentPage === 1) {
       return;
     } else {
-      setCurrentPage(currentPage - 1)
+      setCurrentPage(currentPage - 1);
     }
-  }
+  };
 
   const handleAllAnswer = (indexSelected, indexOptionSelected) => {
-    const newAnswer = {...answer}
-    newAnswer[indexSelected] = indexOptionSelected
-    setAnswer(newAnswer)
-    
+    const newAnswer = { ...answer };
+    newAnswer[indexSelected] = indexOptionSelected;
+    setAnswer(newAnswer);
+
     setTimeout(() => {
       if (currentPage === soals.length) {
         return;
       } else {
-        setCurrentPage(currentPage + 1)
+        setCurrentPage(currentPage + 1);
       }
     }, 600)
   }
@@ -105,15 +104,16 @@ const Ujian = () => {
     arrAnswer.push(answer)
 
     try {
-      const res = await axios.post('http://localhost:8080/api/siswa/finish-ujian',
+      const res = await axios.post(
+        "http://localhost:8080/api/siswa/finish-ujian",
         {
           id_mata_pelajaran: idMapel,
-          jawabans: arrAnswer
+          jawabans: arrAnswer,
         },
         {
           headers: {
-            'Authorization' : 'Bearer ' + localStorage.getItem('token')
-          }
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
       )
 
@@ -142,17 +142,17 @@ const Ujian = () => {
     }
   } 
 
-  const durasi  = 120
-  const MINUTES = durasi*60
-  const time = new Date()
-  time.setSeconds(time.getSeconds() + MINUTES)
+  const durasi = 120;
+  const MINUTES = durasi * 60;
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + MINUTES);
 
   const { seconds, minutes, hours } = useTimer({
     expiryTimestamp: time,
-    onExpire: () => setCurrentPage(soals.length - 1)
-  })
+    onExpire: () => setCurrentPage(soals.length - 1),
+  });
 
-  const timer = `${hours}:${minutes}:${seconds}`
+  const timer = `${hours}:${minutes}:${seconds}`;
 
   //Profile
   const fetchProfile = async () => {
@@ -193,20 +193,25 @@ const Ujian = () => {
             onAnswer={handleAllAnswer}
             answer={answer}
           />
-          <div className='mt-36 flex justify-between'>
-            <button  className='bg-primary p-2 rounded-md text-white'>
-              <a onClick={prevQuestion} href="/#">Kembali</a>
+          <div className="mt-36 flex justify-between">
+            <button className="bg-primary p-2 rounded-md text-white">
+              <a onClick={prevQuestion} href="/#">
+                Kembali
+              </a>
             </button>
-            {
-              currentPage === soals.length ?
-              <button className='bg-primary p-2 rounded-md text-white'>
-                <a onClick={handleSubmitAnswer} href="/#">Selesai</a>
+            {currentPage === soals.length ? (
+              <button className="bg-primary p-2 rounded-md text-white">
+                <a onClick={handleSubmitAnswer} href="/#">
+                  Selesai
+                </a>
               </button>
-              : 
-              <button  className='bg-primary p-2 rounded-md text-white'>
-                <a onClick={nextQuestion} href="/#">Selanjutnya</a>
+            ) : (
+              <button className="bg-primary p-2 rounded-md text-white">
+                <a onClick={nextQuestion} href="/#">
+                  Selanjutnya
+                </a>
               </button>
-            }
+            )}
           </div>
         </div>
         <Daftar
@@ -218,7 +223,7 @@ const Ujian = () => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Ujian
+export default Ujian;

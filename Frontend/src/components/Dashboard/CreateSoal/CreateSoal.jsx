@@ -15,7 +15,6 @@ function CreateSoal() {
       });
 
       const mataPelajaran = res.data.data;
-      console.log("response Create Soal", mataPelajaran);
 
       setMapel(mataPelajaran);
     } catch (error) {
