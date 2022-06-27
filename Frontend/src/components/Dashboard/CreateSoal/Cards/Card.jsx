@@ -16,6 +16,7 @@ function Card({ mapel, idmapel }) {
       );
 
       console.log("Response report", res);
+      localStorage.setItem('idmapel', idmapel)
     } catch (err) {
       console.log("Gagal fetch data", err);
     }
