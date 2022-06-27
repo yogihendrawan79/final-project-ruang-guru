@@ -3,9 +3,12 @@ import { Outlet, Link } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
+import { useNavigate } from 'react-router-dom'
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
+
+  const navigate = useNavigate()
   // const Menus = [
   //   { title: "Create Soal", src: "Chart_fill" },
   //   { title: "Bank Soal", src: "User" },
@@ -21,6 +24,11 @@ function Sidebar() {
     },
   ];
 
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/login')
+  }
+
   return (
     <div className="flex">
       <div
@@ -28,7 +36,8 @@ function Sidebar() {
           open ? "w-72" : "w-20 "
         } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
       >
-        <img
+        <img 
+          alt=""
           src={control}
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
            border-2 rounded-full  ${!open && "rotate-180"}`}
@@ -36,6 +45,7 @@ function Sidebar() {
         />
         <div className="flex gap-x-4 items-center">
           <img
+            alt=""
             src={logo}
             style={{ width: "50px" }}
             className={`cursor-pointer duration-500 ${
@@ -118,6 +128,9 @@ function Sidebar() {
             <span>
               <Link to={"/guru/create-ujian"}>Create Ujian</Link>
             </span>
+          </li>
+          <li>
+            <button className="bg-red-700" onClick={handleLogout}>Log Out</button>
           </li>
         </ul>
       </div>
