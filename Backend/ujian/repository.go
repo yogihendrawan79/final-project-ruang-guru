@@ -127,7 +127,9 @@ func (r *repository) KillUjian() error {
 	   DELETE FROM users_mapel;
 	   DELETE FROM jawaban_siswa;
 	   DELETE FROM scores;
-	   DELETE FROM report
+	   DELETE FROM report;
+	   DELETE FROM sqlite_sequence WHERE name = 'soal';
+	   DELETE FROM sqlite_sequence WHERE name = 'opsi_soal'
 
 	;`
 
