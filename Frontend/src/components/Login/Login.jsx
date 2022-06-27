@@ -11,8 +11,8 @@ const Login = () => {
   const [password, setPassword] = React.useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log({ email, password });
+    e.preventDefault()
+    // console.log({ email, password })
 
     try {
       const res = await axios.post(
@@ -23,16 +23,15 @@ const Login = () => {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
-      );
-      localStorage.setItem("token", res.data.data.token);
+      )
+      localStorage.setItem('token', res.data.data.token)
 
-      if (res.data.data.role === "guru") {
-        navigate("/guru/bank-soal");
+      if(res.data.data.role === "guru") {
+        navigate('/guru/bank-soal')
       } else {
-        navigate("/token");
+        navigate('/token')
       }
 
-      // console.log("Respon API Login", res.data)
     } catch (err) {
       alert("email atau password salah");
       console.log("Gagal Login", err);

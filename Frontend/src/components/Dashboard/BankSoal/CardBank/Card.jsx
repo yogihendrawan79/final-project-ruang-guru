@@ -18,7 +18,7 @@ function Card({ mapel, id_mapel }) {
       })
       console.log("Respon KLIK MAPEL", res)
     } catch(error) {
-      console.log('kamu kena error')
+      console.log('Gagal')
     }
   }
 

@@ -4,6 +4,7 @@ import Navbar from '../Navbar/Navbar'
 import Card from './CardSoal/Card'
 import Daftar from './DaftarSoal/Daftar'
 import { useNavigate } from 'react-router-dom'
+import './ujian.css'
 
 const Ujian = () => {
   const [soals, setSoals] = useState([]);
@@ -13,6 +14,7 @@ const Ujian = () => {
   const [name, setName] = useState()
   const [image, setImage] = useState()
   const [duration, setDuration] = useState(0)
+  const [mapel, setMapel] = useState()
 
   const navigate = useNavigate();
 
@@ -28,11 +30,12 @@ const Ujian = () => {
         }
       )
 
+      const resSoal = res.data.data.soal
+      console.log("ResSoal", resSoal)
+      setMapel(res.data.data.mapel)
+      setSoals(resSoal)
       setDuration(res.data.data.durasi)
-      setSoals(res.data.data.soal)
-      
-      // console.log("Respon", res.data)
-      // console.log("fetch data soal", res.data.data.soal)
+
     } catch (error) {
       console.log("Gagal fetch data", error)
       navigate('/login')
@@ -43,8 +46,33 @@ const Ujian = () => {
     fetchSoals()
   }, [])
 
-  console.log("Soal", soals)
-  // console.log("Durasi", duration)
+  //Convert waktu ujian
+/*
+  const timeConvert = (n) => {
+    let num = n;
+    let hours = (num / 60);
+    let rhours = Math.floor(hours);
+    let minutes = (hours - rhours) * 60;
+    let rminutes = Math.round(minutes);
+    let seconds = (minutes - rminutes) * 60;
+    let rseconds = Math.round(seconds);
+    let time = `0${rhours}:${rminutes}:${rseconds}`
+    return time
+  }
+
+  const durasiUjian = timeConvert(duration)
+
+  //Countdown waktu ujian
+  const [countdown, setCountdown] = useState(durasiUjian)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(durasiUjian)
+      setDuration(duration - 1)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [duration])
+*/
 
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
@@ -62,11 +90,13 @@ const Ujian = () => {
     newAnswer[indexSelected] = indexOptionSelected
     setAnswer(newAnswer)
     
-    if (currentPage === soals.length) {
-      return;
-    } else {
-      setCurrentPage(currentPage + 1)
-    }
+    setTimeout(() => {
+      if (currentPage === soals.length) {
+        return;
+      } else {
+        setCurrentPage(currentPage + 1)
+      }
+    }, 600)
   }
 
   useEffect(() => {
@@ -90,10 +120,27 @@ const Ujian = () => {
   }
 
   const handleSubmitAnswer = () => {
-    let answers = [];
-    for (let key in answer) {
-      answers.push({ id_soal: key, answer: answer[key] })
-    }
+    const answers = []
+
+    soals.map((soal) => {
+      if(soal.opsi.opsi_a) {
+        answers.push({ id_soal: soal.id_soal, answer: "A" })
+      } 
+
+      if (soal.opsi.opsi_b) {
+        answers.push({ id_soal: soal.id_soal, answer: "B" })
+      }
+
+      if (soal.opsi.opsi_c) {
+        answers.push({ id_soal: soal.id_soal, answer: "C" })
+      }
+
+      if (soal.opsi.opsi_d) {
+        answers.push({ id_soal: soal.id_soal, answer: "D" })
+      }
+
+      return answers;
+    })
 
     console.log("Submit Jawaban : ", answers)
   }
@@ -107,7 +154,6 @@ const Ujian = () => {
       })
       setImage(res.data.data.avatar)
       setName(res.data.data.nama)
-      // console.log("Respon Token", res.data.data)
     } catch (err) {
       console.log("Gagal fetch data ", err)
     }
@@ -121,18 +167,19 @@ const Ujian = () => {
     <>
       <Navbar
         logo=".ET"
-        countdown={duration}
+        // countdown={durasiUjian}
         username={name}
         image={image}
       />
-      <div className='flex justify-center mt-10 ml-9'>
-        <div className="card-soal border-2 border-primary px-5 py-5">
+      <h1 className='mt-5 mb-1 mapel font-bold'>{mapel}</h1>
+      <div className='flex justify-center ml-9'>
+        <div className="card-soal border-2 border-primary px-5 py-5 relative">
           <Card
             soals={currentSoals}
             onAnswer={handleAllAnswer}
             answer={answer}
           />
-          <div className='mt-64 flex justify-between'>
+          <div className='mt-36 flex justify-between'>
             <button  className='bg-primary p-2 rounded-md text-white'>
               <a onClick={prevQuestion} href="/#">Kembali</a>
             </button>

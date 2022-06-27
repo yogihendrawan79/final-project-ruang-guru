@@ -4,8 +4,6 @@ import axios from "axios";
 
 const BankSoal = () => {
   const [mapel, setMapel] = useState()
-  const [image, setImage] = useState()
-  const [name, setName] = useState()
 
   const fetchMapel = async () => {
     try {
@@ -22,8 +20,8 @@ const BankSoal = () => {
       console.log("Berhasil fetch data", mataPelajaran)
       //sethere
       
-      setName(res.data.data.nama)
-      setImage(res.data.data.avatar)
+      // setName(res.data.data.nama)
+      // setImage(res.data.data.avatar)
       setMapel(mataPelajaran)
 
     } catch (error) {

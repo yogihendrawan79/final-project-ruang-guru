@@ -14,6 +14,7 @@ import (
 	"github.com/rg-km/final-project-engineering-46/handler"
 	"github.com/rg-km/final-project-engineering-46/helper"
 	matapelajaran "github.com/rg-km/final-project-engineering-46/mata-pelajaran"
+	"github.com/rg-km/final-project-engineering-46/report"
 	"github.com/rg-km/final-project-engineering-46/soal"
 	tokensoal "github.com/rg-km/final-project-engineering-46/token-soal"
 	"github.com/rg-km/final-project-engineering-46/ujian"
@@ -50,19 +51,29 @@ func main() {
 	// handler soal
 	handlerSoal := handler.NewHandlerSoal(serviceSoal, serviceTokenSoal)
 
-	// repo ujian
-	repoUjian := ujian.NewRepository(db)
-	// service ujian
-	serviceUjian := ujian.NewService(repoUjian)
-	// handler ujian
-	hanlderUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian)
-
 	// repo mata pelajaran
 	repoMataPelajaran := matapelajaran.NewRepository(db)
 	// service mata pelajaran
 	serviceMataPelajaran := matapelajaran.NewService(repoMataPelajaran)
 	// handler mata pelajaran
 	handlerMataPelajaran := handler.NewHandlerMataPelajaran(serviceMataPelajaran, serviceUser)
+
+	// repo ujian
+	repoUjian := ujian.NewRepository(db)
+	// service ujian
+	serviceUjian := ujian.NewService(repoUjian, repoSoal, repoMataPelajaran, repoTokenSoal)
+	// handler ujian
+	handlerUjian := handler.NewHandlerUjian(serviceTokenSoal, serviceUjian, repoMataPelajaran)
+
+	// repo report
+	repoReport := report.NewRepository(db)
+	// service report
+	serviceReport := report.NewService(repoReport)
+	//handler report
+	handlerReport := handler.NewHandlerReport(serviceReport)
+
+	// handler user profile
+	handlerProfile := handler.NewHandlerProfile()
 
 	// deklarasi http server
 	r := gin.Default()
@@ -73,19 +84,26 @@ func main() {
 	// route login
 	r.POST("/api/login", handlerUser.LoginUser)
 
+	// route profile
+	r.GET("/api/profile", AuthMiddleware(authUser, serviceUser), handlerProfile.Profile)
+
 	// route group
 	siswa := r.Group("/api/siswa")
 	{
 		siswa.POST("/token", AuthMiddleware(authUser, serviceUser), handlerTokenSoal.ValidateTokenUjian)
 		siswa.POST("/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalSiswa)
+		siswa.POST("/finish-ujian", AuthMiddleware(authUser, serviceUser), handlerUjian.FinishUjian)
+		siswa.POST("/nilai", AuthMiddleware(authUser, serviceUser), handlerUjian.ShowNilaiUjian)
 
 	}
 	guru := r.Group("/api/guru")
 	{
 		guru.GET("/dashboard", AuthMiddleware(authUser, serviceUser), handlerMataPelajaran.ShowMapels)
 		guru.POST("/create/soal", AuthMiddleware(authUser, serviceUser), handlerSoal.CreateSoal)
-		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), hanlderUjian.CreateUjian)
+		guru.POST("/create/ujian", AuthMiddleware(authUser, serviceUser), handlerUjian.CreateUjian)
 		guru.POST("/bank-soal", AuthMiddleware(authUser, serviceUser), handlerSoal.ShowAllSoalGuru)
+		guru.POST("/report", AuthMiddleware(authUser, serviceUser), handlerReport.ShowReport)
+		guru.GET("/kill-ujian", AuthMiddleware(authUser, serviceUser), handlerUjian.KillUjian)
 	}
 
 	r.Run(":8080")

@@ -10,6 +10,10 @@ import (
 // kontrak function
 type Repository interface {
 	Update(input InputUjian, tokenSoal uuid.UUID) error
+	SaveAnswer(input Jawaban, userID int) error
+	SaveScore(input InputScore, userID int) int
+	SaveReport(userID, mapelID, scoreID int, status string) error
+	KillUjian() error
 }
 
 // struct dependen ke koneksi database
@@ -49,5 +53,89 @@ func (r *repository) Update(input InputUjian, tokenSoal uuid.UUID) error {
 		return err
 	}
 
+	return nil
+}
+
+// function save data jawaban siswa
+func (r *repository) SaveAnswer(input Jawaban, userID int) error {
+
+	// query
+	sql := `
+		INSERT INTO jawaban_siswa
+			(id_soal, id_users, jawaban)
+		VALUES
+			(?, ?, ?)
+	;`
+
+	// exec
+	_, err := r.db.Exec(sql, input.IdSoal, userID, input.Answer)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// func save score siswa
+func (r *repository) SaveScore(input InputScore, userID int) int {
+	// id
+	var id int
+
+	// query
+	sql := `
+		INSERT INTO scores 
+			(id_users, id_mata_pelajaran,nilai)
+		VALUES
+		(?, ?,?)
+		RETURNING id_scores
+	;`
+
+	// exec
+	data := r.db.QueryRow(sql, userID, input.IdMataPelajaran, input.Nilai)
+	data.Scan(
+		&id,
+	)
+
+	return id
+}
+
+// func untuk menyimpan data ke table report
+func (r *repository) SaveReport(userID, mapelID, scoreID int, status string) error {
+	// query
+	sql := `
+		INSERT INTO report 
+			(id_users, id_mata_pelajaran, id_scores, status)
+		VALUES
+			(?, ?, ?, ?)
+	;`
+
+	// exec
+	_, err := r.db.Exec(sql, userID, mapelID, scoreID, status)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// function untuk mengakhiri kegiatan ujian (misal kegiatan ujian selama 1 minggu sudah selesai, ini akan mentruncate table users_mapel) dengan tujuan di next ujian atribut used di table users_mapel kembali default menjadi false agar token lolos validasi
+func (r *repository) KillUjian() error {
+	// query
+
+	sql := `
+       DELETE FROM opsi_soal;
+	   DELETE FROM soal;
+	   DELETE FROM users_mapel;
+	   DELETE FROM jawaban_siswa;
+	   DELETE FROM scores;
+	   DELETE FROM report
+
+	;`
+
+	_, err := r.db.Exec(sql)
+	if err != nil {
+		return err
+	}
+
+	// return
 	return nil
 }
