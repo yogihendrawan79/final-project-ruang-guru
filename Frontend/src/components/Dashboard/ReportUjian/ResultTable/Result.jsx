@@ -10,30 +10,28 @@ function Result() {
   const numCurrentUrl = parseInt(arrCurrentUrl[5]);
   const idmapel = numCurrentUrl;
 
-  const showDataReport = async () => {
+  const showReportUjian = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/guru/report",
-        {
-          id_mata_pelajaran: idmapel,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
+      const res = await axios.post('http://localhost:8080/api/guru/report', {
+        id_mata_pelajaran: idmapel
+      },
+      {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
-      );
-      const reportData = res.data.data;
-      console.log("Data bank", reportData);
-      setData(reportData);
-    } catch (error) {
-      console.log("Gagal mengambil data bank soal", error);
+      })
+      const hasilUjian = res.data.data
+
+      setData(hasilUjian)
+      console.log("Show Hasil Ujian", hasilUjian)
+    } catch (err) {
+      console.log("Gagal show report ujian", err)
     }
-  };
+  }
 
   useEffect(() => {
-    showDataReport();
-  }, []);
+    showReportUjian()
+  }, [])
 
   const renderTable = () => {
     return data.map((report) => {

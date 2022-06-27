@@ -126,7 +126,6 @@ func (s *service) KillUjian() error {
 	// panggil repo
 	err := s.repository.KillUjian()
 	if err != nil {
-		log.Println(err)
 		return errors.New("gagal kill ujian")
 	}
 

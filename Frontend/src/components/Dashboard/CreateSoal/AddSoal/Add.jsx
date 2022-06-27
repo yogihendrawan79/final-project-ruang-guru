@@ -1,6 +1,10 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
 
 function Add() {
   const [question, setQuestion] = useState()
@@ -14,8 +18,8 @@ function Add() {
   const arrCurrentUrl = currentUrl.split('/')
   const numCurrentUrl = parseInt(arrCurrentUrl[5])
   const idmapel = numCurrentUrl
-
-  console.log("currenturl", typeof(idmapel))
+  
+  const MySwal = withReactContent(Swal)
 
   const newSoal = async (e) => {
     e.preventDefault()
@@ -37,7 +41,10 @@ function Add() {
           }
         }
       )
-
+      MySwal.fire({
+        title: 'Berhasil Menambahkan Soal',
+        icon: 'success',
+      })
       console.log('Berhasil membuat soal', res)
     } catch (error) {
       console.log("Gagal membuat soal", error)

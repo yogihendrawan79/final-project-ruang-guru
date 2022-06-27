@@ -6,3 +6,7 @@ table {
   content: counter(tableCount);
   counter-increment: tableCount;
 }
+
+.button {
+  margin-left: 57rem;
+}

@@ -4,11 +4,16 @@ import NavbarLogo from "../Navbar/NavbarLogo";
 import "./login.css";
 import axios from "axios";
 import loginimage from "../../assets/loginpage.png";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  
+  const MySwal = withReactContent(Swal)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,14 +31,41 @@ const Login = () => {
       )
       localStorage.setItem('token', res.data.data.token)
 
-      if(res.data.data.role === "guru") {
-        navigate('/guru/bank-soal')
-      } else {
-        navigate('/token')
-      }
+    
+      console.log("Status", res.status)
+
+        let timerInterval
+        MySwal.fire({
+            title: 'Login Berhasil',
+            icon: 'success',
+            timer: 2300,
+            timerProgressBar: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            if(res.data.data.role === "guru") {
+              navigate('/guru/bank-soal')
+            } else {
+              navigate('/token')
+            }
+          }) 
+          // if(res.data.data.role === "guru") {
+          //   navigate('/guru/bank-soal')
+          // } else {
+          //   navigate('/token')
+          // }
+
 
     } catch (err) {
-      alert("email atau password salah");
+      MySwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `Email atau password salah`,
+      })
       console.log("Gagal Login", err);
     }
   };

@@ -3,38 +3,42 @@ import React, { useEffect, useState } from 'react'
 import NavbarToken from '../Navbar/NavbarToken'
 import { useNavigate } from 'react-router-dom'
 import './token.css'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 const Token = () => {
   const [image, setImage] = useState()
   const [name, setName] = useState()
   const [token, setToken] = useState()
-
+  
   const navigate = useNavigate()
+  const MySwal = withReactContent(Swal)
 
-  // const fetchTokenPage = async () => {
-  //   try {
-  //     const res = await axios.get('http://localhost:8080/api/siswa/home', {
-  //       headers: {
-  //         'Authorization': 'Bearer ' + localStorage.getItem('token')
-  //       }
-  //     })
+  const fetchTokenPage = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/profile', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
 
-  //     if(res.data.status === 401) {
-  //       navigate('/login')
-  //     } else {
-  //       setImage(res.data.data.avatar)
-  //       setName(res.data.data.nama)
-  //     }
-  //     console.log("respon siswa/home", res.status)
-  //     // console.log("Respon Token", res.data.data)
-  //   } catch (err) {
-  //     console.log("Gagal fetch data ", err)
-  //   }
-  // }
+      if(res.data.status === 401) {
+        navigate('/login')
+      } else {
+        setImage(res.data.data.avatar)
+        setName(res.data.data.nama)
+        // console.log("respon siswa/home", res.data.data)
+      }
+      // console.log("Respon Token", res.data.data)
+    } catch (err) {
+      console.log("Gagal fetch data profile ", err)
+    }
+  }
 
-  // useEffect(() => {
-  //   fetchTokenPage()
-  // }, [])
+  useEffect(() => {
+    fetchTokenPage()
+  }, [])
 
   const handleProcessToken = async (e) => {
     e.preventDefault();
@@ -48,15 +52,40 @@ const Token = () => {
 
       console.log("Respon Token", res)
 
-      if (res.status === 401) {
-        navigate('/login')
-      } else {
-        sessionStorage.setItem("token_ujian", token)
-        navigate('/')
-      }
+      let timerInterval
+      MySwal.fire({
+          title: 'Token Valid',
+          icon: 'success',
+          timer: 3000,
+          timerProgressBar: false,
+          didOpen: () => {
+              Swal.showLoading()
+          },
+          willClose: () => {
+              clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          if (res.status === 401) {
+            navigate('/login')
+          } else {
+            sessionStorage.setItem("token_ujian", token)
+            navigate('/')
+          }
+        }) 
+
+      // if (res.status === 401) {
+      //   navigate('/login')
+      // } else {
+      //   sessionStorage.setItem("token_ujian", token)
+      //   navigate('/')
+      // }
 
     } catch (err) {
-      alert("Token yang anda masukan salah")
+      MySwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `Token Tidak Valid`,
+      })
       console.log("gagal fetch soal ", err)
     }
   }

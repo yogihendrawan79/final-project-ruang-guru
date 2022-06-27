@@ -3,13 +3,21 @@ import { Outlet, Link } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useEffect } from "react";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
   const [image, setImage] = useState()
   const [username, setUsername] = useState()
+
+  const navigate = useNavigate 
+  
+  const MySwal = withReactContent(Swal)
 
   const fetchData = async () => {
     try {
@@ -32,13 +40,46 @@ function Sidebar() {
     fetchData()
   }, [])
 
+  const handleLogout = () => {
+    MySwal.fire({
+      title: 'Log Out Berhasil',
+      icon: 'success',
+    })
+    localStorage.clear()
+    navigate('/login')
+  }
+
+  const handleEndSession =async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.get('http://localhost:8080/api/guru/kill-ujian', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      console.log('Berhasil Kill ujian', res)
+
+      MySwal.fire({
+        title: 'Sesi Ujian Berakhir',
+        icon: 'success',
+      })
+    } catch (error) {
+      MySwal.fire({
+        title: 'Gagal Mengakiri Sesi Ujian',
+        icon: 'error',
+      })
+      console.log("Tidak berhasil end session", error)
+    }
+  }
+
   return (
     <div className="flex">
       <div
         className={` ${open ? "w-72" : "w-20 "
           } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
       >
-        <img
+        <img 
+          alt=""
           src={control}
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
            border-2 rounded-full  ${!open && "rotate-180"}`}
@@ -46,6 +87,7 @@ function Sidebar() {
         />
         <div className="flex gap-x-4 items-center">
           <img
+            alt=""
             src={logo}
             style={{ width: "50px" }}
             className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
@@ -126,6 +168,18 @@ function Sidebar() {
             <span>
               <Link to={"/guru/create-ujian"}>Create Ujian</Link>
             </span>
+          </li>
+          <li>
+            <button 
+              className="hover:bg-orange-400 border border-orange-400 mt-8 rounded-md py-1 px-4 ml-3"
+              onClick={handleEndSession}>
+              <a href="#/" className="text-white">Akhiri Ujian</a>
+            </button>
+          </li>
+          <li>
+            <button className="bg-red-700 mt-4 rounded-md py-1 px-4 ml-3" onClick={handleLogout}>
+              <a href="/login" className="text-white">Log Out</a>
+            </button>
           </li>
         </ul>
       </div>
