@@ -31,35 +31,25 @@ const Login = () => {
       )
       localStorage.setItem('token', res.data.data.token)
 
-    
-      console.log("Status", res.status)
-
-        let timerInterval
-        MySwal.fire({
-            title: 'Login Berhasil',
-            icon: 'success',
-            timer: 2300,
-            timerProgressBar: false,
-            didOpen: () => {
-                Swal.showLoading()
-            },
-            willClose: () => {
-                clearInterval(timerInterval)
-            }
-          }).then((result) => {
-            if(res.data.data.role === "guru") {
-              navigate('/guru/bank-soal')
-            } else {
-              navigate('/token')
-            }
-          }) 
-          // if(res.data.data.role === "guru") {
-          //   navigate('/guru/bank-soal')
-          // } else {
-          //   navigate('/token')
-          // }
-
-
+      let timerInterval
+      MySwal.fire({
+          title: 'Login Berhasil',
+          icon: 'success',
+          timer: 2300,
+          timerProgressBar: false,
+          didOpen: () => {
+              Swal.showLoading()
+          },
+          willClose: () => {
+              clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          if(res.data.data.role === "guru") {
+            navigate('/guru/create-soal')
+          } else {
+            navigate('/token')
+          }
+        }) 
     } catch (err) {
       MySwal.fire({
         icon: 'error',
