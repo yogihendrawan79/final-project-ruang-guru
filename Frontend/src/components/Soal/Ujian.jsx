@@ -4,9 +4,13 @@ import Navbar from '../Navbar/Navbar'
 import Card from './CardSoal/Card'
 import Daftar from './DaftarSoal/Daftar'
 import { useNavigate } from 'react-router-dom'
+<<<<<<< HEAD
+import './ujian.css'
+=======
 import { useTimer } from "react-timer-hook";
 import './ujian.css'
 import useStore from '../../store/Answer'
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
 const Ujian = () => {
   const [soals, setSoals] = useState([]);
@@ -17,7 +21,10 @@ const Ujian = () => {
   const [image, setImage] = useState()
   const [duration, setDuration] = useState(0)
   const [mapel, setMapel] = useState()
+<<<<<<< HEAD
+=======
   const [idMapel, setIdMapel] = useState()
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
   const navigate = useNavigate();
   const { postAnswer } = useStore()
@@ -34,12 +41,19 @@ const Ujian = () => {
         }
       )
 
+<<<<<<< HEAD
+      const resSoal = res.data.data.soal
+      console.log("ResSoal", resSoal)
+      setMapel(res.data.data.mapel)
+      setSoals(resSoal)
+=======
       const resSoal = res.data.data
       console.log("ResSoal", resSoal)
       console.log("ResSoals", resSoal.soal)
       // setMapel(res.data.data.mapel)
       setIdMapel(resSoal.id_mapel)
       setSoals(resSoal.soal)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
       setDuration(res.data.data.durasi)
 
     } catch (error) {
@@ -52,6 +66,36 @@ const Ujian = () => {
     fetchSoals()
   }, [])
 
+<<<<<<< HEAD
+  //Convert waktu ujian
+/*
+  const timeConvert = (n) => {
+    let num = n;
+    let hours = (num / 60);
+    let rhours = Math.floor(hours);
+    let minutes = (hours - rhours) * 60;
+    let rminutes = Math.round(minutes);
+    let seconds = (minutes - rminutes) * 60;
+    let rseconds = Math.round(seconds);
+    let time = `0${rhours}:${rminutes}:${rseconds}`
+    return time
+  }
+
+  const durasiUjian = timeConvert(duration)
+
+  //Countdown waktu ujian
+  const [countdown, setCountdown] = useState(durasiUjian)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(durasiUjian)
+      setDuration(duration - 1)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [duration])
+*/
+=======
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
@@ -62,6 +106,24 @@ const Ujian = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+<<<<<<< HEAD
+  
+  const handleAllAnswer = (indexSelected, indexOptionSelected) => {
+    const newAnswer = {...answer}
+    newAnswer[indexSelected] = indexOptionSelected
+    setAnswer(newAnswer)
+    
+    setTimeout(() => {
+      if (currentPage === soals.length) {
+        return;
+      } else {
+        setCurrentPage(currentPage + 1)
+      }
+    }, 600)
+  }
+
+=======
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
   useEffect(() => {
     console.log("Answer", answer)
   }, [answer])
@@ -82,6 +144,32 @@ const Ujian = () => {
     }
   }
 
+<<<<<<< HEAD
+  const handleSubmitAnswer = () => {
+    const answers = []
+
+    soals.map((soal) => {
+      if(soal.opsi.opsi_a) {
+        answers.push({ id_soal: soal.id_soal, answer: "A" })
+      } 
+
+      if (soal.opsi.opsi_b) {
+        answers.push({ id_soal: soal.id_soal, answer: "B" })
+      }
+
+      if (soal.opsi.opsi_c) {
+        answers.push({ id_soal: soal.id_soal, answer: "C" })
+      }
+
+      if (soal.opsi.opsi_d) {
+        answers.push({ id_soal: soal.id_soal, answer: "D" })
+      }
+
+      return answers;
+    })
+
+    console.log("Submit Jawaban : ", answers)
+=======
   const handleAllAnswer = (indexSelected, indexOptionSelected) => {
     const newAnswer = {...answer}
     newAnswer[indexSelected] = indexOptionSelected
@@ -94,6 +182,7 @@ const Ujian = () => {
         setCurrentPage(currentPage + 1)
       }
     }, 600)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
   }
 
   const handleSubmitAnswer = async () => {
@@ -110,11 +199,19 @@ const Ujian = () => {
             'Authorization' : 'Bearer ' + localStorage.getItem('token')
           }
         }
+<<<<<<< HEAD
+      })
+      setImage(res.data.data.avatar)
+      setName(res.data.data.nama)
+    } catch (err) {
+      console.log("Gagal fetch data ", err)
+=======
       )
       console.log('Berhasil submit jawaban', res)
       navigate('/hasil-ujian')
     } catch (error) {
       console.log("Gagal submit jawaban", error)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
     }
 
 
@@ -139,7 +236,11 @@ const Ujian = () => {
     <>
       <Navbar
         logo=".ET"
+<<<<<<< HEAD
+        // countdown={durasiUjian}
+=======
         countdown={timer}
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
         username={name}
         image={image}
       />

@@ -3,30 +3,40 @@ import { Outlet, Link } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
+import axios from "axios";
+import { useEffect } from "react";
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
-  // const Menus = [
-  //   { title: "Create Soal", src: "Chart_fill" },
-  //   { title: "Bank Soal", src: "User" },
-  //   { title: "Create Ujian ", src: "Folder" },
-  //   { title: "Report Nilai", src: "Chart" },
-  // ];
+  const [image, setImage] = useState()
+  const [username, setUsername] = useState()
 
-  const data = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1495995424756-6a5a3f9e7543?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzl8fHN0dWRlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      username: "Yani",
-    },
-  ];
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/profile', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      setImage(res.data.data.avatar)
+      setUsername(res.data.data.nama)
+      console.log("avatar", res.data.data.avatar)
+      console.log("nama", res.data.data.nama)
+
+    } catch (error) {
+      console.log("gagal fetch data", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <div className="flex">
       <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+        className={` ${open ? "w-72" : "w-20 "
+          } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
       >
         <img
           src={control}
@@ -38,14 +48,12 @@ function Sidebar() {
           <img
             src={logo}
             style={{ width: "50px" }}
-            className={`cursor-pointer duration-500 ${
-              open && "rotate-[360deg]"
-            }`}
+            className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
+              }`}
           />
           <h1
-            className={`text-white origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
-            }`}
+            className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+              }`}
           >
             Exam Time
           </h1>
@@ -122,13 +130,12 @@ function Sidebar() {
         </ul>
       </div>
       <div className="h-screen flex-1">
-        {data.map((index) => (
-          <NavbarToken
-            key={index.username}
-            username={index.username}
-            image={index.image}
-          />
-        ))}
+
+        <NavbarToken
+          username={username}
+          image={image}
+        />
+
         <main>
           <Outlet />
         </main>
