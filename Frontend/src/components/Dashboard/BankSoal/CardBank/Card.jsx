@@ -8,9 +8,9 @@ function Card({ mapel, id_mapel }) {
 
   console.log("idmapel", id_mapel)
 
-  const handleClick = () => {
+  const handleClick = async () => {
     try {
-      const res = axios.post ('/api/guru/bank-soal', {id_mata_pelajaran: id_mapel},
+      const res = await axios.post ('/api/guru/bank-soal', {id_mata_pelajaran: id_mapel},
       {
         headers : {
           'Authorization' : 'Bearer' + localStorage.getItem('token')

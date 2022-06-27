@@ -3,28 +3,21 @@ import { Outlet, Link } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom'
-
-function Sidebar() {
-  const [open, setOpen] = useState(true);
-
-  const navigate = useNavigate()
-  // const Menus = [
-  //   { title: "Create Soal", src: "Chart_fill" },
-  //   { title: "Bank Soal", src: "User" },
-  //   { title: "Create Ujian ", src: "Folder" },
-  //   { title: "Report Nilai", src: "Chart" },
-  // ];
-=======
 import axios from "axios";
 import { useEffect } from "react";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
   const [image, setImage] = useState()
   const [username, setUsername] = useState()
->>>>>>> fa8d9587085d41d0c0d64d9ef2d4c44d1eb06e60
+
+  const navigate = useNavigate 
+  
+  const MySwal = withReactContent(Swal)
 
   const fetchData = async () => {
     try {
@@ -48,8 +41,26 @@ function Sidebar() {
   }, [])
 
   const handleLogout = () => {
+    MySwal.fire({
+      title: 'Log Out Berhasil',
+      icon: 'success',
+    })
     localStorage.clear()
     navigate('/login')
+  }
+
+  const handleEndSession =async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.get('http://localhost:8080/api/guru/kill-ujian', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      console.log('Berhasil Kill ujian', res)
+    } catch (error) {
+      console.log("Tidak berhasil end session", error)
+    }
   }
 
   return (
@@ -150,7 +161,16 @@ function Sidebar() {
             </span>
           </li>
           <li>
-            <button className="bg-red-700" onClick={handleLogout}>Log Out</button>
+            <button 
+              className="hover:bg-orange-400 border border-orange-400 mt-8 rounded-md py-1 px-4 ml-3"
+              onClick={handleEndSession}>
+              <a href="#/" className="text-white">Akhiri Ujian</a>
+            </button>
+          </li>
+          <li>
+            <button className="bg-red-700 mt-4 rounded-md py-1 px-4 ml-3" onClick={handleLogout}>
+              <a href="/login" className="text-white">Log Out</a>
+            </button>
           </li>
         </ul>
       </div>

@@ -5,12 +5,16 @@ import Button from '../Soal/Button/Button'
 import './result.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 const Result = () => {
   const [status, setStatus] = useState()
   const [mapel, setMapel] = useState()
   const [nilai, setNilai] = useState()
 
+  const MySwal = withReactContent(Swal)
   const navigate = useNavigate()
 
   const idmapel = localStorage.getItem('id_mapel')
@@ -49,7 +53,12 @@ const Result = () => {
   }, [])
 
   const handleLogout = () => {
+    MySwal.fire({
+      title: 'Log Out Berhasil',
+      icon: 'success',
+    })
     localStorage.clear()
+    navigate('/login')
   }
 
   return (
@@ -76,9 +85,10 @@ const Result = () => {
               </div>
             </div>
         }
+        
         <div className='button flex justify-center mt-4'>
-          <button onClick={handleLogout}>
-            Selesai
+          <button onClick={handleLogout} className="hover:bg-primary border border-solid text-primary border-primary p-1 w-28 text-center rounded-2xl hover:text-white">
+            <a href="/login">Selesai</a>
           </button>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function NewForm() {
   const [date, setDate] = useState();
@@ -10,6 +12,10 @@ function NewForm() {
   const [mataPelajaran, setMataPelajaran] = useState("");
   const [submit, setSubmit] = useState({});
   const [token, setToken] = useState("");
+  const [copy, setCopy] = useState()
+  const textAreaRef = useRef(null);
+
+  const MySwal = withReactContent(Swal)
 
   const handleInputDate = (e) => {
     setDate(e.target.value);
@@ -29,10 +35,10 @@ function NewForm() {
   const idmapel = numCurrentUrl
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = axios.post(
+      const res = await axios.post(
         "http://localhost:8080/api/guru/create/ujian", {
           id_mata_pelajaran: idmapel,
           kkm: kkmInt,
@@ -43,16 +49,13 @@ function NewForm() {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         });
-
-<<<<<<< HEAD
-      // setToken(res.data.data.data)
-      console.log("Respon Create Soal", res.data.data);
-      setToken(res.data.data);
-=======
-      const resCreateUjian = res.data
+        MySwal.fire({
+          title: 'Berhasil Membuat Ujian',
+          icon: 'success',
+        })
+      const resCreateUjian = res.data.data
       console.log("Respon Create Soal", resCreateUjian);
       setToken(resCreateUjian);
->>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
     } catch (err) {
       console.log("Gagal post data", err);
     }
@@ -78,7 +81,6 @@ function NewForm() {
                   onChange={(e) => setMataPelajaran(e.target.value)}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Isi dengan nama Mata Pelajaran"
-                  disabled
                 />
               </div>
               <div class="grid gap-6 mb-6 lg:grid-cols-2">
@@ -179,16 +181,13 @@ function NewForm() {
                       scope="row"
                       class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                     >
-                      IPA
+                      {mataPelajaran}
                     </th>
-<<<<<<< HEAD
-                    <td class="px-6 py-4">asdlfjasdlk</td>
-=======
-                    <td>Token di sini</td>
->>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
-                    <td class="px-6 py-4 text-right">
-                      <a
-                        href="/#"
+                    <td>{token.token_ujian}</td>
+                    {/* <td>Token di sini</td> */}
+                    {/* <td class="px-6 py-4 text-right">
+                      <button
+                        onClick={copyToClipboard}
                         class="flex justify-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <svg
@@ -201,8 +200,9 @@ function NewForm() {
                           <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path>
                         </svg>
                         <span class="ml-3">Copy Token</span>
-                      </a>
-                    </td>
+                      </button>
+                      {copy}
+                    </td> */}
                   </tr>
                 </tbody>
               </table>

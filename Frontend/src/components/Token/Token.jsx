@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react'
 import NavbarToken from '../Navbar/NavbarToken'
 import { useNavigate } from 'react-router-dom'
 import './token.css'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 
 const Token = () => {
   const [image, setImage] = useState()
   const [name, setName] = useState()
   const [token, setToken] = useState()
-
+  
   const navigate = useNavigate()
+  const MySwal = withReactContent(Swal)
 
   const fetchTokenPage = async () => {
     try {
@@ -48,15 +52,40 @@ const Token = () => {
 
       console.log("Respon Token", res)
 
-      if (res.status === 401) {
-        navigate('/login')
-      } else {
-        sessionStorage.setItem("token_ujian", token)
-        navigate('/')
-      }
+      let timerInterval
+      MySwal.fire({
+          title: 'Token Valid',
+          icon: 'success',
+          timer: 3000,
+          timerProgressBar: false,
+          didOpen: () => {
+              Swal.showLoading()
+          },
+          willClose: () => {
+              clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          if (res.status === 401) {
+            navigate('/login')
+          } else {
+            sessionStorage.setItem("token_ujian", token)
+            navigate('/')
+          }
+        }) 
+
+      // if (res.status === 401) {
+      //   navigate('/login')
+      // } else {
+      //   sessionStorage.setItem("token_ujian", token)
+      //   navigate('/')
+      // }
 
     } catch (err) {
-      alert("Token yang anda masukan tidak valid")
+      MySwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `Token Tidak Valid`,
+      })
       console.log("gagal fetch soal ", err)
     }
   }
