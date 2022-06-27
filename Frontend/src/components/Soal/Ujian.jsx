@@ -20,12 +20,13 @@ const Ujian = () => {
   const [idMapel, setIdMapel] = useState()
 
   const navigate = useNavigate();
-  const { postAnswer } = useStore()
+  // const { postAnswer } = useStore()
 
+  const token = sessionStorage.getItem('token_ujian')
   const fetchSoals = async () => {
     try {
       const res = await axios.post('http://localhost:8080/api/siswa/soal', {
-        token: sessionStorage.getItem('token_ujian')
+        token: token
       },
         {
           headers: {
@@ -35,12 +36,12 @@ const Ujian = () => {
       )
 
       const resSoal = res.data.data
-      console.log("ResSoal", resSoal)
-      console.log("ResSoals", resSoal.soal)
-      // setMapel(res.data.data.mapel)
+      // console.log("ResSoal", resSoal)
+      // console.log("ResSoals", resSoal.soal)
+      setMapel(resSoal.mapel)
       setIdMapel(resSoal.id_mapel)
       setSoals(resSoal.soal)
-      setDuration(res.data.data.durasi)
+      setDuration(resSoal.durasi)
 
     } catch (error) {
       console.log("Gagal fetch data", error)
@@ -52,6 +53,7 @@ const Ujian = () => {
     fetchSoals()
   }, [])
 
+  localStorage.setItem('id_mapel', idMapel)
 
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
@@ -111,18 +113,24 @@ const Ujian = () => {
           }
         }
       )
-      console.log('Berhasil submit jawaban', res)
-      navigate('/hasil-ujian')
+      if (res.status === 200) {
+        localStorage.setItem('jawabans', JSON.stringify(arrAnswer))
+        navigate('/hasil-ujian')
+        // console.log('Berhasil submit jawaban', arrAnswer)
+      }
+
     } catch (error) {
       console.log("Gagal submit jawaban", error)
     }
-
-
-    console.log("Submit Jawaban : ", arrAnswer)
-  
-    // postAnswer(answer)
   }
 
+  // console.log("Durasi", duration)
+  // const intDurasi = parseInt(duration)
+
+  // console.log("Durasi", typeof(durasi))
+  // console.log("DUration", duration)
+  // console.log("durasi", typeof(durasi))
+  // console.log("nilaidurasi", durasi)
   const durasi  = 120
   const MINUTES = durasi*60
   const time = new Date()
@@ -134,6 +142,29 @@ const Ujian = () => {
   })
 
   const timer = `${hours}:${minutes}:${seconds}`
+
+  //Profile
+  const fetchProfile = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/profile', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+
+      const resProfile = res.data.data
+        setImage(resProfile.avatar)
+        setName(resProfile.nama)
+     
+      // console.log("Respon Token", res.data.data)
+    } catch (err) {
+      console.log("Gagal fetch data profile ", err)
+    }
+  }
+
+  useEffect(() => {
+    fetchProfile()
+  }, [])
 
   return (
     <>
