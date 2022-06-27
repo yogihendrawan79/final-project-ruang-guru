@@ -4,7 +4,13 @@ import Navbar from '../Navbar/Navbar'
 import Card from './CardSoal/Card'
 import Daftar from './DaftarSoal/Daftar'
 import { useNavigate } from 'react-router-dom'
+<<<<<<< HEAD
 import './ujian.css'
+=======
+import { useTimer } from "react-timer-hook";
+import './ujian.css'
+import useStore from '../../store/Answer'
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
 const Ujian = () => {
   const [soals, setSoals] = useState([]);
@@ -15,8 +21,13 @@ const Ujian = () => {
   const [image, setImage] = useState()
   const [duration, setDuration] = useState(0)
   const [mapel, setMapel] = useState()
+<<<<<<< HEAD
+=======
+  const [idMapel, setIdMapel] = useState()
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
   const navigate = useNavigate();
+  const { postAnswer } = useStore()
 
   const fetchSoals = async () => {
     try {
@@ -30,10 +41,19 @@ const Ujian = () => {
         }
       )
 
+<<<<<<< HEAD
       const resSoal = res.data.data.soal
       console.log("ResSoal", resSoal)
       setMapel(res.data.data.mapel)
       setSoals(resSoal)
+=======
+      const resSoal = res.data.data
+      console.log("ResSoal", resSoal)
+      console.log("ResSoals", resSoal.soal)
+      // setMapel(res.data.data.mapel)
+      setIdMapel(resSoal.id_mapel)
+      setSoals(resSoal.soal)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
       setDuration(res.data.data.durasi)
 
     } catch (error) {
@@ -46,6 +66,7 @@ const Ujian = () => {
     fetchSoals()
   }, [])
 
+<<<<<<< HEAD
   //Convert waktu ujian
 /*
   const timeConvert = (n) => {
@@ -73,17 +94,19 @@ const Ujian = () => {
     return () => clearInterval(interval)
   }, [duration])
 */
+=======
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
   // Get current soal
   const indexOfLastSoal = currentPage * soalsPerPage;
   const indexOfFirstSoal = indexOfLastSoal - soalsPerPage;
   const currentSoals = soals.slice(indexOfFirstSoal, indexOfLastSoal)
 
-  // console.log("Current Soal", currentSoals)
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+<<<<<<< HEAD
   
   const handleAllAnswer = (indexSelected, indexOptionSelected) => {
     const newAnswer = {...answer}
@@ -99,6 +122,8 @@ const Ujian = () => {
     }, 600)
   }
 
+=======
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
   useEffect(() => {
     console.log("Answer", answer)
   }, [answer])
@@ -119,6 +144,7 @@ const Ujian = () => {
     }
   }
 
+<<<<<<< HEAD
   const handleSubmitAnswer = () => {
     const answers = []
 
@@ -143,31 +169,78 @@ const Ujian = () => {
     })
 
     console.log("Submit Jawaban : ", answers)
+=======
+  const handleAllAnswer = (indexSelected, indexOptionSelected) => {
+    const newAnswer = {...answer}
+    newAnswer[indexSelected] = indexOptionSelected
+    setAnswer(newAnswer)
+    
+    setTimeout(() => {
+      if (currentPage === soals.length) {
+        return;
+      } else {
+        setCurrentPage(currentPage + 1)
+      }
+    }, 600)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
   }
 
-  const fetchNavbar = async () => {
+  const handleSubmitAnswer = async () => {
+    const arrAnswer = []
+    arrAnswer.push(answer)
     try {
-      const res = await axios.get('http://localhost:8080/api/siswa/home', {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
+      const res = await axios.post('http://localhost:8080/api/siswa/finish-ujian',
+        {
+          id_mata_pelajaran: idMapel,
+          jawabans: arrAnswer
+        },
+        {
+          headers: {
+            'Authorization' : 'Bearer ' + localStorage.getItem('token')
+          }
         }
+<<<<<<< HEAD
       })
       setImage(res.data.data.avatar)
       setName(res.data.data.nama)
     } catch (err) {
       console.log("Gagal fetch data ", err)
+=======
+      )
+      console.log('Berhasil submit jawaban', res)
+      navigate('/hasil-ujian')
+    } catch (error) {
+      console.log("Gagal submit jawaban", error)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
     }
+
+
+    console.log("Submit Jawaban : ", arrAnswer)
+  
+    // postAnswer(answer)
   }
 
-  useEffect(() => {
-    fetchNavbar()
+  const durasi  = 120
+  const MINUTES = durasi*60
+  const time = new Date()
+  time.setSeconds(time.getSeconds() + MINUTES)
+
+  const { seconds, minutes, hours } = useTimer({
+    expiryTimestamp: time,
+    onExpire: () => setCurrentPage(soals.length - 1)
   })
+
+  const timer = `${hours}:${minutes}:${seconds}`
 
   return (
     <>
       <Navbar
         logo=".ET"
+<<<<<<< HEAD
         // countdown={durasiUjian}
+=======
+        countdown={timer}
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
         username={name}
         image={image}
       />

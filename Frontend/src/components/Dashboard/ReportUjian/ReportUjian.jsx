@@ -14,7 +14,11 @@ const ReportUjian = () => {
       });
 
       console.log("response report ujian", res);
+<<<<<<< HEAD
       const mataPelajaran = res.data.data.mapel_detail;
+=======
+      const mataPelajaran = res.data.data;
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
       setMapel(mataPelajaran);
     } catch (error) {

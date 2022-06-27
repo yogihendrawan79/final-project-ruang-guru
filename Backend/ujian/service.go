@@ -126,6 +126,10 @@ func (s *service) KillUjian() error {
 	// panggil repo
 	err := s.repository.KillUjian()
 	if err != nil {
+<<<<<<< HEAD
+=======
+		log.Println(err)
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 		return errors.New("gagal kill ujian")
 	}
 

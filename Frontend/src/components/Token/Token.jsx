@@ -11,29 +11,34 @@ const Token = () => {
 
   const navigate = useNavigate()
 
-  const fetchTokenPage = async () => {
-    try {
-      const res = await axios.get('http://localhost:8080/api/siswa/home', {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-      })
-      setImage(res.data.data.avatar)
-      setName(res.data.data.nama)
-      // console.log("Respon Token", res.data.data)
-    } catch (err) {
-      console.log("Gagal fetch data ", err)
-    }
-  }
+  // const fetchTokenPage = async () => {
+  //   try {
+  //     const res = await axios.get('http://localhost:8080/api/siswa/home', {
+  //       headers: {
+  //         'Authorization': 'Bearer ' + localStorage.getItem('token')
+  //       }
+  //     })
 
-  useEffect(() => {
-    fetchTokenPage()
-  }, [])
+  //     if(res.data.status === 401) {
+  //       navigate('/login')
+  //     } else {
+  //       setImage(res.data.data.avatar)
+  //       setName(res.data.data.nama)
+  //     }
+  //     console.log("respon siswa/home", res.status)
+  //     // console.log("Respon Token", res.data.data)
+  //   } catch (err) {
+  //     console.log("Gagal fetch data ", err)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchTokenPage()
+  // }, [])
 
   const handleProcessToken = async (e) => {
     e.preventDefault();
-    // console.log({token})
-    
+
     try {
       const res = await axios.post('http://localhost:8080/api/siswa/token', {token: token}, {
         headers: {
@@ -41,13 +46,14 @@ const Token = () => {
         }
       })
 
-      // if (res === "Unauthorized") {
-      //   navigate('/login')
-      // } else {
+      console.log("Respon Token", res)
+
+      if (res.status === 401) {
+        navigate('/login')
+      } else {
         sessionStorage.setItem("token_ujian", token)
         navigate('/')
-        console.log("Response Token", res.data)
-      // }
+      }
 
     } catch (err) {
       alert("Token yang anda masukan salah")

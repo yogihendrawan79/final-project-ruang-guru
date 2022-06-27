@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
 function NewForm() {
   const [date, setDate] = useState();
@@ -18,51 +19,44 @@ function NewForm() {
     setTime(e.target.value);
   };
   const timeDate = `${date} ${time}`;
-  console.log(timeDate);
 
   const kkmInt = parseInt(kkm);
-  console.log("Integer ", kkmInt);
+  const durationInt = parseInt(duration)
+
+  const currentUrl = window.location.href
+  const arrCurrentUrl = currentUrl.split('/')
+  const numCurrentUrl = parseInt(arrCurrentUrl[5])
+  const idmapel = numCurrentUrl
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const baseURL = "http://localhost:8080/api/guru/create/ujian";
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/guru/create/ujian",
-        {
-          id_mata_pelajaran: 3,
+        "http://localhost:8080/api/guru/create/ujian", {
+          id_mata_pelajaran: idmapel,
           kkm: kkmInt,
-          durasi: duration,
+          durasi: durationInt,
           deadline: timeDate,
-        },
-        {
+        }, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
-        }
-      );
+        });
 
+<<<<<<< HEAD
       // setToken(res.data.data.data)
       console.log("Respon Create Soal", res.data.data);
       setToken(res.data.data);
+=======
+      const resCreateUjian = res.data
+      console.log("Respon Create Soal", resCreateUjian);
+      setToken(resCreateUjian);
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
     } catch (err) {
       console.log("Gagal post data", err);
     }
   };
-
-  console.log("KKM", typeof kkm);
-  console.log("durasi", typeof duration);
-  console.log("deadline", typeof timeDate);
-
-  //Buat nampilin
-  //Token : {token.data.token_ujian}
-
-  //state
-  // const [token, setToken] = useState()
-
-  //responapi
-  //const resToken = res.data
-  // setToken(resToken)
 
   return (
     <>
@@ -81,7 +75,6 @@ function NewForm() {
                   type="text"
                   id="id_mata_pelajaran"
                   name="id_mata_pelajaran"
-                  // value={submit.id_mata_pelajaran || ""}
                   onChange={(e) => setMataPelajaran(e.target.value)}
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Isi dengan nama Mata Pelajaran"
@@ -91,7 +84,7 @@ function NewForm() {
               <div class="grid gap-6 mb-6 lg:grid-cols-2">
                 <div>
                   <label
-                    for="kkm"
+                    htmlFor="kkm"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     KKM
@@ -109,7 +102,7 @@ function NewForm() {
                 </div>
                 <div>
                   <label
-                    for="durasi"
+                    htmlFor="durasi"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Durasi
@@ -118,6 +111,7 @@ function NewForm() {
                     type="number"
                     id="durasi"
                     name="durasi"
+                    step="1"
                     // value={submit.durasi || ""}
                     onChange={(e) => setDuration(e.target.value)}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -158,7 +152,7 @@ function NewForm() {
                 </div>
               </div>
               <button
-                type="submit"
+                // type="submit"
                 class="text-white border border-gray-300 bg-blue-700 hover:bg-blue-800 text-sm rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium block w-full p-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-5"
               >
                 Create Ujian
@@ -187,7 +181,11 @@ function NewForm() {
                     >
                       IPA
                     </th>
+<<<<<<< HEAD
                     <td class="px-6 py-4">asdlfjasdlk</td>
+=======
+                    <td>Token di sini</td>
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
                     <td class="px-6 py-4 text-right">
                       <a
                         href="/#"
