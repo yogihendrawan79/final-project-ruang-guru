@@ -21,38 +21,34 @@ function NewForm() {
   const timeDate = `${date} ${time}`;
 
   const kkmInt = parseInt(kkm);
-  const durationInt = parseInt(duration)
+  const durationInt = parseInt(duration);
 
-  const currentUrl = window.location.href
-  const arrCurrentUrl = currentUrl.split('/')
-  const numCurrentUrl = parseInt(arrCurrentUrl[5])
-  const idmapel = numCurrentUrl
-
+  const currentUrl = window.location.href;
+  const arrCurrentUrl = currentUrl.split("/");
+  const numCurrentUrl = parseInt(arrCurrentUrl[5]);
+  const idmapel = numCurrentUrl;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/guru/create/ujian", {
+        "http://localhost:8080/api/guru/create/ujian",
+        {
           id_mata_pelajaran: idmapel,
           kkm: kkmInt,
           durasi: durationInt,
           deadline: timeDate,
-        }, {
+        },
+        {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
-        });
+        }
+      );
 
-<<<<<<< HEAD
-      // setToken(res.data.data.data)
-      console.log("Respon Create Soal", res.data.data);
-      setToken(res.data.data);
-=======
-      const resCreateUjian = res.data
+      const resCreateUjian = res.data;
       console.log("Respon Create Soal", resCreateUjian);
       setToken(resCreateUjian);
->>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
     } catch (err) {
       console.log("Gagal post data", err);
     }
@@ -181,11 +177,7 @@ function NewForm() {
                     >
                       IPA
                     </th>
-<<<<<<< HEAD
-                    <td class="px-6 py-4">asdlfjasdlk</td>
-=======
                     <td>Token di sini</td>
->>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
                     <td class="px-6 py-4 text-right">
                       <a
                         href="/#"
