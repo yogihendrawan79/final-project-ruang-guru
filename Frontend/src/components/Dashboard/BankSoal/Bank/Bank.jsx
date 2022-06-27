@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./bank.css";
+import { Link } from 'react-router-dom'
 
 function Bank() {
   const [dataBank, setDataBank] = useState([]);
@@ -35,6 +36,8 @@ function Bank() {
     showDataBank();
   }, []);
 
+
+
   const renderTable = () => {
     return dataBank.map((dBank) => {
       return (
@@ -59,7 +62,10 @@ function Bank() {
   return (
     <>
       <div className="flex-1 justify-center mx-5 my-5">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="flex button bg-green-400 py-2 px-5 rounded-md w-max">
+          <Link className=" text-white text-center" to={`/guru/create-ujian/${idmapel}`}>Create Ujian</Link>
+        </div>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
           <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>

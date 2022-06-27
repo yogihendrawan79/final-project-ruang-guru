@@ -86,9 +86,13 @@ const Ujian = () => {
   };
 
   const handleAllAnswer = (indexSelected, indexOptionSelected) => {
-    const newAnswer = { ...answer };
-    newAnswer[indexSelected] = indexOptionSelected;
-    setAnswer(newAnswer);
+
+    let arrAnswer = []
+    
+    arrAnswer.push({answer: indexOptionSelected, id_soal: indexSelected})
+    setAnswer(arrAnswer)
+
+    console.log("AnswerArray", arrAnswer);
 
     setTimeout(() => {
       if (currentPage === soals.length) {
@@ -99,16 +103,15 @@ const Ujian = () => {
     }, 600)
   }
 
-  const handleSubmitAnswer = async () => {
-    const arrAnswer = []
-    arrAnswer.push(answer)
+  console.log('New All Answer', answer)
 
+  const handleSubmitAnswer = async () => {
     try {
       const res = await axios.post(
         "http://localhost:8080/api/siswa/finish-ujian",
         {
           id_mata_pelajaran: idMapel,
-          jawabans: arrAnswer,
+          jawabans: answer
         },
         {
           headers: {
@@ -131,11 +134,12 @@ const Ujian = () => {
           }
         }).then((result) => {
           if (res.status === 200) {
-            localStorage.setItem('jawabans', JSON.stringify(arrAnswer))
+            localStorage.setItem('jawabans', JSON.stringify(answer))
             navigate('/hasil-ujian')
           }
         })
 
+        console.log("Submited Answer", answer)
 
     } catch (error) {
       console.log("Gagal submit jawaban", error)

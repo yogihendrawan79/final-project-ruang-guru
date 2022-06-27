@@ -58,7 +58,16 @@ function Sidebar() {
         }
       })
       console.log('Berhasil Kill ujian', res)
+
+      MySwal.fire({
+        title: 'Sesi Ujian Berakhir',
+        icon: 'success',
+      })
     } catch (error) {
+      MySwal.fire({
+        title: 'Gagal Mengakiri Sesi Ujian',
+        icon: 'error',
+      })
       console.log("Tidak berhasil end session", error)
     }
   }

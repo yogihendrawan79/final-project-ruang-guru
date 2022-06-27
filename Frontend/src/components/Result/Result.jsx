@@ -21,8 +21,8 @@ const Result = () => {
   const intIdMapel = parseInt(idmapel)
   const jawaban = JSON.parse(localStorage.getItem('jawabans'))
   // const arrJawaban = jawaban.split(':')
-  // console.log("IDmapel", intIdMapel)
-  // console.log("jawaban", jawaban)
+  console.log("IDmapel", intIdMapel)
+  console.log("jawaban", jawaban)
   const showNilaiSiswa = async () => {
     try {
       const res = await axios.post('http://localhost:8080/api/siswa/nilai',
@@ -37,7 +37,7 @@ const Result = () => {
         }
       )
       const resShowNilai = res.data.data
-      // console.log("Jawaban siswa", resShowNilai)
+      console.log("Nilai siswa", resShowNilai)
 
       setStatus(resShowNilai.status)
       setMapel(resShowNilai.mata_pelajaran)
@@ -51,6 +51,8 @@ const Result = () => {
   useEffect(() => {
     showNilaiSiswa()
   }, [])
+
+  console.log("NIlai", nilai)
 
   const handleLogout = () => {
     MySwal.fire({
@@ -85,8 +87,7 @@ const Result = () => {
               </div>
             </div>
         }
-        
-        <div className='button flex justify-center mt-4'>
+        <div className='flex justify-center mt-4'>
           <button onClick={handleLogout} className="hover:bg-primary border border-solid text-primary border-primary p-1 w-28 text-center rounded-2xl hover:text-white">
             <a href="/login">Selesai</a>
           </button>
