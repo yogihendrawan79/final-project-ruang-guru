@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+import React from "react";
+
+function Result() {
+  // const
+=======
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./result.css";
@@ -38,6 +44,7 @@ function Result() {
       );
     });
   };
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
   return (
     <>
@@ -63,7 +70,24 @@ function Result() {
                 </th>
               </tr>
             </thead>
+<<<<<<< HEAD
+            <tbody>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="px-6 py-4">1</td>
+                <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                >
+                  John Doe
+                </th>
+                <td class="px-6 py-4">Matematika</td>
+                <td class="px-6 py-4">10</td>
+                <td class="px-6 py-4">Tidak Lulus</td>
+              </tr>
+            </tbody>
+=======
             <tbody>{renderTable()}</tbody>
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
           </table>
         </div>
       </div>

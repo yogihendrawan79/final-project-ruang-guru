@@ -14,7 +14,12 @@ function CreateSoal() {
         },
       });
 
+<<<<<<< HEAD
+      console.log("response report ujian", res);
+      const mataPelajaran = res.data.data.mapel_detail;
+=======
       const mataPelajaran = res.data.data;
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
       setMapel(mataPelajaran);
     } catch (error) {
@@ -25,6 +30,8 @@ function CreateSoal() {
   useEffect(() => {
     fetchMapel();
   }, []);
+<<<<<<< HEAD
+=======
 
   const currentUrl = window.location.href;
   const urlArr = currentUrl.split("/");
@@ -48,6 +55,7 @@ function CreateSoal() {
       console.log("Gagal fetch data", err);
     }
   };
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
 
   return (
     <>
@@ -56,6 +64,13 @@ function CreateSoal() {
           {mapel &&
             mapel.map((mapel) => {
               return (
+<<<<<<< HEAD
+                <Card
+                  key={mapel.id_mata_pelajaran}
+                  mapel={mapel.mata_pelajaran}
+                  idmapel={mapel.id_mata_pelajaran}
+                />
+=======
                 <div className="flex justify-start ml-20 mt-10">
                   <Link
                     to={`/guru/create-soal/${mapel.id_mata_pelajaran}`}
@@ -67,6 +82,7 @@ function CreateSoal() {
                     </h5>
                   </Link>
                 </div>
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
               );
             })}
         </div>

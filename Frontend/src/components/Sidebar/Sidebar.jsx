@@ -3,6 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom'
 
 function Sidebar() {
@@ -15,14 +16,36 @@ function Sidebar() {
   //   { title: "Create Ujian ", src: "Folder" },
   //   { title: "Report Nilai", src: "Chart" },
   // ];
+=======
+import axios from "axios";
+import { useEffect } from "react";
 
-  const data = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1495995424756-6a5a3f9e7543?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzl8fHN0dWRlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      username: "Yani",
-    },
-  ];
+function Sidebar() {
+  const [open, setOpen] = useState(true);
+  const [image, setImage] = useState()
+  const [username, setUsername] = useState()
+>>>>>>> fa8d9587085d41d0c0d64d9ef2d4c44d1eb06e60
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/profile', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      setImage(res.data.data.avatar)
+      setUsername(res.data.data.nama)
+      console.log("avatar", res.data.data.avatar)
+      console.log("nama", res.data.data.nama)
+
+    } catch (error) {
+      console.log("gagal fetch data", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const handleLogout = () => {
     localStorage.clear()
@@ -32,9 +55,8 @@ function Sidebar() {
   return (
     <div className="flex">
       <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+        className={` ${open ? "w-72" : "w-20 "
+          } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
       >
         <img 
           alt=""
@@ -48,14 +70,12 @@ function Sidebar() {
             alt=""
             src={logo}
             style={{ width: "50px" }}
-            className={`cursor-pointer duration-500 ${
-              open && "rotate-[360deg]"
-            }`}
+            className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
+              }`}
           />
           <h1
-            className={`text-white origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
-            }`}
+            className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+              }`}
           >
             Exam Time
           </h1>
@@ -135,13 +155,12 @@ function Sidebar() {
         </ul>
       </div>
       <div className="h-screen flex-1">
-        {data.map((index) => (
-          <NavbarToken
-            key={index.username}
-            username={index.username}
-            image={index.image}
-          />
-        ))}
+
+        <NavbarToken
+          username={username}
+          image={image}
+        />
+
         <main>
           <Outlet />
         </main>

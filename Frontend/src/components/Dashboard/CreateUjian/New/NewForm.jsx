@@ -44,9 +44,15 @@ function NewForm() {
           },
         });
 
+<<<<<<< HEAD
+      // setToken(res.data.data.data)
+      console.log("Respon Create Soal", res.data.data);
+      setToken(res.data.data);
+=======
       const resCreateUjian = res.data
       console.log("Respon Create Soal", resCreateUjian);
       setToken(resCreateUjian);
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
     } catch (err) {
       console.log("Gagal post data", err);
     }
@@ -175,7 +181,11 @@ function NewForm() {
                     >
                       IPA
                     </th>
+<<<<<<< HEAD
+                    <td class="px-6 py-4">asdlfjasdlk</td>
+=======
                     <td>Token di sini</td>
+>>>>>>> 3fdb9da93a96f16d1a128b22609f065e0bd7b39d
                     <td class="px-6 py-4 text-right">
                       <a
                         href="/#"
