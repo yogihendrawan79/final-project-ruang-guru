@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import NavbarToken from "../Navbar/NavbarToken";
 import logo from "../../assets/logo.png";
 import control from "../../assets/control.png";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -158,20 +157,20 @@ function Sidebar() {
               </div>
             </li>
             <li>
-              <div
+              <a
+                href="/login"
                 className="bg-red-700 transiton duration-300 hover:opacity-50 flex cursor-pointer mt-4 rounded-md p-2 gap-x-4"
                 onClick={handleLogout}
               >
                 <img src={logout} alt="" style={{ width: "25px" }} />
-                <a
-                  href="/login"
+                <span
                   className={`${
                     !open && "hidden"
                   } origin-left transition duration-200 text-white`}
                 >
                   Log Out
-                </a>
-              </div>
+                </span>
+              </a>
             </li>
           </ul>
         </div>
