@@ -159,14 +159,28 @@ function Sidebar() {
             <li>
               <a
                 href="/login"
-                className="bg-red-700 transiton duration-300 hover:opacity-50 flex cursor-pointer mt-4 rounded-md p-2 gap-x-4"
+                className="bg-white text-red-700 flex transiton duration-300 group relative cursor-pointer mt-4 rounded-md p-2 gap-x-4"
                 onClick={handleLogout}
               >
-                <img src={logout} alt="" style={{ width: "25px" }} />
+                <span className="absolute top-0 left-0 flex h-full w-0 mb-0 transition-all duration-300 ease-out transform translate-y-0 rounded-md bg-red-700 group-hover:w-full opacity-90"></span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="#b91c1c"
+                  className="w-6 h-6 group-hover:stroke-white relative"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                  />
+                </svg>
                 <span
                   className={`${
                     !open && "hidden"
-                  } origin-left transition duration-200 text-white`}
+                  } origin-left transition duration-200 text-red-700 group-hover:text-white relative`}
                 >
                   Log Out
                 </span>
